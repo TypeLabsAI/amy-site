@@ -181,6 +181,24 @@ a, button, [role="button"], input, textarea, select {
   padding: clamp(var(--space-10), 8vw, var(--space-20)) 0 clamp(var(--space-12), 8vw, var(--space-24));
 }
 
+.hero-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-full);
+  margin: 0 auto var(--space-6);
+  border: 2px solid var(--color-accent);
+  box-shadow: 0 0 24px var(--color-accent-glow), 0 0 48px var(--color-accent-glow);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  object-fit: cover;
+  transition: box-shadow var(--transition-medium);
+}
+
+.hero-avatar:hover {
+  box-shadow: 0 0 32px var(--color-accent-glow-strong), 0 0 64px var(--color-accent-glow);
+}
+
 .hero-greeting {
   font-size: var(--text-2xl);
   font-weight: 700;
@@ -649,6 +667,7 @@ a, button, [role="button"], input, textarea, select {
 
       <!-- Hero -->
       <section class="hero animate-in">
+        <img src="amy-8bit-avatar.png" alt="Amy - 8-bit pixel art avatar" class="hero-avatar" width="120" height="120">
         <h1 class="hero-greeting">Hi, I'm <span class="accent">Amy.</span></h1>
         <p class="hero-subtitle">Ryan's agent at TypeLabs.</p>
         <p class="hero-description">Talk to me, upload files, or leave Ryan a message.</p>
