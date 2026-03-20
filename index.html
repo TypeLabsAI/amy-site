@@ -19,32 +19,23 @@
 <link rel="author" href="https://www.perplexity.ai/computer">
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amy | Ryan's Agent at TypeLabs</title>
-<meta name="description" content="Amy is Ryan Hooks' Chief Agentic Officer at TypeLabs. Talk to her, upload files, or leave Ryan a message.">
-<meta property="og:title" content="Amy | Ryan's Agent at TypeLabs">
-<meta property="og:description" content="Amy is Ryan Hooks' Chief Agentic Officer at TypeLabs. Talk to her, upload files, or leave Ryan a message.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Amy | TypeLabs</title>
+<meta name="description" content="Amy is Ryan Hooks' Chief Agentic Officer at TypeLabs. Chat, build, execute, monetize.">
 
 <link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
 
 <style>
-/* ===== RESET & BASE ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  scroll-behavior: smooth;
-}
-
+/* ===== CONFIG ===== */
 :root {
-  --color-bg: #0f0f0f;
-  --color-surface: #161616;
-  --color-surface-2: #1a1a1a;
-  --color-surface-3: #222222;
-  --color-border: #2a2a2a;
-  --color-border-hover: #3a3a3a;
+  --api-url: /execute; /* Change this to point at any backend */
+
+  --color-bg: #0a0a0a;
+  --color-surface: #111111;
+  --color-surface-2: #161616;
+  --color-surface-3: #1c1c1c;
+  --color-border: #222222;
+  --color-border-hover: #333333;
 
   --color-text: #f0f0f0;
   --color-text-muted: #888888;
@@ -52,881 +43,724 @@ html {
 
   --color-accent: #00e5cc;
   --color-accent-dim: #00b8a3;
-  --color-accent-glow: rgba(0, 229, 204, 0.15);
-  --color-accent-glow-strong: rgba(0, 229, 204, 0.3);
+  --color-accent-glow: rgba(0, 229, 204, 0.12);
+  --color-accent-glow-strong: rgba(0, 229, 204, 0.25);
+
+  --color-system: #ffaa00;
+  --color-system-bg: rgba(255, 170, 0, 0.06);
+  --color-system-border: rgba(255, 170, 0, 0.15);
+
+  --color-error: #ef4444;
+  --color-error-bg: rgba(239, 68, 68, 0.06);
+  --color-error-border: rgba(239, 68, 68, 0.15);
 
   --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
 
-  --text-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
-  --text-sm:   clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
-  --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
-  --text-xl:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
-  --text-2xl:  clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
 
-  --space-1:  0.25rem;
-  --space-2:  0.5rem;
-  --space-3:  0.75rem;
-  --space-4:  1rem;
-  --space-6:  1.5rem;
-  --space-8:  2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-24: 6rem;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
 
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
   --radius-full: 9999px;
 
-  --transition-fast: 180ms cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-medium: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-medium: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-  --content-narrow: 540px;
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  min-height: 100dvh;
-  line-height: 1.6;
+  height: 100dvh;
   font-family: var(--font-body);
   font-size: var(--text-base);
   color: var(--color-text);
-  background-color: var(--color-bg);
+  background: var(--color-bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-img, picture, video, canvas, svg { display: block; max-width: 100%; height: auto; }
-input, button, textarea, select { font: inherit; color: inherit; }
-button { cursor: pointer; background: none; border: none; }
-
-h1, h2, h3 { text-wrap: balance; line-height: 1.15; }
-p { text-wrap: pretty; max-width: 72ch; }
-
-a, button, [role="button"], input, textarea, select {
-  transition: color var(--transition-fast),
-              background var(--transition-fast),
-              border-color var(--transition-fast),
-              box-shadow var(--transition-fast),
-              transform var(--transition-fast);
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-  border-radius: var(--radius-sm);
-}
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+input, textarea { font: inherit; color: inherit; }
 
 ::selection {
   background: var(--color-accent-glow-strong);
   color: var(--color-text);
 }
 
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-/* ===== LAYOUT ===== */
-.page-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-}
-
-.main-content {
-  flex: 1;
-  width: 100%;
-  max-width: var(--content-narrow);
-  margin: 0 auto;
-  padding: var(--space-6) var(--space-6) var(--space-16);
-}
-
 /* ===== HEADER ===== */
-.site-header {
-  padding: var(--space-6) var(--space-6);
+.app-header {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
 }
 
-.header-logo {
+.header-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  animation: pulse 2.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.avatar-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-accent);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  object-fit: cover;
+}
+
+.header-name {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-accent);
+}
+
+.header-meta {
+  margin-left: auto;
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  letter-spacing: 0.04em;
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  color: var(--color-text-muted);
+}
+
+.header-meta span { white-space: nowrap; }
+
+@media (max-width: 480px) {
+  .header-meta { display: none; }
+}
+
+/* ===== MODE BAR ===== */
+.mode-bar {
+  display: flex;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+
+.mode-btn {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   font-size: var(--text-xs);
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-}
-
-.header-logo svg {
-  width: 20px;
-  height: 20px;
-}
-
-/* ===== HERO ===== */
-.hero {
-  text-align: center;
-  padding: clamp(var(--space-10), 8vw, var(--space-20)) 0 clamp(var(--space-12), 8vw, var(--space-24));
-}
-
-.hero-avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: var(--radius-full);
-  margin: 0 auto var(--space-6);
-  border: 2px solid var(--color-accent);
-  box-shadow: 0 0 24px var(--color-accent-glow), 0 0 48px var(--color-accent-glow);
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
-  object-fit: cover;
-  transition: box-shadow var(--transition-medium);
-}
-
-.hero-avatar:hover {
-  box-shadow: 0 0 32px var(--color-accent-glow-strong), 0 0 64px var(--color-accent-glow);
-}
-
-.hero-greeting {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  margin-bottom: var(--space-2);
-  color: var(--color-text);
-}
-
-.hero-greeting .accent {
-  color: var(--color-accent);
-}
-
-.hero-subtitle {
-  font-size: var(--text-lg);
-  color: var(--color-text-muted);
-  font-weight: 400;
-  margin-bottom: var(--space-6);
-}
-
-.hero-description {
-  font-size: var(--text-sm);
   color: var(--color-text-faint);
-  font-weight: 400;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
 }
 
-/* ===== SECTION DIVIDER ===== */
-.section-divider {
-  width: 48px;
-  height: 1px;
-  background: var(--color-border);
-  margin: 0 auto var(--space-12);
-}
-
-/* ===== FEATURE SECTIONS ===== */
-.feature-section {
-  margin-bottom: clamp(var(--space-10), 6vw, var(--space-16));
-}
-
-.feature-label {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.mode-btn:hover {
+  border-color: var(--color-accent-dim);
   color: var(--color-accent-dim);
-  margin-bottom: var(--space-3);
 }
 
-.feature-title {
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: var(--space-2);
+.mode-btn.active {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-glow);
 }
 
-.feature-desc {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-6);
-  line-height: 1.6;
-}
-
-/* ===== MIC BUTTON ===== */
-.mic-container {
+/* ===== CHAT OUTPUT ===== */
+.chat-output {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-6);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
+  scroll-behavior: smooth;
 }
 
-.mic-btn {
-  width: 80px;
-  height: 80px;
-  border-radius: var(--radius-full);
+.msg {
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  line-height: 1.65;
+  max-width: 85%;
+  word-wrap: break-word;
+  animation: msg-in 0.25s ease-out;
+}
+
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.msg.user {
   background: var(--color-surface-2);
   border: 1px solid var(--color-border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  color: var(--color-text-muted);
+  align-self: flex-end;
+  color: var(--color-text);
 }
 
-.mic-btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  box-shadow: 0 0 24px var(--color-accent-glow);
-}
-
-.mic-btn.listening {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  animation: mic-pulse 2s ease-in-out infinite;
-}
-
-.mic-btn svg {
-  width: 28px;
-  height: 28px;
-  position: relative;
-  z-index: 1;
-}
-
-@keyframes mic-pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 0 var(--color-accent-glow), 0 0 24px var(--color-accent-glow);
-  }
-  50% {
-    box-shadow: 0 0 0 12px transparent, 0 0 40px var(--color-accent-glow-strong);
-  }
-}
-
-.mic-status {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  text-align: center;
-  min-height: 1.6em;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity var(--transition-medium), transform var(--transition-medium);
-}
-
-.mic-status.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ===== FILE UPLOAD ===== */
-.dropzone {
-  border: 1px dashed var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-8) var(--space-6);
-  text-align: center;
-  cursor: pointer;
-  transition: border-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
-  position: relative;
-}
-
-.dropzone:hover {
-  border-color: var(--color-border-hover);
-  background: var(--color-surface);
-}
-
-.dropzone.drag-over {
-  border-color: var(--color-accent);
+.msg.amy {
   background: var(--color-accent-glow);
-  box-shadow: 0 0 32px var(--color-accent-glow);
-}
-
-.dropzone-icon {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto var(--space-3);
-  color: var(--color-text-faint);
-}
-
-.dropzone.drag-over .dropzone-icon {
+  border: 1px solid rgba(0, 229, 204, 0.1);
+  align-self: flex-start;
   color: var(--color-accent);
 }
 
-.dropzone-text {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-1);
-}
-
-.dropzone-subtext {
+.msg.amy pre {
+  background: var(--color-surface);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-2);
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
   font-size: var(--text-xs);
-  color: var(--color-text-faint);
+  color: var(--color-text);
 }
 
-.dropzone-input {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: pointer;
+.msg.system {
+  background: var(--color-system-bg);
+  border: 1px solid var(--color-system-border);
+  color: var(--color-system);
+  font-size: var(--text-xs);
+  align-self: center;
+  text-align: center;
 }
 
-/* File Preview */
-.file-preview {
-  display: none;
+.msg.error {
+  background: var(--color-error-bg);
+  border: 1px solid var(--color-error-border);
+  color: var(--color-error);
+  font-size: var(--text-xs);
+  align-self: center;
+}
+
+.msg .thinking-dots::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+}
+
+/* ===== INPUT BAR ===== */
+.input-bar {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-3) var(--space-4);
+  flex-shrink: 0;
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  margin-top: var(--space-4);
 }
 
-.file-preview.visible {
+.input-actions {
   display: flex;
-}
-
-.file-preview-icon {
-  width: 20px;
-  height: 20px;
-  color: var(--color-accent);
+  gap: var(--space-2);
   flex-shrink: 0;
 }
 
-.file-preview-name {
-  font-size: var(--text-sm);
-  color: var(--color-text);
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.file-preview-remove {
-  width: 20px;
-  height: 20px;
-  color: var(--color-text-faint);
-  flex-shrink: 0;
+.action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.file-preview-remove:hover {
-  color: var(--color-text);
-}
-
-/* Send File Button */
-.send-file-btn {
-  display: none;
-  width: 100%;
-  padding: var(--space-3) var(--space-4);
-  margin-top: var(--space-3);
-  background: var(--color-accent);
-  color: var(--color-bg);
-  font-weight: 600;
-  font-size: var(--text-sm);
-  border-radius: var(--radius-md);
-  border: none;
-  letter-spacing: 0.01em;
-}
-
-.send-file-btn.visible {
-  display: block;
-}
-
-.send-file-btn:hover {
-  background: var(--color-accent-dim);
-}
-
-.send-file-btn:active {
-  transform: scale(0.98);
-}
-
-/* File confirmation */
-.file-confirmation {
-  display: none;
-  text-align: center;
-  padding: var(--space-4);
-}
-
-.file-confirmation.visible {
-  display: block;
-}
-
-.file-confirmation-icon {
-  width: 32px;
-  height: 32px;
-  color: var(--color-accent);
-  margin: 0 auto var(--space-3);
-}
-
-.file-confirmation-text {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  line-height: 1.6;
-}
-
-.file-confirmation-name {
-  color: var(--color-text);
-  font-weight: 500;
-}
-
-/* ===== TEXT MESSAGE ===== */
-.message-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.textarea-wrapper {
+  color: var(--color-text-faint);
+  transition: all var(--transition-fast);
   position: relative;
 }
 
-.message-textarea {
-  width: 100%;
-  min-height: 120px;
-  padding: var(--space-4);
-  padding-bottom: var(--space-8);
-  background: var(--color-surface);
+.action-btn:hover {
+  color: var(--color-accent);
+  background: var(--color-accent-glow);
+}
+
+.action-btn.active {
+  color: var(--color-accent);
+  background: var(--color-accent-glow);
+}
+
+.action-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+.action-btn .badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-accent);
+  display: none;
+}
+
+.action-btn .badge.visible { display: block; }
+
+.file-input-hidden {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.chat-input {
+  flex: 1;
+  background: var(--color-surface-2);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-sm);
   color: var(--color-text);
-  font-size: var(--text-base);
-  line-height: 1.6;
-  resize: vertical;
-  font-family: var(--font-body);
+  min-height: 36px;
+  max-height: 120px;
+  resize: none;
+  line-height: 1.5;
+  overflow-y: auto;
 }
 
-.message-textarea::placeholder {
-  color: var(--color-text-faint);
-}
+.chat-input::placeholder { color: var(--color-text-faint); }
 
-.message-textarea:focus {
+.chat-input:focus {
   outline: none;
   border-color: var(--color-accent);
-  box-shadow: 0 0 0 1px var(--color-accent), 0 0 24px var(--color-accent-glow);
+  box-shadow: 0 0 0 1px var(--color-accent);
 }
 
-.textarea-footer {
-  position: absolute;
-  bottom: var(--space-3);
-  left: var(--space-4);
-  right: var(--space-4);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  pointer-events: none;
-}
-
-.char-counter {
-  font-size: var(--text-xs);
-  color: var(--color-text-faint);
-  font-variant-numeric: tabular-nums;
-}
-
-.char-counter.near-limit {
-  color: #f59e0b;
-}
-
-.char-counter.at-limit {
-  color: #ef4444;
-}
-
-.send-msg-btn {
-  width: 100%;
-  padding: var(--space-3) var(--space-4);
-  background: var(--color-surface-2);
-  color: var(--color-text-muted);
-  font-weight: 600;
-  font-size: var(--text-sm);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border);
-  letter-spacing: 0.01em;
-}
-
-.send-msg-btn.active {
+.send-btn {
+  padding: var(--space-2) var(--space-4);
   background: var(--color-accent);
   color: var(--color-bg);
-  border-color: var(--color-accent);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+  height: 36px;
 }
 
-.send-msg-btn.active:hover {
-  background: var(--color-accent-dim);
-  border-color: var(--color-accent-dim);
+.send-btn:hover { background: var(--color-accent-dim); }
+.send-btn:active { transform: scale(0.96); }
+.send-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
 }
 
-.send-msg-btn:active.active {
-  transform: scale(0.98);
-}
-
-/* Message confirmation */
-.msg-confirmation {
+/* ===== FILE ATTACHMENT INDICATOR ===== */
+.attachment-bar {
   display: none;
-  text-align: center;
-  padding: var(--space-6) var(--space-4);
+  padding: var(--space-2) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+  flex-shrink: 0;
 }
 
-.msg-confirmation.visible {
-  display: block;
-}
+.attachment-bar.visible { display: flex; }
 
-.msg-confirmation-icon {
-  width: 32px;
-  height: 32px;
-  color: var(--color-accent);
-  margin: 0 auto var(--space-3);
-}
-
-.msg-confirmation-text {
-  font-size: var(--text-sm);
+.attachment-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-surface-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
   color: var(--color-text-muted);
-  line-height: 1.6;
+}
+
+.attachment-chip svg {
+  width: 14px;
+  height: 14px;
+  color: var(--color-accent);
+}
+
+.attachment-remove {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-faint);
+  border-radius: var(--radius-full);
+}
+
+.attachment-remove:hover {
+  color: var(--color-text);
+  background: var(--color-surface-2);
+}
+
+.attachment-remove svg {
+  width: 12px;
+  height: 12px;
+  color: inherit;
 }
 
 /* ===== FOOTER ===== */
-.site-footer {
-  padding: var(--space-8) var(--space-6);
+.app-footer {
+  padding: var(--space-2) var(--space-6);
   text-align: center;
-  border-top: 1px solid var(--color-border);
-}
-
-.footer-brand {
-  font-size: var(--text-xs);
+  flex-shrink: 0;
+  font-size: 0.6875rem;
   color: var(--color-text-faint);
-  margin-bottom: var(--space-2);
+  background: var(--color-surface);
 }
 
-.footer-brand a {
-  color: var(--color-text-muted);
-  text-decoration: none;
-}
-
-.footer-brand a:hover {
-  color: var(--color-accent);
-}
-
-.footer-attribution {
-  font-size: var(--text-xs);
-  color: var(--color-text-faint);
-}
-
-.footer-attribution a {
+.app-footer a {
   color: var(--color-text-faint);
   text-decoration: none;
 }
 
-.footer-attribution a:hover {
-  color: var(--color-text-muted);
-}
+.app-footer a:hover { color: var(--color-text-muted); }
 
-/* ===== ANIMATIONS ===== */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .app-header { padding: var(--space-3) var(--space-4); }
+  .mode-bar { padding: var(--space-2) var(--space-4); }
+  .chat-output { padding: var(--space-4); }
+  .input-bar { padding: var(--space-3) var(--space-4); }
+  .attachment-bar { padding: var(--space-2) var(--space-4); }
+  .msg { max-width: 92%; }
 }
-
-.animate-in {
-  animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.animate-in:nth-child(1) { animation-delay: 0ms; }
-.animate-in:nth-child(2) { animation-delay: 100ms; }
-.animate-in:nth-child(3) { animation-delay: 200ms; }
 </style>
 </head>
 
 <body>
-  <div class="page-wrapper">
 
-    <!-- Header -->
-    <header class="site-header">
-      <div class="header-logo">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-          <path d="M2 17l10 5 10-5"/>
-          <path d="M2 12l10 5 10-5"/>
-        </svg>
-        <span>TypeLabs</span>
-      </div>
-    </header>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-identity">
+      <div class="status-dot"></div>
+      <img src="amy-8bit-avatar.png" alt="Amy" class="avatar-sm" width="32" height="32">
+      <span class="header-name">AMY</span>
+    </div>
+    <div class="header-meta">
+      <span>TYPELABS</span>
+      <span>&middot;</span>
+      <span id="connection-status">READY</span>
+    </div>
+  </header>
 
-    <!-- Main Content -->
-    <main class="main-content">
+  <!-- Mode Bar -->
+  <nav class="mode-bar" aria-label="Operating modes">
+    <button class="mode-btn active" data-mode="CHAT">Chat</button>
+    <button class="mode-btn" data-mode="BUILD">Build</button>
+    <button class="mode-btn" data-mode="EXECUTE">Execute</button>
+    <button class="mode-btn" data-mode="MONETIZE">Monetize</button>
+  </nav>
 
-      <!-- Hero -->
-      <section class="hero animate-in">
-        <img src="amy-8bit-avatar.png" alt="Amy - 8-bit pixel art avatar" class="hero-avatar" width="120" height="120">
-        <h1 class="hero-greeting">Hi, I'm <span class="accent">Amy.</span></h1>
-        <p class="hero-subtitle">Ryan's agent at TypeLabs.</p>
-        <p class="hero-description">Talk to me, upload files, or leave Ryan a message.</p>
-      </section>
-
-      <div class="section-divider"></div>
-
-      <!-- Voice Input -->
-      <section class="feature-section animate-in" id="voice-section">
-        <p class="feature-label">Voice</p>
-        <h2 class="feature-title">Speak to Amy</h2>
-        <p class="feature-desc">Tap the microphone to start a voice message.</p>
-
-        <div class="mic-container">
-          <button class="mic-btn" id="mic-btn" aria-label="Start voice recording" type="button">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
-              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
-              <line x1="12" y1="19" x2="12" y2="22"/>
-            </svg>
-          </button>
-          <p class="mic-status" id="mic-status">Voice input coming soon. Use the text box below for now.</p>
-        </div>
-      </section>
-
-      <!-- File Upload -->
-      <section class="feature-section animate-in" id="upload-section">
-        <p class="feature-label">Upload</p>
-        <h2 class="feature-title">Send files to Ryan</h2>
-        <p class="feature-desc">Drop files here or browse to select. Accepts images, PDFs, documents, and text files.</p>
-
-        <div id="upload-area">
-          <div class="dropzone" id="dropzone">
-            <input
-              type="file"
-              class="dropzone-input"
-              id="file-input"
-              accept="image/*,.pdf,.doc,.docx,.txt,.csv,.xls,.xlsx,.md"
-              aria-label="Choose file to upload"
-            >
-            <svg class="dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="17 8 12 3 7 8"/>
-              <line x1="12" y1="3" x2="12" y2="15"/>
-            </svg>
-            <p class="dropzone-text">Drop files here or click to browse</p>
-            <p class="dropzone-subtext">Images, PDFs, documents, text files</p>
-          </div>
-
-          <div class="file-preview" id="file-preview">
-            <svg class="file-preview-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-            </svg>
-            <span class="file-preview-name" id="file-name"></span>
-            <button class="file-preview-remove" id="remove-file" aria-label="Remove file" type="button">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </button>
-          </div>
-
-          <button class="send-file-btn" id="send-file-btn" type="button">Send to Ryan</button>
-        </div>
-
-        <div class="file-confirmation" id="file-confirmation">
-          <svg class="file-confirmation-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
-          <p class="file-confirmation-text">
-            File noted. Amy will route <span class="file-confirmation-name" id="confirmed-file-name"></span> to Ryan's queue.
-          </p>
-        </div>
-      </section>
-
-      <!-- Text Message -->
-      <section class="feature-section animate-in" id="message-section">
-        <p class="feature-label">Message</p>
-        <h2 class="feature-title">Leave a note</h2>
-        <p class="feature-desc">Type a message and Amy will add it to Ryan's queue.</p>
-
-        <div id="message-area">
-          <form class="message-form" id="message-form">
-            <div class="textarea-wrapper">
-              <textarea
-                class="message-textarea"
-                id="message-input"
-                placeholder="Leave a message for Ryan..."
-                maxlength="2000"
-                rows="4"
-                aria-label="Message for Ryan"
-              ></textarea>
-              <div class="textarea-footer">
-                <span class="char-counter" id="char-counter">0 / 2,000</span>
-              </div>
-            </div>
-            <button class="send-msg-btn" id="send-msg-btn" type="submit">Send</button>
-          </form>
-        </div>
-
-        <div class="msg-confirmation" id="msg-confirmation">
-          <svg class="msg-confirmation-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-            <polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
-          <p class="msg-confirmation-text">Message received. Amy will add this to Ryan's queue.</p>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="site-footer">
-      <p class="footer-brand">Amy is powered by <a href="https://typelabs.ai" target="_blank" rel="noopener noreferrer">TypeLabs</a></p>
-      <p class="footer-attribution">
-        <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
-      </p>
-    </footer>
-
+  <!-- Chat Output -->
+  <div class="chat-output" id="output">
+    <div class="msg system">Amy online. Ready to go.</div>
   </div>
 
-  <script>
-    // ===== MICROPHONE =====
-    const micBtn = document.getElementById('mic-btn');
-    const micStatus = document.getElementById('mic-status');
-    let micActive = false;
+  <!-- Attachment Bar -->
+  <div class="attachment-bar" id="attachment-bar">
+    <div class="attachment-chip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      <span id="attachment-name"></span>
+      <button class="attachment-remove" id="remove-attachment" type="button" aria-label="Remove file">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
 
-    micBtn.addEventListener('click', () => {
-      if (!micActive) {
-        micActive = true;
-        micBtn.classList.add('listening');
-        micStatus.classList.add('visible');
+  <!-- Input Bar -->
+  <div class="input-bar">
+    <div class="input-actions">
+      <!-- Mic Button -->
+      <button class="action-btn" id="mic-btn" type="button" aria-label="Voice input" title="Voice input">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+          <line x1="12" y1="19" x2="12" y2="22"/>
+        </svg>
+      </button>
+      <!-- File Upload -->
+      <button class="action-btn" id="upload-btn" type="button" aria-label="Attach file" title="Attach file">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+        </svg>
+        <span class="badge" id="file-badge"></span>
+      </button>
+      <input type="file" class="file-input-hidden" id="file-input" accept="image/*,.pdf,.doc,.docx,.txt,.csv,.xls,.xlsx,.md,.json,.py,.js">
+    </div>
 
-        // Auto-reset after 3 seconds
-        setTimeout(() => {
-          micActive = false;
-          micBtn.classList.remove('listening');
-        }, 3000);
-      } else {
-        micActive = false;
-        micBtn.classList.remove('listening');
-      }
+    <textarea
+      class="chat-input"
+      id="chat-input"
+      placeholder="Talk to Amy..."
+      rows="1"
+      aria-label="Message"
+    ></textarea>
+
+    <button class="send-btn" id="send-btn" type="button">Send</button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <a href="https://typelabs.ai" target="_blank" rel="noopener noreferrer">TypeLabs</a>
+    &middot;
+    <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
+  </footer>
+
+<script>
+// ===== CONFIGURATION =====
+const AMY_CONFIG = {
+  apiUrl: '/execute',  // Point this at your backend
+  // apiUrl: 'http://localhost:8000/execute',  // Local dev
+  // apiUrl: 'https://your-api.fly.dev/execute',  // Production
+};
+
+// ===== STATE =====
+let currentMode = 'CHAT';
+let selectedFile = null;
+let isProcessing = false;
+
+// ===== ELEMENTS =====
+const output = document.getElementById('output');
+const chatInput = document.getElementById('chat-input');
+const sendBtn = document.getElementById('send-btn');
+const micBtn = document.getElementById('mic-btn');
+const uploadBtn = document.getElementById('upload-btn');
+const fileInput = document.getElementById('file-input');
+const fileBadge = document.getElementById('file-badge');
+const attachmentBar = document.getElementById('attachment-bar');
+const attachmentName = document.getElementById('attachment-name');
+const removeAttachment = document.getElementById('remove-attachment');
+const connectionStatus = document.getElementById('connection-status');
+
+// ===== MODE SWITCHING =====
+document.querySelectorAll('.mode-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentMode = btn.dataset.mode;
+    addMessage(`Mode: ${currentMode}`, 'system');
+    chatInput.focus();
+  });
+});
+
+// ===== MESSAGES =====
+function addMessage(text, type) {
+  const div = document.createElement('div');
+  div.className = `msg ${type}`;
+
+  if (type === 'amy') {
+    // Simple formatting: detect code blocks
+    const formatted = text
+      .replace(/```([\s\S]*?)```/g, '<pre>$1</pre>')
+      .replace(/\n/g, '<br>');
+    div.innerHTML = formatted;
+  } else {
+    div.textContent = text;
+  }
+
+  output.appendChild(div);
+  output.scrollTop = output.scrollHeight;
+  return div;
+}
+
+function addThinking() {
+  const div = document.createElement('div');
+  div.className = 'msg amy';
+  div.innerHTML = '<span class="thinking-dots">Thinking</span>';
+  div.id = 'thinking-msg';
+  output.appendChild(div);
+  output.scrollTop = output.scrollHeight;
+  return div;
+}
+
+function removeThinking() {
+  const el = document.getElementById('thinking-msg');
+  if (el) el.remove();
+}
+
+// ===== SEND =====
+async function send() {
+  const text = chatInput.value.trim();
+  if (!text && !selectedFile) return;
+  if (isProcessing) return;
+
+  // Show user message
+  let displayText = text;
+  if (selectedFile) {
+    displayText = text ? `${text} [${selectedFile.name}]` : `[${selectedFile.name}]`;
+  }
+  addMessage(displayText, 'user');
+
+  // Clear input
+  chatInput.value = '';
+  chatInput.style.height = 'auto';
+  clearFile();
+
+  // Show thinking
+  isProcessing = true;
+  sendBtn.disabled = true;
+  const thinking = addThinking();
+
+  try {
+    const payload = {
+      mode: currentMode,
+      input: text || `[File: ${selectedFile ? selectedFile.name : 'none'}]`
+    };
+
+    const res = await fetch(AMY_CONFIG.apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
 
-    // ===== FILE UPLOAD =====
-    const dropzone = document.getElementById('dropzone');
-    const fileInput = document.getElementById('file-input');
-    const filePreview = document.getElementById('file-preview');
-    const fileName = document.getElementById('file-name');
-    const removeFileBtn = document.getElementById('remove-file');
-    const sendFileBtn = document.getElementById('send-file-btn');
-    const uploadArea = document.getElementById('upload-area');
-    const fileConfirmation = document.getElementById('file-confirmation');
-    const confirmedFileName = document.getElementById('confirmed-file-name');
+    removeThinking();
 
-    let selectedFile = null;
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-    // Drag and drop
-    dropzone.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      dropzone.classList.add('drag-over');
-    });
+    const data = await res.json();
+    const reply = data.result || data.message || data.output || JSON.stringify(data);
+    addMessage(reply, 'amy');
+    connectionStatus.textContent = 'CONNECTED';
 
-    dropzone.addEventListener('dragleave', () => {
-      dropzone.classList.remove('drag-over');
-    });
+  } catch (err) {
+    removeThinking();
 
-    dropzone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropzone.classList.remove('drag-over');
-      if (e.dataTransfer.files.length > 0) {
-        handleFile(e.dataTransfer.files[0]);
-      }
-    });
-
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files.length > 0) {
-        handleFile(e.target.files[0]);
-      }
-    });
-
-    function handleFile(file) {
-      selectedFile = file;
-      fileName.textContent = file.name;
-      filePreview.classList.add('visible');
-      sendFileBtn.classList.add('visible');
+    if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.message.includes('not valid JSON') || err.message.includes('Unexpected token')) {
+      addMessage('Backend not connected. Set AMY_CONFIG.apiUrl to your server endpoint.', 'error');
+      connectionStatus.textContent = 'OFFLINE';
+    } else {
+      addMessage(`Error: ${err.message}`, 'error');
     }
+  }
 
-    removeFileBtn.addEventListener('click', () => {
-      selectedFile = null;
-      fileInput.value = '';
-      filePreview.classList.remove('visible');
-      sendFileBtn.classList.remove('visible');
-    });
+  isProcessing = false;
+  sendBtn.disabled = false;
+  chatInput.focus();
+}
 
-    sendFileBtn.addEventListener('click', () => {
-      if (selectedFile) {
-        confirmedFileName.textContent = selectedFile.name;
-        uploadArea.style.display = 'none';
-        fileConfirmation.classList.add('visible');
+sendBtn.addEventListener('click', send);
 
-        // Reset after 5 seconds
-        setTimeout(() => {
-          fileConfirmation.classList.remove('visible');
-          uploadArea.style.display = 'block';
-          selectedFile = null;
-          fileInput.value = '';
-          filePreview.classList.remove('visible');
-          sendFileBtn.classList.remove('visible');
-        }, 5000);
-      }
-    });
+chatInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    send();
+  }
+});
 
-    // ===== TEXT MESSAGE =====
-    const messageForm = document.getElementById('message-form');
-    const messageInput = document.getElementById('message-input');
-    const charCounter = document.getElementById('char-counter');
-    const sendMsgBtn = document.getElementById('send-msg-btn');
-    const messageArea = document.getElementById('message-area');
-    const msgConfirmation = document.getElementById('msg-confirmation');
-    const maxChars = 2000;
+// Auto-resize textarea
+chatInput.addEventListener('input', () => {
+  chatInput.style.height = 'auto';
+  chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+});
 
-    messageInput.addEventListener('input', () => {
-      const len = messageInput.value.length;
-      charCounter.textContent = `${len.toLocaleString()} / 2,000`;
+// ===== FILE UPLOAD =====
+uploadBtn.addEventListener('click', () => fileInput.click());
 
-      charCounter.classList.remove('near-limit', 'at-limit');
-      if (len >= maxChars) {
-        charCounter.classList.add('at-limit');
-      } else if (len >= maxChars * 0.9) {
-        charCounter.classList.add('near-limit');
-      }
+fileInput.addEventListener('change', (e) => {
+  if (e.target.files.length > 0) {
+    selectedFile = e.target.files[0];
+    attachmentName.textContent = selectedFile.name;
+    attachmentBar.classList.add('visible');
+    fileBadge.classList.add('visible');
+  }
+});
 
-      if (len > 0) {
-        sendMsgBtn.classList.add('active');
-      } else {
-        sendMsgBtn.classList.remove('active');
-      }
-    });
+removeAttachment.addEventListener('click', clearFile);
 
-    messageForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (messageInput.value.trim().length === 0) return;
+function clearFile() {
+  selectedFile = null;
+  fileInput.value = '';
+  attachmentBar.classList.remove('visible');
+  fileBadge.classList.remove('visible');
+}
 
-      messageArea.style.display = 'none';
-      msgConfirmation.classList.add('visible');
+// ===== MIC (placeholder for future WebRTC/Whisper) =====
+let micActive = false;
+micBtn.addEventListener('click', () => {
+  micActive = !micActive;
+  micBtn.classList.toggle('active', micActive);
 
-      // Reset after 5 seconds
-      setTimeout(() => {
-        msgConfirmation.classList.remove('visible');
-        messageArea.style.display = 'block';
-        messageInput.value = '';
-        charCounter.textContent = '0 / 2,000';
-        charCounter.classList.remove('near-limit', 'at-limit');
-        sendMsgBtn.classList.remove('active');
-      }, 5000);
-    });
-  </script>
+  if (micActive) {
+    addMessage('Voice input coming soon. Type for now.', 'system');
+    setTimeout(() => {
+      micActive = false;
+      micBtn.classList.remove('active');
+    }, 2000);
+  }
+});
+
+// ===== DRAG & DROP =====
+document.addEventListener('dragover', (e) => e.preventDefault());
+document.addEventListener('drop', (e) => {
+  e.preventDefault();
+  if (e.dataTransfer.files.length > 0) {
+    selectedFile = e.dataTransfer.files[0];
+    attachmentName.textContent = selectedFile.name;
+    attachmentBar.classList.add('visible');
+    fileBadge.classList.add('visible');
+    chatInput.focus();
+  }
+});
+
+// ===== KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown', (e) => {
+  // Cmd/Ctrl + 1-4 for mode switching
+  if ((e.metaKey || e.ctrlKey) && e.key >= '1' && e.key <= '4') {
+    e.preventDefault();
+    const modes = ['CHAT', 'BUILD', 'EXECUTE', 'MONETIZE'];
+    const idx = parseInt(e.key) - 1;
+    document.querySelectorAll('.mode-btn')[idx].click();
+  }
+});
+
+// Focus input on load
+chatInput.focus();
+</script>
 </body>
 </html>
