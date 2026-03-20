@@ -455,6 +455,55 @@ input, textarea { font: inherit; color: inherit; }
 
 .app-footer a:hover { color: var(--color-text-muted); }
 
+/* ===== ADMIN PANEL ===== */
+.admin-panel {
+  display: none;
+  padding: var(--space-2) var(--space-6);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.admin-panel.visible { display: block; }
+
+.admin-row {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.admin-btn {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+}
+
+.admin-btn:hover {
+  border-color: var(--color-accent-dim);
+  color: var(--color-accent);
+}
+
+.admin-btn.danger:hover {
+  border-color: var(--color-error);
+  color: var(--color-error);
+}
+
+.admin-toggle {
+  background: none;
+  border: none;
+  color: var(--color-text-faint);
+  cursor: pointer;
+  padding: 0;
+  margin-right: var(--space-2);
+  vertical-align: middle;
+  transition: color var(--transition-fast);
+}
+
+.admin-toggle:hover { color: var(--color-accent); }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .app-header { padding: var(--space-3) var(--space-4); }
@@ -480,6 +529,8 @@ input, textarea { font: inherit; color: inherit; }
       <span>TYPELABS</span>
       <span>&middot;</span>
       <span id="connection-status">READY</span>
+      <span>&middot;</span>
+      <span id="chat-stats"></span>
     </div>
   </header>
 
@@ -545,8 +596,23 @@ input, textarea { font: inherit; color: inherit; }
     <button class="send-btn" id="send-btn" type="button">Send</button>
   </div>
 
+  <!-- Admin Panel (hidden by default) -->
+  <div class="admin-panel" id="admin-panel">
+    <div class="admin-row">
+      <button class="admin-btn" id="export-data">Export All Data</button>
+      <button class="admin-btn" id="view-submissions">View Submissions</button>
+      <button class="admin-btn danger" id="clear-local">Clear Local</button>
+    </div>
+  </div>
+
   <!-- Footer -->
   <footer class="app-footer">
+    <button class="admin-toggle" id="admin-toggle" title="Data controls">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v6m0 6v6m-7.07-3.93l4.24-4.24m5.66-5.66l4.24-4.24M1 12h6m6 0h6m-3.93 7.07l-4.24-4.24m-5.66-5.66L3.93 4.93"/>
+      </svg>
+    </button>
     <a href="https://typelabs.ai" target="_blank" rel="noopener noreferrer">TypeLabs</a>
     &middot;
     <a href="https://www.perplexity.ai/computer" target="_blank" rel="noopener noreferrer">Created with Perplexity Computer</a>
@@ -558,6 +624,11 @@ const AMY_CONFIG = {
   apiUrl: '/execute',  // Point this at your backend
   // apiUrl: 'http://localhost:8000/execute',  // Local dev
   // apiUrl: 'https://your-api.fly.dev/execute',  // Production
+  cloudUrl: null,  // Set to your cloud store endpoint (Supabase, Cloudflare Worker, etc.)
+  alertEmail: 'ryan@typelabs.ai',
+  storageKey: 'amy_chat_history',
+  submissionsKey: 'amy_submissions',
+  maxLocalMessages: 500,
 };
 
 // ===== STATE =====
@@ -577,6 +648,84 @@ const attachmentBar = document.getElementById('attachment-bar');
 const attachmentName = document.getElementById('attachment-name');
 const removeAttachment = document.getElementById('remove-attachment');
 const connectionStatus = document.getElementById('connection-status');
+const chatStats = document.getElementById('chat-stats');
+
+// ===== LOCAL STORAGE =====
+const Storage = {
+  getHistory() {
+    try {
+      return JSON.parse(localStorage.getItem(AMY_CONFIG.storageKey) || '[]');
+    } catch { return []; }
+  },
+
+  saveMessage(msg) {
+    const history = this.getHistory();
+    history.push(msg);
+    // Trim to max
+    while (history.length > AMY_CONFIG.maxLocalMessages) history.shift();
+    localStorage.setItem(AMY_CONFIG.storageKey, JSON.stringify(history));
+    this.updateStats();
+  },
+
+  getSubmissions() {
+    try {
+      return JSON.parse(localStorage.getItem(AMY_CONFIG.submissionsKey) || '[]');
+    } catch { return []; }
+  },
+
+  saveSubmission(entry) {
+    const subs = this.getSubmissions();
+    subs.push(entry);
+    localStorage.setItem(AMY_CONFIG.submissionsKey, JSON.stringify(subs));
+  },
+
+  clearHistory() {
+    localStorage.removeItem(AMY_CONFIG.storageKey);
+    this.updateStats();
+  },
+
+  updateStats() {
+    if (!chatStats) return;
+    const h = this.getHistory();
+    const count = h.length;
+    if (count === 0) {
+      chatStats.textContent = '';
+      return;
+    }
+    chatStats.textContent = `${count} msg${count !== 1 ? 's' : ''} stored`;
+  },
+
+  exportJSON() {
+    const data = {
+      history: this.getHistory(),
+      submissions: this.getSubmissions(),
+      exported: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `amy-data-${new Date().toISOString().slice(0,10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+};
+
+// ===== CLOUD STORAGE =====
+const Cloud = {
+  async push(entry) {
+    if (!AMY_CONFIG.cloudUrl) return; // No cloud endpoint configured
+    try {
+      await fetch(AMY_CONFIG.cloudUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry)
+      });
+    } catch (err) {
+      console.warn('Cloud sync failed:', err.message);
+    }
+  }
+};
 
 // ===== MODE SWITCHING =====
 document.querySelectorAll('.mode-btn').forEach(btn => {
@@ -589,13 +738,47 @@ document.querySelectorAll('.mode-btn').forEach(btn => {
   });
 });
 
+// ===== ADMIN PANEL =====
+const adminPanel = document.getElementById('admin-panel');
+const adminToggle = document.getElementById('admin-toggle');
+
+if (adminToggle) {
+  adminToggle.addEventListener('click', () => {
+    adminPanel.classList.toggle('visible');
+  });
+}
+
+document.getElementById('export-data')?.addEventListener('click', () => Storage.exportJSON());
+
+document.getElementById('clear-local')?.addEventListener('click', () => {
+  if (confirm('Clear all local chat history?')) {
+    Storage.clearHistory();
+    addMessage('Local history cleared.', 'system');
+  }
+});
+
+document.getElementById('view-submissions')?.addEventListener('click', () => {
+  const subs = Storage.getSubmissions();
+  if (subs.length === 0) {
+    addMessage('No submissions stored yet.', 'system');
+    return;
+  }
+  addMessage(`${subs.length} submission(s) stored. Exporting...`, 'system');
+  const blob = new Blob([JSON.stringify(subs, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `amy-submissions-${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
 // ===== MESSAGES =====
-function addMessage(text, type) {
+function addMessage(text, type, persist = true) {
   const div = document.createElement('div');
   div.className = `msg ${type}`;
 
   if (type === 'amy') {
-    // Simple formatting: detect code blocks
     const formatted = text
       .replace(/```([\s\S]*?)```/g, '<pre>$1</pre>')
       .replace(/\n/g, '<br>');
@@ -606,6 +789,18 @@ function addMessage(text, type) {
 
   output.appendChild(div);
   output.scrollTop = output.scrollHeight;
+
+  // Persist to localStorage (skip system/error and restore calls)
+  if (persist && (type === 'user' || type === 'amy')) {
+    const entry = {
+      type,
+      text,
+      mode: currentMode,
+      ts: new Date().toISOString()
+    };
+    Storage.saveMessage(entry);
+  }
+
   return div;
 }
 
@@ -636,6 +831,16 @@ async function send() {
     displayText = text ? `${text} [${selectedFile.name}]` : `[${selectedFile.name}]`;
   }
   addMessage(displayText, 'user');
+
+  // Build submission record for cloud sync
+  const submission = {
+    id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36),
+    mode: currentMode,
+    input: text,
+    file: selectedFile ? selectedFile.name : null,
+    ts: new Date().toISOString(),
+    ua: navigator.userAgent.slice(0, 80)
+  };
 
   // Clear input
   chatInput.value = '';
@@ -668,6 +873,9 @@ async function send() {
     addMessage(reply, 'amy');
     connectionStatus.textContent = 'CONNECTED';
 
+    // Attach response to submission
+    submission.response = reply;
+
   } catch (err) {
     removeThinking();
 
@@ -677,7 +885,12 @@ async function send() {
     } else {
       addMessage(`Error: ${err.message}`, 'error');
     }
+    submission.error = err.message;
   }
+
+  // Save submission locally + push to cloud
+  Storage.saveSubmission(submission);
+  Cloud.push(submission);
 
   isProcessing = false;
   sendBtn.disabled = false;
@@ -758,6 +971,24 @@ document.addEventListener('keydown', (e) => {
     document.querySelectorAll('.mode-btn')[idx].click();
   }
 });
+
+// ===== RESTORE CHAT HISTORY =====
+function restoreHistory() {
+  const history = Storage.getHistory();
+  if (history.length === 0) return;
+
+  // Show restore indicator
+  addMessage(`Restored ${history.length} message${history.length !== 1 ? 's' : ''} from local storage.`, 'system', false);
+
+  // Render last 50 messages (keep it snappy)
+  const recent = history.slice(-50);
+  recent.forEach(msg => {
+    addMessage(msg.text, msg.type, false); // false = don't re-persist
+  });
+}
+
+restoreHistory();
+Storage.updateStats();
 
 // Focus input on load
 chatInput.focus();
