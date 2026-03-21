@@ -133,13 +133,14 @@ input, textarea { font: inherit; color: inherit; }
 }
 
 .avatar-sm {
-  width: 32px;
-  height: 32px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-full);
-  border: 1.5px solid var(--color-accent);
+  border: 2px solid var(--color-accent);
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   object-fit: cover;
+  box-shadow: 0 0 12px rgba(0, 229, 204, 0.2);
 }
 
 .header-name {
@@ -504,14 +505,190 @@ input, textarea { font: inherit; color: inherit; }
 
 .admin-toggle:hover { color: var(--color-accent); }
 
+/* ===== EMAIL COMPOSE PANEL ===== */
+.email-panel {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+  flex-shrink: 0;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.email-panel.visible { display: flex; }
+
+.email-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.email-panel-title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.email-close {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-faint);
+  transition: all var(--transition-fast);
+}
+
+.email-close:hover {
+  color: var(--color-text);
+  background: var(--color-surface-3);
+}
+
+.email-close svg { width: 16px; height: 16px; }
+
+.email-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.email-field label {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 500;
+}
+
+.email-field input,
+.email-field textarea,
+.email-field select {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+
+.email-field input:focus,
+.email-field textarea:focus,
+.email-field select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.email-field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23555555' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+.email-field textarea {
+  min-height: 100px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.email-actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+.email-send-btn {
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 700;
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.email-send-btn:hover { background: var(--color-accent-dim); }
+.email-send-btn:active { transform: scale(0.96); }
+.email-send-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.email-status {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  padding: var(--space-1) 0;
+  min-height: 1.5em;
+}
+
+.email-status.success { color: var(--color-accent); }
+.email-status.error { color: var(--color-error); }
+
 /* ===== RESPONSIVE ===== */
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .app-header { padding: var(--space-3) var(--space-4); }
-  .mode-bar { padding: var(--space-2) var(--space-4); }
+  .mode-bar { padding: var(--space-2) var(--space-4); gap: var(--space-1); }
   .chat-output { padding: var(--space-4); }
   .input-bar { padding: var(--space-3) var(--space-4); }
   .attachment-bar { padding: var(--space-2) var(--space-4); }
-  .msg { max-width: 92%; }
+  .msg { max-width: 92%; font-size: var(--text-sm); }
+
+  .avatar-sm {
+    width: 48px;
+    height: 48px;
+  }
+
+  .mode-btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+    min-height: 36px;
+  }
+
+  .action-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .send-btn {
+    min-height: 44px;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .chat-input {
+    min-height: 44px;
+    font-size: 16px; /* Prevents iOS zoom */
+  }
+
+  .email-panel {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .email-field input,
+  .email-field textarea,
+  .email-field select {
+    font-size: 16px; /* Prevents iOS zoom */
+    min-height: 44px;
+  }
+
+  .email-send-btn {
+    min-height: 44px;
+    width: 100%;
+  }
+
+  .email-actions { flex-direction: column; }
+}
+
+@media (max-width: 380px) {
+  .header-name { font-size: var(--text-xs); }
+  .avatar-sm { width: 40px; height: 40px; }
 }
 </style>
 </head>
@@ -522,7 +699,7 @@ input, textarea { font: inherit; color: inherit; }
   <header class="app-header">
     <div class="header-identity">
       <div class="status-dot"></div>
-      <img src="amy-8bit-avatar.png" alt="Amy" class="avatar-sm" width="32" height="32">
+      <img src="amy-8bit-avatar.png" alt="Amy" class="avatar-sm" width="56" height="56">
       <span class="header-name">AMY</span>
     </div>
     <div class="header-meta">
@@ -575,6 +752,13 @@ input, textarea { font: inherit; color: inherit; }
           <line x1="12" y1="19" x2="12" y2="22"/>
         </svg>
       </button>
+      <!-- Email -->
+      <button class="action-btn" id="email-btn" type="button" aria-label="Compose email" title="Compose email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </button>
       <!-- File Upload -->
       <button class="action-btn" id="upload-btn" type="button" aria-label="Attach file" title="Attach file">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -594,6 +778,42 @@ input, textarea { font: inherit; color: inherit; }
     ></textarea>
 
     <button class="send-btn" id="send-btn" type="button">Send</button>
+  </div>
+
+  <!-- Email Compose Panel -->
+  <div class="email-panel" id="email-panel">
+    <div class="email-panel-header">
+      <span class="email-panel-title">Compose Email</span>
+      <button class="email-close" id="email-close" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="email-field">
+      <label for="email-from">From</label>
+      <select id="email-from">
+        <option value="ryan">Ryan Hooks &lt;ryan@typelabs.ai&gt;</option>
+        <option value="amy">Amy &lt;amy.bot@typelabs.ai&gt;</option>
+      </select>
+    </div>
+    <div class="email-field">
+      <label for="email-to">To</label>
+      <input type="email" id="email-to" placeholder="recipient@example.com">
+    </div>
+    <div class="email-field">
+      <label for="email-subject">Subject</label>
+      <input type="text" id="email-subject" placeholder="Subject line">
+    </div>
+    <div class="email-field">
+      <label for="email-body">Message</label>
+      <textarea id="email-body" placeholder="Write your message..."></textarea>
+    </div>
+    <div class="email-status" id="email-status"></div>
+    <div class="email-actions">
+      <button class="email-send-btn" id="email-send" type="button">Send Email</button>
+    </div>
   </div>
 
   <!-- Admin Panel (hidden by default) -->
@@ -989,6 +1209,94 @@ function restoreHistory() {
 
 restoreHistory();
 Storage.updateStats();
+
+// ===== EMAIL COMPOSE =====
+const emailBtn = document.getElementById('email-btn');
+const emailPanel = document.getElementById('email-panel');
+const emailClose = document.getElementById('email-close');
+const emailFrom = document.getElementById('email-from');
+const emailTo = document.getElementById('email-to');
+const emailSubject = document.getElementById('email-subject');
+const emailBody = document.getElementById('email-body');
+const emailSend = document.getElementById('email-send');
+const emailStatus = document.getElementById('email-status');
+
+const EMAIL_CONFIG = {
+  // Resend API endpoint via Cloudflare Worker
+  apiUrl: '/api/send-email',
+  senders: {
+    ryan: { name: 'Ryan Hooks', email: 'ryan@mail.typelabs.ai', replyTo: 'ryan@typelabs.ai' },
+    amy: { name: 'Amy', email: 'amy.bot@mail.typelabs.ai', replyTo: 'amy.bot@typelabs.ai' }
+  }
+};
+
+emailBtn.addEventListener('click', () => {
+  emailPanel.classList.toggle('visible');
+  emailBtn.classList.toggle('active');
+  if (emailPanel.classList.contains('visible')) {
+    emailTo.focus();
+  }
+});
+
+emailClose.addEventListener('click', () => {
+  emailPanel.classList.remove('visible');
+  emailBtn.classList.remove('active');
+});
+
+emailSend.addEventListener('click', async () => {
+  const to = emailTo.value.trim();
+  const subject = emailSubject.value.trim();
+  const body = emailBody.value.trim();
+  const senderKey = emailFrom.value;
+  const sender = EMAIL_CONFIG.senders[senderKey];
+
+  if (!to || !subject || !body) {
+    emailStatus.textContent = 'Fill in all fields.';
+    emailStatus.className = 'email-status error';
+    return;
+  }
+
+  emailSend.disabled = true;
+  emailStatus.textContent = 'Sending...';
+  emailStatus.className = 'email-status';
+
+  try {
+    const res = await fetch(EMAIL_CONFIG.apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: `${sender.name} <${sender.email}>`,
+        replyTo: sender.replyTo,
+        to: [to],
+        subject,
+        text: body,
+        html: body.replace(/\n/g, '<br>')
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok || data.error) {
+      throw new Error(data.error || `HTTP ${res.status}`);
+    }
+
+    emailStatus.textContent = `Sent to ${to}`;
+    emailStatus.className = 'email-status success';
+    addMessage(`Email sent to ${to} from ${sender.name}`, 'system');
+
+    // Clear form
+    emailTo.value = '';
+    emailSubject.value = '';
+    emailBody.value = '';
+
+  } catch (err) {
+    emailStatus.textContent = `Failed: ${err.message}`;
+    emailStatus.className = 'email-status error';
+    addMessage(`Email failed: ${err.message}`, 'error');
+  }
+
+  emailSend.disabled = false;
+});
 
 // Focus input on load
 chatInput.focus();
