@@ -105,17 +105,19 @@ input, textarea { font: inherit; color: inherit; }
 /* ===== HEADER ===== */
 .app-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-4) var(--space-6);
+  padding: var(--space-6) var(--space-6) var(--space-4);
   border-bottom: 1px solid var(--color-border);
   flex-shrink: 0;
 }
 
 .header-identity {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
+  gap: var(--space-2);
 }
 
 .status-dot {
@@ -133,14 +135,14 @@ input, textarea { font: inherit; color: inherit; }
 }
 
 .avatar-sm {
-  width: 56px;
-  height: 56px;
+  width: 168px;
+  height: 168px;
   border-radius: var(--radius-full);
   border: 2px solid var(--color-accent);
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   object-fit: cover;
-  box-shadow: 0 0 12px rgba(0, 229, 204, 0.2);
+  box-shadow: 0 0 20px rgba(0, 229, 204, 0.25);
 }
 
 .header-name {
@@ -151,7 +153,6 @@ input, textarea { font: inherit; color: inherit; }
 }
 
 .header-meta {
-  margin-left: auto;
   font-size: var(--text-xs);
   color: var(--color-text-faint);
   letter-spacing: 0.04em;
@@ -648,8 +649,8 @@ input, textarea { font: inherit; color: inherit; }
   .msg { max-width: 92%; font-size: var(--text-sm); }
 
   .avatar-sm {
-    width: 40px;
-    height: 40px;
+    width: 120px;
+    height: 120px;
   }
 
   .header-name { font-size: var(--text-xs); }
@@ -702,7 +703,7 @@ input, textarea { font: inherit; color: inherit; }
 }
 
 @media (max-width: 380px) {
-  .avatar-sm { width: 36px; height: 36px; }
+  .avatar-sm { width: 100px; height: 100px; }
   .mode-btn { padding: var(--space-1) var(--space-2); font-size: 0.65rem; }
 }
 </style>
@@ -713,9 +714,11 @@ input, textarea { font: inherit; color: inherit; }
   <!-- Header -->
   <header class="app-header">
     <div class="header-identity">
-      <div class="status-dot"></div>
-      <img src="amy-8bit-avatar.png" alt="Amy" class="avatar-sm" width="56" height="56">
-      <span class="header-name">AMY</span>
+      <img src="amy-8bit-avatar.png" alt="Amy" class="avatar-sm" width="168" height="168">
+      <div style="display:flex;align-items:center;gap:6px">
+        <div class="status-dot"></div>
+        <span class="header-name">AMY</span>
+      </div>
     </div>
     <div class="header-meta">
       <span>TYPELABS</span>
@@ -1169,18 +1172,56 @@ function clearFile() {
   fileBadge.classList.remove('visible');
 }
 
-// ===== MIC (placeholder for future WebRTC/Whisper) =====
+// ===== MIC (Web Speech API) =====
 let micActive = false;
-micBtn.addEventListener('click', () => {
-  micActive = !micActive;
-  micBtn.classList.toggle('active', micActive);
+let recognition = null;
 
-  if (micActive) {
-    addMessage('Voice input coming soon. Type for now.', 'system');
-    setTimeout(() => {
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  recognition.onresult = (event) => {
+    let transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript;
+    }
+    chatInput.value = transcript;
+    chatInput.style.height = 'auto';
+    chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
+    if (event.results[event.results.length - 1].isFinal) {
       micActive = false;
       micBtn.classList.remove('active');
-    }, 2000);
+    }
+  };
+
+  recognition.onerror = (event) => {
+    micActive = false;
+    micBtn.classList.remove('active');
+    if (event.error !== 'aborted') {
+      addMessage('Mic error: ' + event.error, 'error');
+    }
+  };
+
+  recognition.onend = () => {
+    micActive = false;
+    micBtn.classList.remove('active');
+  };
+}
+
+micBtn.addEventListener('click', () => {
+  if (!recognition) {
+    addMessage('Voice input not supported in this browser.', 'system');
+    return;
+  }
+  micActive = !micActive;
+  micBtn.classList.toggle('active', micActive);
+  if (micActive) {
+    recognition.start();
+  } else {
+    recognition.stop();
   }
 });
 
