@@ -841,9 +841,7 @@ input, textarea { font: inherit; color: inherit; }
 <script>
 // ===== CONFIGURATION =====
 const AMY_CONFIG = {
-  apiUrl: '/execute',  // Point this at your backend
-  // apiUrl: 'http://localhost:8000/execute',  // Local dev
-  // apiUrl: 'https://your-api.fly.dev/execute',  // Production
+  apiUrl: 'https://amy-api.rhooks20.workers.dev/execute',  // Cloudflare Worker backend
   cloudUrl: null,  // Set to your cloud store endpoint (Supabase, Cloudflare Worker, etc.)
   alertEmail: 'ryan@typelabs.ai',
   storageKey: 'amy_chat_history',
@@ -1223,7 +1221,7 @@ const emailStatus = document.getElementById('email-status');
 
 const EMAIL_CONFIG = {
   // Resend API endpoint via Cloudflare Worker
-  apiUrl: '/api/send-email',
+  apiUrl: 'https://amy-api.rhooks20.workers.dev/api/send-email',
   senders: {
     ryan: { name: 'Ryan Hooks', email: 'ryan@mail.typelabs.ai', replyTo: 'ryan@typelabs.ai' },
     amy: { name: 'Amy', email: 'amy.bot@mail.typelabs.ai', replyTo: 'amy.bot@typelabs.ai' }
