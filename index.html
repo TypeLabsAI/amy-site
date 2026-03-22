@@ -712,6 +712,185 @@ input, textarea { font: inherit; color: inherit; }
   .avatar-sm { width: 100px; height: 100px; }
   .mode-btn { padding: var(--space-1) var(--space-2); font-size: 0.65rem; }
 }
+
+/* ===== OUTREACH DASHBOARD ===== */
+.outreach-panel {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  flex-shrink: 0;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.outreach-panel.visible { display: flex; }
+
+.outreach-panel-title {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.outreach-section {
+  padding: var(--space-3);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.outreach-section-title {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-2);
+}
+
+.outreach-section-body {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.pipeline-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-2);
+}
+
+.pipeline-stat {
+  text-align: center;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-3);
+}
+
+.pipeline-stat-count {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.pipeline-stat-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-faint);
+  margin-top: 2px;
+}
+
+.pipeline-stat.hot .pipeline-stat-count { color: #22c55e; }
+.pipeline-stat.warm .pipeline-stat-count { color: #eab308; }
+.pipeline-stat.redirect .pipeline-stat-count { color: #3b82f6; }
+.pipeline-stat.notnow .pipeline-stat-count { color: #6b7280; }
+
+.followup-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-xs);
+}
+
+.followup-item:last-child { border-bottom: none; }
+
+.followup-draft-btn {
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-accent-glow);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  font-size: 0.65rem;
+  color: var(--color-accent);
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.followup-draft-btn:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* ===== EMAIL TEMPLATE SELECTOR ===== */
+.template-token {
+  background: var(--color-accent-glow);
+  color: var(--color-accent);
+  padding: 0 3px;
+  border-radius: 2px;
+}
+
+/* ===== REPLY CATEGORIZATION ===== */
+.reply-categorize {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.reply-categorize-label {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+.reply-cat-btn {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: all var(--transition-fast);
+  border: 1px solid;
+}
+
+.reply-cat-btn.hot { border-color: #22c55e; color: #22c55e; }
+.reply-cat-btn.hot:hover { background: #22c55e; color: #000; }
+.reply-cat-btn.warm { border-color: #eab308; color: #eab308; }
+.reply-cat-btn.warm:hover { background: #eab308; color: #000; }
+.reply-cat-btn.redirect { border-color: #3b82f6; color: #3b82f6; }
+.reply-cat-btn.redirect:hover { background: #3b82f6; color: #fff; }
+.reply-cat-btn.notnow { border-color: #6b7280; color: #6b7280; }
+.reply-cat-btn.notnow:hover { background: #6b7280; color: #fff; }
+
+.reply-cat-btn.selected {
+  color: #000;
+}
+.reply-cat-btn.hot.selected { background: #22c55e; }
+.reply-cat-btn.warm.selected { background: #eab308; }
+.reply-cat-btn.redirect.selected { background: #3b82f6; color: #fff; }
+.reply-cat-btn.notnow.selected { background: #6b7280; color: #fff; }
+
+/* ===== SEND RATE INDICATOR ===== */
+.send-rate {
+  font-size: 0.65rem;
+  color: var(--color-text-faint);
+  text-align: right;
+  padding-top: var(--space-1);
+}
+
+.send-rate.warning {
+  color: #eab308;
+}
+
+/* ===== OUTREACH RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .outreach-panel {
+    padding: var(--space-3) var(--space-4);
+  }
+  .pipeline-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .reply-categorize {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
 </style>
 </head>
 
@@ -736,6 +915,41 @@ input, textarea { font: inherit; color: inherit; }
   </header>
 
 
+
+  <!-- Mode Bar -->
+  <div class="mode-bar">
+    <button class="mode-btn active" data-mode="CHAT">Chat</button>
+    <button class="mode-btn" data-mode="BUILD">Build</button>
+    <button class="mode-btn" data-mode="EXECUTE">Execute</button>
+    <button class="mode-btn" data-mode="MONETIZE">Monetize</button>
+    <button class="mode-btn" data-mode="OUTREACH">Outreach</button>
+  </div>
+
+  <!-- Outreach Dashboard -->
+  <div class="outreach-panel" id="outreach-panel">
+    <div class="outreach-panel-title">Outreach Dashboard</div>
+    <div class="outreach-section">
+      <div class="outreach-section-title">Today's Targets</div>
+      <div class="outreach-section-body" id="outreach-targets">No targets loaded. Ask Amy who to email today.</div>
+    </div>
+    <div class="outreach-section">
+      <div class="outreach-section-title">Sent Today</div>
+      <div class="outreach-section-body" id="outreach-sent-today">0 emails sent today</div>
+    </div>
+    <div class="outreach-section">
+      <div class="outreach-section-title">Follow-ups Due</div>
+      <div class="outreach-section-body" id="outreach-followups">No follow-ups due</div>
+    </div>
+    <div class="outreach-section">
+      <div class="outreach-section-title">Pipeline Summary</div>
+      <div class="pipeline-grid" id="pipeline-grid">
+        <div class="pipeline-stat hot"><div class="pipeline-stat-count" id="pipe-hot">0</div><div class="pipeline-stat-label">Hot</div></div>
+        <div class="pipeline-stat warm"><div class="pipeline-stat-count" id="pipe-warm">0</div><div class="pipeline-stat-label">Warm</div></div>
+        <div class="pipeline-stat redirect"><div class="pipeline-stat-count" id="pipe-redirect">0</div><div class="pipeline-stat-label">Redirect</div></div>
+        <div class="pipeline-stat notnow"><div class="pipeline-stat-count" id="pipe-notnow">0</div><div class="pipeline-stat-label">Not Now</div></div>
+      </div>
+    </div>
+  </div>
 
   <!-- Chat Output -->
   <div class="chat-output" id="output">
@@ -820,6 +1034,20 @@ input, textarea { font: inherit; color: inherit; }
       <input type="email" id="email-to" placeholder="recipient@example.com">
     </div>
     <div class="email-field">
+      <label for="email-template">Template</label>
+      <select id="email-template">
+        <option value="">(None — blank)</option>
+        <option value="biomarker">Biomarker Company</option>
+        <option value="corporate">Corporate Wellness</option>
+        <option value="longevity">Longevity Clinic</option>
+        <option value="influencer">Influencer Agency</option>
+        <option value="supplement">Supplement Brand</option>
+        <option value="followup3">Follow-Up Day 3</option>
+        <option value="followup7">Follow-Up Day 7</option>
+        <option value="breakup">Break-Up (Day 14)</option>
+      </select>
+    </div>
+    <div class="email-field">
       <label for="email-subject">Subject</label>
       <input type="text" id="email-subject" placeholder="Subject line">
     </div>
@@ -828,9 +1056,17 @@ input, textarea { font: inherit; color: inherit; }
       <textarea id="email-body" placeholder="Write your message..."></textarea>
     </div>
     <div class="email-status" id="email-status"></div>
+    <div class="reply-categorize" id="reply-categorize" style="display:none">
+      <span class="reply-categorize-label">Categorize:</span>
+      <button class="reply-cat-btn hot" data-cat="hot">Hot</button>
+      <button class="reply-cat-btn warm" data-cat="warm">Warm</button>
+      <button class="reply-cat-btn redirect" data-cat="redirect">Redirect</button>
+      <button class="reply-cat-btn notnow" data-cat="notnow">Not Now</button>
+    </div>
     <div class="email-actions">
       <button class="email-send-btn" id="email-send" type="button">Send Email</button>
     </div>
+    <div class="send-rate" id="send-rate"></div>
   </div>
 
   <!-- Admin Panel (hidden by default) -->
@@ -861,8 +1097,8 @@ input, textarea { font: inherit; color: inherit; }
 <script>
 // ===== CONFIGURATION =====
 const AMY_CONFIG = {
-  apiUrl: 'https://amy-api.rhooks20.workers.dev/execute',  // Cloudflare Worker backend
-  cloudUrl: null,  // Set to your cloud store endpoint (Supabase, Cloudflare Worker, etc.)
+  apiUrl: 'https://amy-api.rhooks20.workers.dev/execute',
+  cloudUrl: null,
   alertEmail: 'ryan@typelabs.ai',
   storageKey: 'amy_chat_history',
   submissionsKey: 'amy_submissions',
@@ -873,6 +1109,7 @@ const AMY_CONFIG = {
 let currentMode = 'CHAT';
 let selectedFile = null;
 let isProcessing = false;
+let lastSentEmailTo = '';
 
 // ===== ELEMENTS =====
 const output = document.getElementById('output');
@@ -887,6 +1124,150 @@ const attachmentName = document.getElementById('attachment-name');
 const removeAttachment = document.getElementById('remove-attachment');
 const connectionStatus = document.getElementById('connection-status');
 const chatStats = document.getElementById('chat-stats');
+const outreachPanel = document.getElementById('outreach-panel');
+
+// ===== MODE PLACEHOLDERS =====
+const MODE_PLACEHOLDERS = {
+  CHAT: 'Talk to Amy...',
+  BUILD: 'What should we build?',
+  EXECUTE: 'What should we execute?',
+  MONETIZE: 'How should we monetize?',
+  OUTREACH: 'Who should we email today?'
+};
+
+const MODE_SYSTEM_MESSAGES = {
+  CHAT: 'Mode: CHAT',
+  BUILD: 'Mode: BUILD',
+  EXECUTE: 'Mode: EXECUTE',
+  MONETIZE: 'Mode: MONETIZE',
+  OUTREACH: 'Outreach mode. Amy will help you find contacts, draft emails, and track follow-ups. Village (game) → GlobalProto (identity) → Experiences (your brand).'
+};
+
+// ===== EMAIL TEMPLATES =====
+const EMAIL_TEMPLATES = {
+  biomarker: {
+    subject: 'Partnership: AI-Powered Identity Layer for [Company] Biomarker Data',
+    body: `Hi [First Name],
+
+I'm Ryan Hooks, founder of GlobalProto (globalproto.com) — we build AI-powered digital identity infrastructure that turns real-world health data into portable, verified profiles.
+
+I noticed [Company] is doing impressive work in biomarker analytics. We'd love to explore a partnership where your biomarker data feeds into our identity layer — giving your users a richer, more actionable health profile they own and control.
+
+The integration is lightweight: Village (gamified wellness) → GlobalProto (identity) → your platform (the experience).
+
+Would you have 15 minutes this week to explore the fit?
+
+Best,
+Ryan Hooks
+globalproto.com`
+  },
+  corporate: {
+    subject: 'Employee Wellness × Digital Identity — [Company] + GlobalProto',
+    body: `Hi [First Name],
+
+Ryan Hooks here from GlobalProto (globalproto.com). We help companies turn employee wellness programs into measurable, identity-linked experiences.
+
+I think there's a natural fit with [Company]'s corporate wellness offering. Our platform lets employees build a verified wellness profile across multiple programs — driving engagement and retention.
+
+The flow: Village (gamified engagement) → GlobalProto (identity layer) → [Company] (your branded experience).
+
+Open to a quick 15-min call this week?
+
+Best,
+Ryan Hooks
+globalproto.com`
+  },
+  longevity: {
+    subject: 'Longevity Data Meets Digital Identity — [Company] + GlobalProto',
+    body: `Hi [First Name],
+
+I'm Ryan Hooks, building GlobalProto (globalproto.com) — an AI-powered identity platform for the longevity space.
+
+[Company]'s work in longevity is exactly the kind of data layer we integrate with. Our users get a portable identity profile that aggregates health, biomarker, and lifestyle data across providers.
+
+Pipeline: Village (gamified wellness) → GlobalProto (identity) → [Company] (longevity experiences).
+
+Would love 15 minutes to show you the platform. This week work?
+
+Best,
+Ryan Hooks
+globalproto.com`
+  },
+  influencer: {
+    subject: 'Creator Identity Layer — [Company] + GlobalProto',
+    body: `Hi [First Name],
+
+Ryan Hooks here, founder of GlobalProto (globalproto.com). We're building the identity layer for wellness creators and their audiences.
+
+I see [Company] managing some top wellness/health creators. Our platform gives creators a verified identity profile their audience can engage with — turning content into measurable wellness journeys.
+
+Model: Village (gamified community) → GlobalProto (identity) → creator brand (experiences).
+
+15 minutes to explore? Happy to work around your schedule.
+
+Best,
+Ryan Hooks
+globalproto.com`
+  },
+  supplement: {
+    subject: 'Verified Wellness Identity for [Company] Customers',
+    body: `Hi [First Name],
+
+Ryan Hooks from GlobalProto (globalproto.com). We build AI-powered identity profiles that connect supplement usage to real health outcomes.
+
+I'd love to explore how [Company]'s product line could integrate with our identity layer — giving your customers a verified wellness profile that tracks their journey across products and providers.
+
+The stack: Village (gamified engagement) → GlobalProto (identity) → [Company] (your brand experience).
+
+Free for a quick call this week?
+
+Best,
+Ryan Hooks
+globalproto.com`
+  },
+  followup3: {
+    subject: 'Re: Following up — [Company] + GlobalProto',
+    body: `Hi [First Name],
+
+Just circling back on my note from a few days ago about a potential partnership between [Company] and GlobalProto.
+
+We're seeing strong traction with our identity layer in the wellness space, and I think the timing is right for a conversation.
+
+Happy to send over a quick deck or jump on a 10-minute call — whatever's easiest.
+
+Best,
+Ryan Hooks
+globalproto.com`
+  },
+  followup7: {
+    subject: 'Re: Quick follow-up — [Company] + GlobalProto',
+    body: `Hi [First Name],
+
+Following up one more time on the GlobalProto partnership opportunity. We've had some exciting developments this week that I think would resonate with [Company]'s direction.
+
+I know you're busy — I can send a 2-minute Loom walkthrough if that's easier than a call.
+
+Let me know either way, happy to stay in touch.
+
+Best,
+Ryan Hooks
+globalproto.com`
+  },
+  breakup: {
+    subject: 'Closing the loop — [Company] + GlobalProto',
+    body: `Hi [First Name],
+
+I've reached out a couple of times about a potential collaboration between [Company] and GlobalProto and haven't heard back — totally understand, timing is everything.
+
+I'll leave the door open on my end. If the identity layer for wellness data ever becomes relevant, I'm a quick email away.
+
+Wishing [Company] continued success.
+
+Best,
+Ryan Hooks
+globalproto.com`
+  }
+};
 
 // ===== LOCAL STORAGE =====
 const Storage = {
@@ -899,7 +1280,6 @@ const Storage = {
   saveMessage(msg) {
     const history = this.getHistory();
     history.push(msg);
-    // Trim to max
     while (history.length > AMY_CONFIG.maxLocalMessages) history.shift();
     localStorage.setItem(AMY_CONFIG.storageKey, JSON.stringify(history));
     this.updateStats();
@@ -937,6 +1317,8 @@ const Storage = {
     const data = {
       history: this.getHistory(),
       submissions: this.getSubmissions(),
+      outreach: OutreachTracker.getAll(),
+      pipeline: PipelineTracker.getAll(),
       exported: new Date().toISOString()
     };
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -949,10 +1331,117 @@ const Storage = {
   }
 };
 
+// ===== OUTREACH TRACKER (localStorage) =====
+const OutreachTracker = {
+  KEY: 'amy_outreach_emails',
+
+  getAll() {
+    try { return JSON.parse(localStorage.getItem(this.KEY) || '[]'); }
+    catch { return []; }
+  },
+
+  save(record) {
+    const all = this.getAll();
+    all.push(record);
+    localStorage.setItem(this.KEY, JSON.stringify(all));
+  },
+
+  update(email, updates) {
+    const all = this.getAll();
+    const idx = all.findIndex(r => r.to === email && !r.followUpSent);
+    if (idx !== -1) {
+      Object.assign(all[idx], updates);
+      localStorage.setItem(this.KEY, JSON.stringify(all));
+    }
+  },
+
+  getSentToday() {
+    const today = new Date().toISOString().slice(0, 10);
+    return this.getAll().filter(r => r.sentAt && r.sentAt.startsWith(today));
+  },
+
+  getFollowUpsDue() {
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+    return this.getAll().filter(r => {
+      if (r.followUpSent) return false;
+      return (r.followUp3Due && r.followUp3Due <= today && !r.followUp3Sent) ||
+             (r.followUp7Due && r.followUp7Due <= today && !r.followUp7Sent);
+    });
+  }
+};
+
+// ===== PIPELINE TRACKER (localStorage) =====
+const PipelineTracker = {
+  KEY: 'amy_pipeline_categories',
+
+  getAll() {
+    try { return JSON.parse(localStorage.getItem(this.KEY) || '{}'); }
+    catch { return {}; }
+  },
+
+  set(email, category) {
+    const all = this.getAll();
+    all[email] = { category, updatedAt: new Date().toISOString() };
+    localStorage.setItem(this.KEY, JSON.stringify(all));
+  },
+
+  getCounts() {
+    const all = this.getAll();
+    const counts = { hot: 0, warm: 0, redirect: 0, notnow: 0 };
+    Object.values(all).forEach(v => {
+      if (counts[v.category] !== undefined) counts[v.category]++;
+    });
+    return counts;
+  }
+};
+
+// ===== SEND RATE TRACKER =====
+const SendRate = {
+  KEY: 'amy_outreach_send_rate',
+  LIMIT: 10,
+
+  getData() {
+    try { return JSON.parse(localStorage.getItem(this.KEY) || '{"hour":0,"count":0}'); }
+    catch { return { hour: 0, count: 0 }; }
+  },
+
+  record() {
+    const currentHour = new Date().getHours() + new Date().getDate() * 24;
+    let data = this.getData();
+    if (data.hour !== currentHour) {
+      data = { hour: currentHour, count: 0 };
+    }
+    data.count++;
+    localStorage.setItem(this.KEY, JSON.stringify(data));
+    return data.count;
+  },
+
+  getCount() {
+    const currentHour = new Date().getHours() + new Date().getDate() * 24;
+    const data = this.getData();
+    if (data.hour !== currentHour) return 0;
+    return data.count;
+  },
+
+  update() {
+    const count = this.getCount();
+    const el = document.getElementById('send-rate');
+    if (!el) return;
+    el.textContent = `${count}/${this.LIMIT} sent this hour`;
+    if (count >= this.LIMIT) {
+      el.className = 'send-rate warning';
+      el.textContent += ' — Approaching hourly limit. Stagger sends to avoid spam filters.';
+    } else {
+      el.className = 'send-rate';
+    }
+  }
+};
+
 // ===== CLOUD STORAGE =====
 const Cloud = {
   async push(entry) {
-    if (!AMY_CONFIG.cloudUrl) return; // No cloud endpoint configured
+    if (!AMY_CONFIG.cloudUrl) return;
     try {
       await fetch(AMY_CONFIG.cloudUrl, {
         method: 'POST',
@@ -971,10 +1460,91 @@ document.querySelectorAll('.mode-btn').forEach(btn => {
     document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentMode = btn.dataset.mode;
-    addMessage(`Mode: ${currentMode}`, 'system');
+
+    // Update placeholder
+    chatInput.placeholder = MODE_PLACEHOLDERS[currentMode] || 'Talk to Amy...';
+
+    // Show mode system message
+    addMessage(MODE_SYSTEM_MESSAGES[currentMode] || `Mode: ${currentMode}`, 'system');
+
+    // Toggle outreach panel
+    if (currentMode === 'OUTREACH') {
+      outreachPanel.classList.add('visible');
+      refreshOutreachDashboard();
+    } else {
+      outreachPanel.classList.remove('visible');
+    }
+
     chatInput.focus();
   });
 });
+
+// ===== OUTREACH DASHBOARD REFRESH =====
+function refreshOutreachDashboard() {
+  // Sent today
+  const sentToday = OutreachTracker.getSentToday();
+  document.getElementById('outreach-sent-today').textContent =
+    `${sentToday.length} email${sentToday.length !== 1 ? 's' : ''} sent today`;
+
+  // Pipeline summary
+  const counts = PipelineTracker.getCounts();
+  document.getElementById('pipe-hot').textContent = counts.hot;
+  document.getElementById('pipe-warm').textContent = counts.warm;
+  document.getElementById('pipe-redirect').textContent = counts.redirect;
+  document.getElementById('pipe-notnow').textContent = counts.notnow;
+
+  // Follow-ups due
+  const followups = OutreachTracker.getFollowUpsDue();
+  const followupsEl = document.getElementById('outreach-followups');
+  if (followups.length === 0) {
+    followupsEl.textContent = 'No follow-ups due';
+  } else {
+    followupsEl.innerHTML = '';
+    followups.forEach(record => {
+      const today = new Date().toISOString().slice(0, 10);
+      let dueType = '';
+      let templateKey = '';
+      if (record.followUp3Due && record.followUp3Due <= today && !record.followUp3Sent) {
+        dueType = 'Day 3 follow-up due';
+        templateKey = 'followup3';
+      } else if (record.followUp7Due && record.followUp7Due <= today && !record.followUp7Sent) {
+        dueType = 'Day 7 follow-up due';
+        templateKey = 'followup7';
+      }
+      if (!dueType) return;
+
+      const item = document.createElement('div');
+      item.className = 'followup-item';
+      item.innerHTML = `<span>${dueType} for <strong>${record.to}</strong></span>`;
+
+      const draftBtn = document.createElement('button');
+      draftBtn.className = 'followup-draft-btn';
+      draftBtn.textContent = 'Draft Follow-Up';
+      draftBtn.addEventListener('click', () => {
+        openEmailWithTemplate(templateKey, record.to);
+      });
+      item.appendChild(draftBtn);
+      followupsEl.appendChild(item);
+    });
+  }
+}
+
+// ===== OPEN EMAIL WITH TEMPLATE =====
+function openEmailWithTemplate(templateKey, toAddress) {
+  const emailPanel = document.getElementById('email-panel');
+  const emailBtn = document.getElementById('email-btn');
+  emailPanel.classList.add('visible');
+  emailBtn.classList.add('active');
+
+  const emailTemplate = document.getElementById('email-template');
+  emailTemplate.value = templateKey;
+  emailTemplate.dispatchEvent(new Event('change'));
+
+  if (toAddress) {
+    document.getElementById('email-to').value = toAddress;
+  }
+  document.getElementById('email-to').focus();
+}
 
 // ===== ADMIN PANEL =====
 const adminPanel = document.getElementById('admin-panel');
@@ -1028,7 +1598,6 @@ function addMessage(text, type, persist = true) {
   output.appendChild(div);
   output.scrollTop = output.scrollHeight;
 
-  // Persist to localStorage (skip system/error and restore calls)
   if (persist && (type === 'user' || type === 'amy')) {
     const entry = {
       type,
@@ -1063,14 +1632,12 @@ async function send() {
   if (!text && !selectedFile) return;
   if (isProcessing) return;
 
-  // Show user message
   let displayText = text;
   if (selectedFile) {
     displayText = text ? `${text} [${selectedFile.name}]` : `[${selectedFile.name}]`;
   }
   addMessage(displayText, 'user');
 
-  // Build submission record for cloud sync
   const submission = {
     id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36),
     mode: currentMode,
@@ -1080,12 +1647,10 @@ async function send() {
     ua: navigator.userAgent.slice(0, 80)
   };
 
-  // Clear input
   chatInput.value = '';
   chatInput.style.height = 'auto';
   clearFile();
 
-  // Show thinking
   isProcessing = true;
   sendBtn.disabled = true;
   const thinking = addThinking();
@@ -1111,7 +1676,6 @@ async function send() {
     addMessage(reply, 'amy');
     connectionStatus.textContent = 'CONNECTED';
 
-    // Attach response to submission
     submission.response = reply;
 
   } catch (err) {
@@ -1126,7 +1690,6 @@ async function send() {
     submission.error = err.message;
   }
 
-  // Save submission locally + push to cloud
   Storage.saveSubmission(submission);
   Cloud.push(submission);
 
@@ -1144,7 +1707,6 @@ chatInput.addEventListener('keydown', (e) => {
   }
 });
 
-// Auto-resize textarea
 chatInput.addEventListener('input', () => {
   chatInput.style.height = 'auto';
   chatInput.style.height = Math.min(chatInput.scrollHeight, 120) + 'px';
@@ -1239,12 +1801,12 @@ document.addEventListener('drop', (e) => {
 
 // ===== KEYBOARD SHORTCUTS =====
 document.addEventListener('keydown', (e) => {
-  // Cmd/Ctrl + 1-4 for mode switching
-  if ((e.metaKey || e.ctrlKey) && e.key >= '1' && e.key <= '4') {
+  // Cmd/Ctrl + 1-5 for mode switching
+  if ((e.metaKey || e.ctrlKey) && e.key >= '1' && e.key <= '5') {
     e.preventDefault();
-    const modes = ['CHAT', 'BUILD', 'EXECUTE', 'MONETIZE'];
     const idx = parseInt(e.key) - 1;
-    document.querySelectorAll('.mode-btn')[idx].click();
+    const btns = document.querySelectorAll('.mode-btn');
+    if (btns[idx]) btns[idx].click();
   }
 });
 
@@ -1253,13 +1815,11 @@ function restoreHistory() {
   const history = Storage.getHistory();
   if (history.length === 0) return;
 
-  // Show restore indicator
   addMessage(`Restored ${history.length} message${history.length !== 1 ? 's' : ''} from local storage.`, 'system', false);
 
-  // Render last 50 messages (keep it snappy)
   const recent = history.slice(-50);
   recent.forEach(msg => {
-    addMessage(msg.text, msg.type, false); // false = don't re-persist
+    addMessage(msg.text, msg.type, false);
   });
 }
 
@@ -1276,6 +1836,8 @@ const emailSubject = document.getElementById('email-subject');
 const emailBody = document.getElementById('email-body');
 const emailSend = document.getElementById('email-send');
 const emailStatus = document.getElementById('email-status');
+const emailTemplate = document.getElementById('email-template');
+const replyCategorize = document.getElementById('reply-categorize');
 
 const EMAIL_CONFIG = {
   apiUrl: 'https://amy-api.rhooks20.workers.dev/api/send-email',
@@ -1284,11 +1846,23 @@ const EMAIL_CONFIG = {
   }
 };
 
+// ===== TEMPLATE SELECTOR =====
+emailTemplate.addEventListener('change', () => {
+  const key = emailTemplate.value;
+  if (!key || !EMAIL_TEMPLATES[key]) {
+    return;
+  }
+  const tpl = EMAIL_TEMPLATES[key];
+  emailSubject.value = tpl.subject;
+  emailBody.value = tpl.body;
+});
+
 emailBtn.addEventListener('click', () => {
   emailPanel.classList.toggle('visible');
   emailBtn.classList.toggle('active');
   if (emailPanel.classList.contains('visible')) {
     emailTo.focus();
+    SendRate.update();
   }
 });
 
@@ -1297,12 +1871,42 @@ emailClose.addEventListener('click', () => {
   emailBtn.classList.remove('active');
 });
 
+// ===== REPLY CATEGORIZATION =====
+document.querySelectorAll('.reply-cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cat = btn.dataset.cat;
+    if (!lastSentEmailTo) return;
+
+    // Save to pipeline
+    PipelineTracker.set(lastSentEmailTo, cat);
+
+    // Update outreach record
+    OutreachTracker.update(lastSentEmailTo, { category: cat });
+
+    // Visual feedback
+    document.querySelectorAll('.reply-cat-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+
+    addMessage(`Categorized ${lastSentEmailTo} as ${cat.toUpperCase()}`, 'system');
+
+    // Refresh dashboard if in outreach mode
+    if (currentMode === 'OUTREACH') refreshOutreachDashboard();
+
+    // Hide after a moment
+    setTimeout(() => {
+      replyCategorize.style.display = 'none';
+      document.querySelectorAll('.reply-cat-btn').forEach(b => b.classList.remove('selected'));
+    }, 1500);
+  });
+});
+
+// ===== EMAIL SEND =====
 emailSend.addEventListener('click', async () => {
   const to = emailTo.value.trim();
   const subject = emailSubject.value.trim();
   const body = emailBody.value.trim();
   const senderKey = emailFrom.value;
-  const sender = EMAIL_CONFIG.senders[senderKey];
+  const templateKey = emailTemplate.value;
 
   if (!to || !subject || !body) {
     emailStatus.textContent = 'Fill in all fields.';
@@ -1313,6 +1917,7 @@ emailSend.addEventListener('click', async () => {
   emailSend.disabled = true;
   emailStatus.textContent = 'Sending...';
   emailStatus.className = 'email-status';
+  replyCategorize.style.display = 'none';
 
   try {
     const res = await fetch(EMAIL_CONFIG.apiUrl, {
@@ -1335,10 +1940,39 @@ emailSend.addEventListener('click', async () => {
     emailStatus.className = 'email-status success';
     addMessage('Email sent to ' + to + ' from ryan@typelabs.ai', 'system');
 
+    // Track send rate
+    SendRate.record();
+    SendRate.update();
+
+    // Track outreach email in localStorage
+    if (currentMode === 'OUTREACH') {
+      const sentAt = new Date().toISOString();
+      const d3 = new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10);
+      const d7 = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
+      OutreachTracker.save({
+        to,
+        subject,
+        sentAt,
+        template: templateKey || null,
+        category: null,
+        followUp3Due: d3,
+        followUp7Due: d7,
+        followUp3Sent: false,
+        followUp7Sent: false,
+        followUpSent: false
+      });
+      refreshOutreachDashboard();
+    }
+
+    // Show reply categorization
+    lastSentEmailTo = to;
+    replyCategorize.style.display = 'flex';
+
     // Clear form
     emailTo.value = '';
     emailSubject.value = '';
     emailBody.value = '';
+    emailTemplate.value = '';
 
   } catch (err) {
     emailStatus.textContent = `Failed: ${err.message}`;
@@ -1348,6 +1982,9 @@ emailSend.addEventListener('click', async () => {
 
   emailSend.disabled = false;
 });
+
+// Initialize send rate display
+SendRate.update();
 
 // Focus input on load
 chatInput.focus();
