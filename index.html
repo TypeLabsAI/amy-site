@@ -812,7 +812,6 @@ input, textarea { font: inherit; color: inherit; }
     <div class="email-field">
       <label for="email-from">From</label>
       <select id="email-from">
-        <option value="globalproto">Ryan Hooks &lt;ryan@globalproto.com&gt;</option>
         <option value="typelabs">Ryan Hooks &lt;ryan@typelabs.ai&gt;</option>
       </select>
     </div>
@@ -1281,7 +1280,6 @@ const emailStatus = document.getElementById('email-status');
 const EMAIL_CONFIG = {
   apiUrl: 'https://amy-api.rhooks20.workers.dev/api/send-email',
   senders: {
-    globalproto: { name: 'Ryan Hooks', domain: 'globalproto.com' },
     typelabs: { name: 'Ryan Hooks', domain: 'typelabs.ai' }
   }
 };
@@ -1322,10 +1320,8 @@ emailSend.addEventListener('click', async () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         to: [to],
-        subject,
-        body: body,
-        from_name: sender.name,
-        from_domain: sender.domain
+        subject: subject,
+        body: body
       })
     });
 
@@ -1337,7 +1333,7 @@ emailSend.addEventListener('click', async () => {
 
     emailStatus.textContent = 'Sent to ' + to;
     emailStatus.className = 'email-status success';
-    addMessage('Email sent to ' + to + ' from ryan@' + sender.domain, 'system');
+    addMessage('Email sent to ' + to + ' from ryan@typelabs.ai', 'system');
 
     // Clear form
     emailTo.value = '';
