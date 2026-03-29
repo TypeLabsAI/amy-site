@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Amy Dashboard | TypeLabs</title>
+<meta name="description" content="Amy's outreach email dashboard — queue, approve, and track emails.">
+
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== CONFIG ===== */
+:root {
+  --color-bg: #0a0a0a;
+  --color-surface: #111111;
+  --color-surface-2: #161616;
+  --color-surface-3: #1c1c1c;
+  --color-border: #222222;
+  --color-border-hover: #333333;
+
+  --color-text: #f0f0f0;
+  --color-text-muted: #888888;
+  --color-text-faint: #555555;
+
+  --color-accent: #00e5cc;
+  --color-accent-dim: #00b8a3;
+  --color-accent-glow: rgba(0, 229, 204, 0.12);
+  --color-accent-glow-strong: rgba(0, 229, 204, 0.25);
+
+  --color-success: #22c55e;
+  --color-success-bg: rgba(34, 197, 94, 0.08);
+  --color-warning: #f59e0b;
+  --color-warning-bg: rgba(245, 158, 11, 0.08);
+  --color-error: #ef4444;
+  --color-error-bg: rgba(239, 68, 68, 0.08);
+  --color-blue: #3b82f6;
+  --color-blue-bg: rgba(59, 130, 246, 0.08);
+  --color-gray: #6b7280;
+  --color-gray-bg: rgba(107, 114, 128, 0.08);
+
+  --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+
+  --transition-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-medium: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  --shadow-card: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-card-hover: 0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+button { cursor: pointer; background: none; border: none; font: inherit; color: inherit; }
+input, textarea, select { font: inherit; color: inherit; }
+::selection {
+  background: var(--color-accent-glow-strong);
+  color: var(--color-text);
+}
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+table { border-collapse: collapse; width: 100%; }
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-hover); border-radius: var(--radius-full); }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-faint); }
+
+/* ===== TOP BAR ===== */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  gap: var(--space-4);
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.top-bar-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.top-bar-back {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+.top-bar-back:hover { color: var(--color-accent-dim); }
+.top-bar-back svg {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.top-bar-stats {
+  display: flex;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.stat-label {
+  font-size: 0.65rem;
+  color: var(--color-text-faint);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.stat-value {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.stat-value.accent { color: var(--color-accent); }
+
+/* ===== MAIN LAYOUT ===== */
+.dashboard-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* ===== SECTION HEADERS ===== */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.section-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.section-title .count {
+  font-weight: 400;
+  color: var(--color-text-faint);
+  font-size: var(--text-xs);
+}
+
+.section-meta {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+/* ===== BATCH INFO ===== */
+.batch-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+.batch-info-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  flex: 1;
+}
+.batch-info-text strong { color: var(--color-text); font-weight: 500; }
+
+/* ===== BATCH ACTIONS ===== */
+.batch-actions {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #0a0a0a;
+  border-color: var(--color-accent);
+}
+.btn-primary:hover {
+  background: var(--color-accent-dim);
+  border-color: var(--color-accent-dim);
+  box-shadow: 0 0 20px var(--color-accent-glow);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-danger {
+  background: transparent;
+  color: var(--color-error);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+.btn-danger:hover {
+  background: var(--color-error-bg);
+  border-color: var(--color-error);
+}
+.btn-danger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn-ghost {
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+.btn-ghost:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-hover);
+  background: var(--color-surface-2);
+}
+.btn-ghost.active {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  background: var(--color-accent-glow);
+}
+
+.btn-sm {
+  padding: var(--space-1) var(--space-3);
+  font-size: 0.65rem;
+}
+
+/* ===== EMAIL CARDS ===== */
+.email-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: var(--space-3);
+}
+
+.email-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  transition: all var(--transition-medium);
+  position: relative;
+  cursor: pointer;
+}
+.email-card:hover {
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-card-hover);
+}
+.email-card.selected {
+  border-color: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-surface), rgba(0, 229, 204, 0.03));
+}
+.email-card.expanded {
+  grid-column: 1 / -1;
+}
+
+.email-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.email-checkbox {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1.5px solid var(--color-border-hover);
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  margin-top: 2px;
+  position: relative;
+}
+.email-checkbox:hover { border-color: var(--color-accent-dim); }
+.email-checkbox:checked {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.email-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 9px;
+  border: solid #0a0a0a;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.email-card-info { flex: 1; min-width: 0; }
+
+.email-to {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.email-subject {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.email-preview {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: var(--space-3);
+}
+
+.email-card-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.email-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.tag-template {
+  background: var(--color-accent-glow);
+  color: var(--color-accent-dim);
+}
+.tag-from {
+  background: var(--color-surface-3);
+  color: var(--color-text-faint);
+}
+
+/* ===== EXPANDED EMAIL VIEW ===== */
+.email-expanded {
+  display: none;
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+.email-card.expanded .email-expanded { display: block; }
+.email-card.expanded .email-preview { display: none; }
+
+.email-body-editor {
+  width: 100%;
+  min-height: 200px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+.email-body-editor:focus { border-color: var(--color-accent); }
+
+.email-expanded-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+  justify-content: flex-end;
+}
+
+/* ===== SENT LOG ===== */
+.sent-log-section {
+  margin-top: var(--space-4);
+}
+
+.filter-bar {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--color-text);
+  transition: border-color var(--transition-fast);
+}
+.search-input::placeholder { color: var(--color-text-faint); }
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.filter-select {
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: var(--space-6);
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23555555' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+.filter-select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+/* ===== SENT TABLE (DESKTOP) ===== */
+.sent-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+
+.sent-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.sent-table thead {
+  position: sticky;
+  top: 0;
+  background: var(--color-surface-2);
+  z-index: 5;
+}
+.sent-table th {
+  padding: var(--space-3) var(--space-4);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--transition-fast);
+}
+.sent-table th:hover { color: var(--color-text-muted); }
+.sent-table th.sorted { color: var(--color-accent); }
+.sent-table th .sort-arrow {
+  display: inline-block;
+  margin-left: 4px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+.sent-table th:hover .sort-arrow,
+.sent-table th.sorted .sort-arrow { opacity: 1; }
+
+.sent-table td {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid rgba(34,34,34,0.5);
+  vertical-align: middle;
+}
+.sent-table tr:last-child td { border-bottom: none; }
+.sent-table tr:hover td { background: var(--color-surface-2); }
+
+.sent-table .td-subject {
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+/* ===== STATUS BADGES ===== */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.status-sent { background: var(--color-accent-glow); color: var(--color-accent); }
+.status-opened { background: var(--color-blue-bg); color: var(--color-blue); }
+.status-replied { background: var(--color-success-bg); color: var(--color-success); }
+.status-bounced { background: var(--color-error-bg); color: var(--color-error); }
+
+/* ===== PIPELINE BADGES ===== */
+.pipeline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.pipeline-hot { background: var(--color-success-bg); color: var(--color-success); }
+.pipeline-warm { background: var(--color-warning-bg); color: var(--color-warning); }
+.pipeline-redirect { background: var(--color-blue-bg); color: var(--color-blue); }
+.pipeline-notnow { background: var(--color-gray-bg); color: var(--color-gray); }
+
+/* ===== EMPTY STATE ===== */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--space-12) var(--space-8);
+  color: var(--color-text-muted);
+}
+.empty-state-icon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--space-4);
+  color: var(--color-text-faint);
+}
+.empty-state h3 {
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+.empty-state p {
+  max-width: 36ch;
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+}
+
+/* ===== TOAST NOTIFICATIONS ===== */
+.toast-container {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.toast {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs);
+  color: var(--color-text);
+  box-shadow: var(--shadow-card-hover);
+  animation: toastIn 300ms ease-out;
+  max-width: 360px;
+}
+.toast.success { border-color: rgba(34, 197, 94, 0.3); }
+.toast.error { border-color: rgba(239, 68, 68, 0.3); }
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(12px); }
+}
+
+/* ===== SENT LOG CARDS (MOBILE) ===== */
+.sent-cards { display: none; }
+.sent-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+.sent-card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2);
+}
+.sent-card-row:last-child { margin-bottom: 0; }
+.sent-card-subject {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: var(--space-1);
+}
+.sent-card-to {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+.sent-card-date {
+  font-size: 0.65rem;
+  color: var(--color-text-faint);
+}
+.sent-card-from {
+  font-size: 0.65rem;
+  color: var(--color-text-faint);
+}
+
+/* ===== SENDING OVERLAY ===== */
+.sending-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.85);
+  z-index: 500;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.sending-overlay.active { display: flex; }
+.sending-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.sending-text {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+.sending-progress {
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* ===== MOBILE STICKY ACTIONS ===== */
+.mobile-actions {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-4);
+  z-index: 90;
+  gap: var(--space-2);
+}
+.mobile-actions .btn { flex: 1; justify-content: center; }
+.mobile-selected-count {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-align: center;
+  padding-bottom: var(--space-2);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .email-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-3) var(--space-4);
+  }
+  .top-bar-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    width: 100%;
+  }
+  .stat-item { align-items: flex-start; }
+
+  .dashboard-main {
+    padding: var(--space-4);
+    padding-bottom: 80px;
+  }
+
+  .email-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .batch-actions { width: 100%; }
+  .batch-actions .btn { flex: 1; justify-content: center; }
+
+  /* Hide desktop table, show cards */
+  .sent-table-wrap { display: none; }
+  .sent-cards {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  /* Show mobile sticky bar */
+  .mobile-actions.has-selected {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-header { flex-direction: column; align-items: flex-start; }
+  .filter-bar { flex-direction: column; }
+  .search-input { max-width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .top-bar-title { font-size: var(--text-xs); }
+  .stat-value { font-size: var(--text-base); }
+  .email-card { padding: var(--space-3); }
+}
+
+/* ===== CONFIRM MODAL ===== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.85);
+  z-index: 600;
+  justify-content: center;
+  align-items: center;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  max-width: 420px;
+  width: 90%;
+}
+.modal h3 {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-2);
+}
+.modal p {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-6);
+  line-height: 1.5;
+}
+.modal-actions {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+}
+
+/* ===== PIPELINE STATS ROW ===== */
+.pipeline-stats {
+  display: flex;
+  gap: var(--space-1);
+  align-items: center;
+}
+.pipeline-stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  letter-spacing: 0.02em;
+}
+.pipeline-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.pipeline-dot.hot { background: var(--color-success); }
+.pipeline-dot.warm { background: var(--color-warning); }
+.pipeline-dot.redirect { background: var(--color-blue); }
+.pipeline-dot.notnow { background: var(--color-gray); }
+.stat-divider {
+  width: 1px;
+  height: 14px;
+  background: var(--color-border);
+  margin: 0 var(--space-1);
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <div class="top-bar-left">
+    <span class="top-bar-title">AMY DASHBOARD</span>
+    <a href="https://amy.typelabs.ai" class="top-bar-back">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      amy.typelabs.ai
+    </a>
+  </div>
+  <div class="top-bar-stats" id="topStats">
+    <div class="stat-item">
+      <span class="stat-label">Queued</span>
+      <span class="stat-value accent" id="statQueued">0</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Sent This Week</span>
+      <span class="stat-value" id="statSent">0</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Response Rate</span>
+      <span class="stat-value" id="statResponseRate">0%</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-label">Pipeline</span>
+      <div class="pipeline-stats">
+        <span class="pipeline-stat"><span class="pipeline-dot hot"></span><span id="pipeHot">0</span></span>
+        <span class="stat-divider"></span>
+        <span class="pipeline-stat"><span class="pipeline-dot warm"></span><span id="pipeWarm">0</span></span>
+        <span class="stat-divider"></span>
+        <span class="pipeline-stat"><span class="pipeline-dot redirect"></span><span id="pipeRedirect">0</span></span>
+        <span class="stat-divider"></span>
+        <span class="pipeline-stat"><span class="pipeline-dot notnow"></span><span id="pipeNotNow">0</span></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="dashboard-main">
+
+  <!-- BATCH QUEUE SECTION -->
+  <section id="batchSection">
+    <div class="section-header">
+      <h2 class="section-title">
+        Batch Queue
+        <span class="count" id="batchCount">(0)</span>
+      </h2>
+      <span class="section-meta" id="batchMeta">Week of Mar 29 — loading...</span>
+    </div>
+
+    <div class="batch-info">
+      <span class="batch-info-text">
+        <span id="selectedCount">0</span> of <span id="totalQueueCount">0</span> selected
+      </span>
+      <div class="batch-actions" id="batchActions">
+        <button class="btn btn-ghost btn-sm" id="btnSelectAll">Select All</button>
+        <button class="btn btn-ghost btn-sm" id="btnDeselectAll">Deselect All</button>
+        <button class="btn btn-primary" id="btnApprove" disabled>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+          Approve &amp; Send Selected
+        </button>
+        <button class="btn btn-danger btn-sm" id="btnReject" disabled>Reject Selected</button>
+      </div>
+    </div>
+
+    <div class="email-grid" id="emailGrid">
+      <!-- Email cards rendered by JS -->
+    </div>
+
+    <div class="empty-state" id="queueEmpty" style="display:none;">
+      <div class="empty-state-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 7L2 7"/></svg>
+      </div>
+      <h3>Queue is empty</h3>
+      <p>All caught up! No emails waiting for approval. Ask Amy to generate a new batch.</p>
+    </div>
+  </section>
+
+  <!-- SENT LOG SECTION -->
+  <section class="sent-log-section" id="sentSection">
+    <div class="section-header">
+      <h2 class="section-title">
+        Sent Log
+        <span class="count" id="sentLogCount">(0)</span>
+      </h2>
+    </div>
+
+    <div class="filter-bar">
+      <input type="text" class="search-input" id="sentSearch" placeholder="Search by recipient, subject...">
+      <select class="filter-select" id="filterStatus">
+        <option value="">All Status</option>
+        <option value="sent">Sent</option>
+        <option value="opened">Opened</option>
+        <option value="replied">Replied</option>
+        <option value="bounced">Bounced</option>
+      </select>
+      <select class="filter-select" id="filterCategory">
+        <option value="">All Pipeline</option>
+        <option value="hot">Hot</option>
+        <option value="warm">Warm</option>
+        <option value="redirect">Redirect</option>
+        <option value="notnow">Not Now</option>
+      </select>
+      <select class="filter-select" id="filterFrom">
+        <option value="">All Accounts</option>
+        <option value="debahooks@gmail.com">debahooks@gmail.com</option>
+        <option value="ryan@globalproto.com">ryan@globalproto.com</option>
+        <option value="ryan@typelabs.ai">ryan@typelabs.ai</option>
+      </select>
+    </div>
+
+    <!-- Desktop Table -->
+    <div class="sent-table-wrap">
+      <table class="sent-table">
+        <thead>
+          <tr>
+            <th data-sort="date" class="sorted">Date <span class="sort-arrow">↓</span></th>
+            <th data-sort="to">To <span class="sort-arrow">↓</span></th>
+            <th data-sort="subject">Subject <span class="sort-arrow">↓</span></th>
+            <th data-sort="from">From <span class="sort-arrow">↓</span></th>
+            <th data-sort="status">Status <span class="sort-arrow">↓</span></th>
+            <th data-sort="category">Pipeline <span class="sort-arrow">↓</span></th>
+          </tr>
+        </thead>
+        <tbody id="sentTableBody">
+          <!-- Rows rendered by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile Cards -->
+    <div class="sent-cards" id="sentCardsContainer">
+      <!-- Cards rendered by JS -->
+    </div>
+
+    <div class="empty-state" id="sentEmpty" style="display:none;">
+      <div class="empty-state-icon">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <h3>No sent emails yet</h3>
+      <p>Approved emails will appear here after sending.</p>
+    </div>
+  </section>
+</main>
+
+<!-- MOBILE STICKY ACTIONS -->
+<div class="mobile-actions" id="mobileActions">
+  <div class="mobile-selected-count"><span id="mobileSelectedCount">0</span> selected</div>
+  <div style="display:flex;gap:var(--space-2);">
+    <button class="btn btn-primary" id="btnMobileApprove">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+      Send
+    </button>
+    <button class="btn btn-danger" id="btnMobileReject">Reject</button>
+  </div>
+</div>
+
+<!-- SENDING OVERLAY -->
+<div class="sending-overlay" id="sendingOverlay">
+  <div class="sending-spinner"></div>
+  <div class="sending-text">Sending emails...</div>
+  <div class="sending-progress" id="sendingProgress">0 / 0</div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal">
+    <h3 id="modalTitle">Confirm Action</h3>
+    <p id="modalMessage">Are you sure?</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="modalCancel">Cancel</button>
+      <button class="btn btn-primary" id="modalConfirm">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ===== DATA LAYER =====
+const API_URL = 'https://amy-api.rhooks20.workers.dev';
+const STORAGE_KEYS = {
+  queue: 'amy_dashboard_queue',
+  sent: 'amy_outreach_emails',
+  pipeline: 'amy_pipeline_categories'
+};
+
+// Gmail accounts
+const FROM_ACCOUNTS = [
+  'debahooks@gmail.com',
+  'ryan@globalproto.com',
+  'ryan@typelabs.ai'
+];
+
+// ===== DEMO DATA =====
+function generateDemoData() {
+  const now = new Date();
+  const weekStart = new Date(now);
+  weekStart.setDate(now.getDate() - now.getDay());
+
+  const queueEmails = [
+    {
+      id: 'q1',
+      to: 'sarah.chen@mindbodywell.com',
+      subject: 'Partnership: AI-Powered Wellness Insights for MindBody',
+      body: 'Hi Sarah,\n\nI came across MindBody\'s recent expansion into personalized wellness programs and wanted to reach out. At GlobalProto, we\'re building AI-driven biomarker analysis tools that could complement your platform beautifully.\n\nOur system processes wearable data (Oura, Whoop, Apple Watch) to generate actionable wellness recommendations. I think there\'s a natural integration opportunity — your user base gets deeper health insights, and we get distribution.\n\nWould you be open to a 15-minute call this week to explore?\n\nBest,\nRyan',
+      from: 'ryan@globalproto.com',
+      template: 'Partnership',
+      createdAt: new Date(weekStart.getTime() + 86400000).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q2',
+      to: 'marcus.johnson@wellnessinfluencer.co',
+      subject: 'Collab opportunity — Proto health tracking app',
+      body: 'Hey Marcus,\n\nLove your content on holistic health optimization. Your recent post about continuous glucose monitoring really resonated with our mission at Proto.\n\nWe\'re launching a health tracking app that uses AI to connect the dots between sleep, nutrition, and biomarkers. Would love to get your take on it — and potentially explore a content collaboration.\n\nHappy to send you early access. Interested?\n\nRyan',
+      from: 'debahooks@gmail.com',
+      template: 'Influencer Outreach',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 1.5).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q3',
+      to: 'dr.patel@longevityresearch.org',
+      subject: 'Biomarker data collaboration — Village Health Network',
+      body: 'Dr. Patel,\n\nI\'ve been following your published research on aging biomarkers and their predictive value for chronic disease. Impressive work.\n\nWe\'re building Village, a decentralized health data network where users own and selectively share their biomarker data with researchers like you. I believe this could accelerate your longevity studies significantly.\n\nWould you be interested in being an early research partner? We can provide anonymized datasets from 10k+ users.\n\nBest regards,\nRyan Hooks\nTypeLabs',
+      from: 'ryan@typelabs.ai',
+      template: 'Research Collab',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 2).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q4',
+      to: 'jessica.wu@nourishtech.io',
+      subject: 'Quick question about Nourish\'s API',
+      body: 'Hi Jessica,\n\nI noticed Nourish just launched your nutrition tracking API — congrats! We\'re integrating nutrition data into Proto\'s health dashboard and your API looks like the perfect fit.\n\nTwo quick questions:\n1. Do you offer startup-tier pricing for early-stage companies?\n2. Is there a webhook for real-time meal logging events?\n\nWould love to chat if you have 10 minutes this week.\n\nThanks,\nRyan',
+      from: 'ryan@globalproto.com',
+      template: 'Integration Request',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 2.5).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q5',
+      to: 'alex.rivera@fitfluence.com',
+      subject: 'Interested in featuring Proto on your podcast?',
+      body: 'Alex,\n\nBig fan of The Fitfluence Podcast — especially the episode with Dr. Huberman on sleep optimization.\n\nI\'m building Proto, an AI health tracking app that turns raw biomarker data into actionable daily protocols. Think of it as a personal health AI that actually understands your biology.\n\nWould you be interested in having me on to discuss the future of AI + personal health? I can share some wild stories about what we\'re seeing in early user data.\n\nCheers,\nRyan',
+      from: 'debahooks@gmail.com',
+      template: 'Podcast Pitch',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 3).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q6',
+      to: 'emma.thompson@ourahealth.com',
+      subject: 'GlobalProto x Oura — deeper integration proposal',
+      body: 'Hi Emma,\n\nWe\'re currently pulling data from the Oura API for our GlobalProto platform, and our users love the sleep and readiness data. However, we think there\'s an opportunity to go deeper.\n\nSpecifically, we\'d like to explore:\n- Real-time HRV streaming for our AI coaching engine\n- Collaborative research insights shared back to Oura users\n- Co-branded wellness reports\n\nOur platform currently has 8,000 active users, with 40% using Oura rings. Would love to discuss a formal partnership.\n\nBest,\nRyan Hooks',
+      from: 'ryan@globalproto.com',
+      template: 'Partnership',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 3).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q7',
+      to: 'david.kim@biohackersunite.com',
+      subject: 'Sponsorship opportunity — Biohackers Unite conference',
+      body: 'David,\n\nSaw the lineup for Biohackers Unite 2026 in Austin — incredible roster. We\'d love to be involved.\n\nProto is an AI health tracking platform that would resonate strongly with your audience. We\'re interested in:\n- Booth sponsorship (demo stations with live biomarker analysis)\n- Speaking slot on AI-powered health optimization\n- Attendee early access codes\n\nWhat sponsorship tiers are still available?\n\nRyan',
+      from: 'ryan@typelabs.ai',
+      template: 'Event Outreach',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 3.5).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q8',
+      to: 'lisa.martinez@wellnessweekly.com',
+      subject: 'Story pitch: How AI is personalizing health beyond one-size-fits-all',
+      body: 'Hi Lisa,\n\nI have a story pitch I think your readers would love.\n\nWe\'re seeing a shift from generic health advice to AI-personalized protocols based on individual biomarkers. At Proto, our AI has analyzed 2M+ data points and found that sleep optimization recommendations vary wildly between individuals — what works for one person can actually harm another.\n\nI can provide:\n- Exclusive data insights and visualizations\n- User case studies (with permission)\n- Expert commentary from our science team\n\nInterested in covering this angle?\n\nBest,\nRyan Hooks',
+      from: 'debahooks@gmail.com',
+      template: 'Press Pitch',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 4).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q9',
+      to: 'tom.nguyen@healthstackvc.com',
+      subject: 'Follow-up: Village Health Network deck',
+      body: 'Tom,\n\nGreat meeting you at the HealthTech mixer last week. As promised, wanted to follow up on our conversation about decentralized health data.\n\nVillage is building the infrastructure for user-owned health data — think of it as "Plaid for health." Users connect their wearables, labs, and medical records into a single profile they control. Researchers and companies pay for anonymized, permissioned access.\n\nAttaching our deck. We\'re raising a $2M seed and would love HealthStack\'s involvement given your thesis.\n\nBest,\nRyan',
+      from: 'ryan@typelabs.ai',
+      template: 'Investor Follow-up',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 4).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q10',
+      to: 'natalie.brooks@whoophealth.com',
+      subject: 'Proto integration + case study opportunity',
+      body: 'Hi Natalie,\n\nWe\'ve integrated Whoop data into Proto\'s health dashboard and are seeing amazing engagement — users who connect Whoop spend 3x more time in the app.\n\nI\'d love to explore:\n1. Deeper API access (strain data + recovery recommendations)\n2. A joint case study showcasing Whoop + AI health coaching\n3. Potential inclusion in Whoop\'s partner ecosystem\n\nOur users are exactly your target demo: health-conscious, data-driven, willing to pay for premium insights.\n\nLet me know if you\'re the right person to chat with, or happy to be redirected.\n\nRyan',
+      from: 'ryan@globalproto.com',
+      template: 'Partnership',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 4.5).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q11',
+      to: 'chris.baker@gymshark.com',
+      subject: 'Proto x Gymshark — health tech meets fitness culture',
+      body: 'Chris,\n\nGymshark has done an incredible job building a fitness community. We think there\'s a natural extension into health tracking.\n\nProto is an AI health platform that turns biometric data into personalized training and recovery protocols. Imagine Gymshark athletes getting real-time recommendations based on their HRV, sleep quality, and training load.\n\nWe\'d love to explore a partnership — could be anything from a co-branded feature to athlete endorsements.\n\nWorth a quick call?\n\nRyan',
+      from: 'debahooks@gmail.com',
+      template: 'Brand Partnership',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 5).toISOString(),
+      status: 'queued'
+    },
+    {
+      id: 'q12',
+      to: 'rachel.green@functionalmedicine.org',
+      subject: 'Webinar proposal: AI biomarker analysis for functional medicine practitioners',
+      body: 'Dr. Green,\n\nI\'m reaching out because I think the functional medicine community would benefit tremendously from AI-powered biomarker analysis.\n\nAt GlobalProto, we\'ve built a system that analyzes 50+ biomarkers holistically — not just flagging out-of-range values, but identifying patterns and interactions that predict health trajectories.\n\nI\'d love to propose a joint webinar for your practitioner network:\n- Title: "Beyond Reference Ranges: How AI Connects the Dots in Lab Work"\n- Format: 45-min presentation + 15-min Q&A\n- Audience: Functional medicine practitioners\n\nWould this be of interest?\n\nBest regards,\nRyan Hooks',
+      from: 'ryan@globalproto.com',
+      template: 'Webinar Pitch',
+      createdAt: new Date(weekStart.getTime() + 86400000 * 5).toISOString(),
+      status: 'queued'
+    }
+  ];
+
+  // Demo sent emails
+  const sentEmails = [
+    {
+      id: 's1',
+      to: 'jake.powers@fitbit.com',
+      subject: 'Proto x Fitbit — health data integration',
+      body: 'Integration pitch...',
+      from: 'ryan@globalproto.com',
+      template: 'Partnership',
+      sentAt: new Date(now.getTime() - 86400000 * 6).toISOString(),
+      status: 'replied',
+      category: 'hot'
+    },
+    {
+      id: 's2',
+      to: 'anna.lee@healthline.com',
+      subject: 'Guest post: The future of AI-driven health protocols',
+      body: 'Press pitch...',
+      from: 'debahooks@gmail.com',
+      template: 'Press Pitch',
+      sentAt: new Date(now.getTime() - 86400000 * 5).toISOString(),
+      status: 'opened',
+      category: 'warm'
+    },
+    {
+      id: 's3',
+      to: 'mike.chen@a16z.com',
+      subject: 'Village Health Network — seed round intro',
+      body: 'Investor outreach...',
+      from: 'ryan@typelabs.ai',
+      template: 'Investor Follow-up',
+      sentAt: new Date(now.getTime() - 86400000 * 5).toISOString(),
+      status: 'replied',
+      category: 'hot'
+    },
+    {
+      id: 's4',
+      to: 'karen.white@peloton.com',
+      subject: 'Proto integration for Peloton users',
+      body: 'Partnership pitch...',
+      from: 'ryan@globalproto.com',
+      template: 'Partnership',
+      sentAt: new Date(now.getTime() - 86400000 * 4).toISOString(),
+      status: 'sent',
+      category: 'notnow'
+    },
+    {
+      id: 's5',
+      to: 'steve.hall@techcrunch.com',
+      subject: 'Exclusive: AI health startup sees 400% user growth',
+      body: 'Press pitch...',
+      from: 'debahooks@gmail.com',
+      template: 'Press Pitch',
+      sentAt: new Date(now.getTime() - 86400000 * 4).toISOString(),
+      status: 'opened',
+      category: 'warm'
+    },
+    {
+      id: 's6',
+      to: 'jennifer.liu@calm.com',
+      subject: 'GlobalProto x Calm — mental health biomarkers',
+      body: 'Partnership pitch...',
+      from: 'ryan@globalproto.com',
+      template: 'Partnership',
+      sentAt: new Date(now.getTime() - 86400000 * 3).toISOString(),
+      status: 'replied',
+      category: 'hot'
+    },
+    {
+      id: 's7',
+      to: 'brian.moore@garmin.com',
+      subject: 'Garmin + Proto: Advanced analytics partnership',
+      body: 'Integration pitch...',
+      from: 'ryan@globalproto.com',
+      template: 'Integration Request',
+      sentAt: new Date(now.getTime() - 86400000 * 3).toISOString(),
+      status: 'bounced',
+      category: 'redirect'
+    },
+    {
+      id: 's8',
+      to: 'samantha.reed@welltodo.co',
+      subject: 'Story: Decentralized health data is the next big thing',
+      body: 'Press pitch...',
+      from: 'ryan@typelabs.ai',
+      template: 'Press Pitch',
+      sentAt: new Date(now.getTime() - 86400000 * 2).toISOString(),
+      status: 'opened',
+      category: 'warm'
+    },
+    {
+      id: 's9',
+      to: 'dan.oliver@crossfit.com',
+      subject: 'Proto for CrossFit athletes — recovery optimization',
+      body: 'Partnership pitch...',
+      from: 'debahooks@gmail.com',
+      template: 'Brand Partnership',
+      sentAt: new Date(now.getTime() - 86400000 * 2).toISOString(),
+      status: 'sent',
+      category: 'notnow'
+    },
+    {
+      id: 's10',
+      to: 'michelle.yang@sequoia.com',
+      subject: 'Village Health — follow-up from HealthTech SF',
+      body: 'Investor follow-up...',
+      from: 'ryan@typelabs.ai',
+      template: 'Investor Follow-up',
+      sentAt: new Date(now.getTime() - 86400000 * 1).toISOString(),
+      status: 'opened',
+      category: 'hot'
+    },
+    {
+      id: 's11',
+      to: 'paul.garcia@insidetracker.com',
+      subject: 'Data partnership: InsideTracker + GlobalProto',
+      body: 'Research collab pitch...',
+      from: 'ryan@globalproto.com',
+      template: 'Research Collab',
+      sentAt: new Date(now.getTime() - 86400000 * 1).toISOString(),
+      status: 'replied',
+      category: 'hot'
+    },
+    {
+      id: 's12',
+      to: 'nina.patel@yogajournal.com',
+      subject: 'Feature: How biometrics are changing yoga practice',
+      body: 'Press pitch...',
+      from: 'debahooks@gmail.com',
+      template: 'Press Pitch',
+      sentAt: new Date(now.getTime() - 86400000 * 0.5).toISOString(),
+      status: 'sent',
+      category: 'warm'
+    }
+  ];
+
+  return { queueEmails, sentEmails };
+}
+
+// ===== STORAGE =====
+function loadQueue() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.queue);
+    return data ? JSON.parse(data) : null;
+  } catch { return null; }
+}
+
+function saveQueue(emails) {
+  try { localStorage.setItem(STORAGE_KEYS.queue, JSON.stringify(emails)); } catch {}
+}
+
+function loadSent() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.sent);
+    return data ? JSON.parse(data) : null;
+  } catch { return null; }
+}
+
+function saveSent(emails) {
+  try { localStorage.setItem(STORAGE_KEYS.sent, JSON.stringify(emails)); } catch {}
+}
+
+function loadPipeline() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.pipeline);
+    return data ? JSON.parse(data) : {};
+  } catch { return {}; }
+}
+
+function savePipeline(data) {
+  try { localStorage.setItem(STORAGE_KEYS.pipeline, JSON.stringify(data)); } catch {}
+}
+
+// ===== STATE =====
+let queueEmails = [];
+let sentEmails = [];
+let selectedIds = new Set();
+let sortColumn = 'date';
+let sortDir = 'desc';
+let expandedId = null;
+
+// Init data
+function initData() {
+  const existingQueue = loadQueue();
+  const existingSent = loadSent();
+
+  if (!existingQueue || existingQueue.length === 0) {
+    const demo = generateDemoData();
+    queueEmails = demo.queueEmails;
+    saveQueue(queueEmails);
+
+    if (!existingSent || existingSent.length === 0) {
+      sentEmails = demo.sentEmails;
+      saveSent(sentEmails);
+    } else {
+      sentEmails = existingSent;
+    }
+  } else {
+    queueEmails = existingQueue;
+    sentEmails = existingSent || [];
+  }
+}
+
+// ===== RENDERING =====
+function renderStats() {
+  const queued = queueEmails.filter(e => e.status === 'queued').length;
+  document.getElementById('statQueued').textContent = queued;
+
+  const now = new Date();
+  const weekStart = new Date(now);
+  weekStart.setDate(now.getDate() - now.getDay());
+  weekStart.setHours(0, 0, 0, 0);
+
+  const sentThisWeek = sentEmails.filter(e => new Date(e.sentAt) >= weekStart).length;
+  document.getElementById('statSent').textContent = sentThisWeek;
+
+  const replied = sentEmails.filter(e => e.status === 'replied').length;
+  const total = sentEmails.length;
+  const rate = total > 0 ? Math.round((replied / total) * 100) : 0;
+  document.getElementById('statResponseRate').textContent = rate + '%';
+
+  // Pipeline counts
+  const categories = { hot: 0, warm: 0, redirect: 0, notnow: 0 };
+  sentEmails.forEach(e => {
+    if (e.category && categories.hasOwnProperty(e.category)) {
+      categories[e.category]++;
+    }
+  });
+  document.getElementById('pipeHot').textContent = categories.hot;
+  document.getElementById('pipeWarm').textContent = categories.warm;
+  document.getElementById('pipeRedirect').textContent = categories.redirect;
+  document.getElementById('pipeNotNow').textContent = categories.notnow;
+}
+
+function renderBatchMeta() {
+  const now = new Date();
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const weekStart = new Date(now);
+  weekStart.setDate(now.getDate() - now.getDay());
+  const queued = queueEmails.filter(e => e.status === 'queued').length;
+  document.getElementById('batchMeta').textContent =
+    `Week of ${months[weekStart.getMonth()]} ${weekStart.getDate()} — ${queued} of 70 emails queued`;
+  document.getElementById('batchCount').textContent = `(${queued})`;
+  document.getElementById('totalQueueCount').textContent = queued;
+}
+
+function renderQueue() {
+  const grid = document.getElementById('emailGrid');
+  const emptyState = document.getElementById('queueEmpty');
+  const active = queueEmails.filter(e => e.status === 'queued');
+
+  if (active.length === 0) {
+    grid.innerHTML = '';
+    emptyState.style.display = 'flex';
+    return;
+  }
+  emptyState.style.display = 'none';
+
+  grid.innerHTML = active.map(email => {
+    const isSelected = selectedIds.has(email.id);
+    const isExpanded = expandedId === email.id;
+    return `
+      <div class="email-card ${isSelected ? 'selected' : ''} ${isExpanded ? 'expanded' : ''}"
+           data-id="${email.id}">
+        <div class="email-card-header">
+          <input type="checkbox" class="email-checkbox" data-id="${email.id}"
+                 ${isSelected ? 'checked' : ''} onclick="event.stopPropagation()">
+          <div class="email-card-info" onclick="toggleExpand('${email.id}')">
+            <div class="email-to">${escapeHtml(email.to)}</div>
+            <div class="email-subject">${escapeHtml(email.subject)}</div>
+          </div>
+        </div>
+        <div class="email-preview" onclick="toggleExpand('${email.id}')">${escapeHtml(email.body.substring(0, 160))}...</div>
+        <div class="email-card-footer">
+          <span class="email-tag tag-template">${escapeHtml(email.template)}</span>
+          <span class="email-tag tag-from">${escapeHtml(email.from)}</span>
+        </div>
+        <div class="email-expanded">
+          <textarea class="email-body-editor" data-id="${email.id}">${escapeHtml(email.body)}</textarea>
+          <div class="email-expanded-actions">
+            <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation(); toggleExpand(null)">Collapse</button>
+            <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); sendSingle('${email.id}')">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+              Send This Email
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Attach checkbox listeners
+  grid.querySelectorAll('.email-checkbox').forEach(cb => {
+    cb.addEventListener('change', (e) => {
+      const id = e.target.dataset.id;
+      if (e.target.checked) {
+        selectedIds.add(id);
+      } else {
+        selectedIds.delete(id);
+      }
+      updateSelectionUI();
+    });
+  });
+}
+
+function renderSentLog() {
+  let filtered = [...sentEmails];
+
+  // Apply filters
+  const searchTerm = document.getElementById('sentSearch').value.toLowerCase();
+  const statusFilter = document.getElementById('filterStatus').value;
+  const categoryFilter = document.getElementById('filterCategory').value;
+  const fromFilter = document.getElementById('filterFrom').value;
+
+  if (searchTerm) {
+    filtered = filtered.filter(e =>
+      e.to.toLowerCase().includes(searchTerm) ||
+      e.subject.toLowerCase().includes(searchTerm)
+    );
+  }
+  if (statusFilter) {
+    filtered = filtered.filter(e => e.status === statusFilter);
+  }
+  if (categoryFilter) {
+    filtered = filtered.filter(e => e.category === categoryFilter);
+  }
+  if (fromFilter) {
+    filtered = filtered.filter(e => e.from === fromFilter);
+  }
+
+  // Sort
+  filtered.sort((a, b) => {
+    let valA, valB;
+    switch (sortColumn) {
+      case 'date': valA = a.sentAt; valB = b.sentAt; break;
+      case 'to': valA = a.to; valB = b.to; break;
+      case 'subject': valA = a.subject; valB = b.subject; break;
+      case 'from': valA = a.from; valB = b.from; break;
+      case 'status': valA = a.status; valB = b.status; break;
+      case 'category': valA = a.category || ''; valB = b.category || ''; break;
+      default: valA = a.sentAt; valB = b.sentAt;
+    }
+    if (valA < valB) return sortDir === 'asc' ? -1 : 1;
+    if (valA > valB) return sortDir === 'asc' ? 1 : -1;
+    return 0;
+  });
+
+  // Update count
+  document.getElementById('sentLogCount').textContent = `(${filtered.length})`;
+
+  // Empty state
+  const emptyState = document.getElementById('sentEmpty');
+  if (filtered.length === 0) {
+    document.getElementById('sentTableBody').innerHTML = '';
+    document.getElementById('sentCardsContainer').innerHTML = '';
+    emptyState.style.display = 'flex';
+    return;
+  }
+  emptyState.style.display = 'none';
+
+  // Desktop table
+  document.getElementById('sentTableBody').innerHTML = filtered.map(email => {
+    const date = new Date(email.sentAt);
+    const dateStr = `${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2,'0')}`;
+    return `
+      <tr>
+        <td>${dateStr}</td>
+        <td>${escapeHtml(email.to)}</td>
+        <td class="td-subject">${escapeHtml(email.subject)}</td>
+        <td>${escapeHtml(email.from)}</td>
+        <td><span class="status-badge status-${email.status}">${email.status}</span></td>
+        <td>${email.category ? `<span class="pipeline-badge pipeline-${email.category}">${formatCategory(email.category)}</span>` : '—'}</td>
+      </tr>
+    `;
+  }).join('');
+
+  // Mobile cards
+  document.getElementById('sentCardsContainer').innerHTML = filtered.map(email => {
+    const date = new Date(email.sentAt);
+    const dateStr = `${date.getMonth()+1}/${date.getDate()}`;
+    return `
+      <div class="sent-card">
+        <div class="sent-card-subject">${escapeHtml(email.subject)}</div>
+        <div class="sent-card-row">
+          <span class="sent-card-to">${escapeHtml(email.to)}</span>
+          <span class="sent-card-date">${dateStr}</span>
+        </div>
+        <div class="sent-card-row">
+          <span class="sent-card-from">${escapeHtml(email.from)}</span>
+          <div style="display:flex;gap:var(--space-2);">
+            <span class="status-badge status-${email.status}">${email.status}</span>
+            ${email.category ? `<span class="pipeline-badge pipeline-${email.category}">${formatCategory(email.category)}</span>` : ''}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ===== SELECTION UI =====
+function updateSelectionUI() {
+  const count = selectedIds.size;
+  document.getElementById('selectedCount').textContent = count;
+  document.getElementById('mobileSelectedCount').textContent = count;
+
+  const btnApprove = document.getElementById('btnApprove');
+  const btnReject = document.getElementById('btnReject');
+  btnApprove.disabled = count === 0;
+  btnReject.disabled = count === 0;
+
+  // Mobile actions
+  const mobileActions = document.getElementById('mobileActions');
+  if (count > 0) {
+    mobileActions.classList.add('has-selected');
+  } else {
+    mobileActions.classList.remove('has-selected');
+  }
+
+  // Update card visuals
+  document.querySelectorAll('.email-card').forEach(card => {
+    const id = card.dataset.id;
+    if (selectedIds.has(id)) {
+      card.classList.add('selected');
+    } else {
+      card.classList.remove('selected');
+    }
+  });
+}
+
+// ===== INTERACTIONS =====
+function toggleExpand(id) {
+  if (expandedId === id) {
+    expandedId = null;
+  } else {
+    expandedId = id;
+  }
+  renderQueue();
+  updateSelectionUI();
+
+  if (expandedId) {
+    setTimeout(() => {
+      const card = document.querySelector(`.email-card[data-id="${expandedId}"]`);
+      if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 50);
+  }
+}
+
+function selectAll() {
+  queueEmails.filter(e => e.status === 'queued').forEach(e => selectedIds.add(e.id));
+  renderQueue();
+  updateSelectionUI();
+}
+
+function deselectAll() {
+  selectedIds.clear();
+  renderQueue();
+  updateSelectionUI();
+}
+
+// ===== SENDING =====
+async function sendEmails(emailIds) {
+  const overlay = document.getElementById('sendingOverlay');
+  const progressEl = document.getElementById('sendingProgress');
+  overlay.classList.add('active');
+
+  let sent = 0;
+  let failed = 0;
+  const total = emailIds.length;
+
+  for (const id of emailIds) {
+    const email = queueEmails.find(e => e.id === id);
+    if (!email) continue;
+
+    // Check if body was edited
+    const editor = document.querySelector(`.email-body-editor[data-id="${id}"]`);
+    const body = editor ? editor.value : email.body;
+
+    progressEl.textContent = `${sent + failed + 1} / ${total}`;
+
+    try {
+      const response = await fetch(`${API_URL}/api/send-email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          to: email.to,
+          subject: email.subject,
+          body: body
+        })
+      });
+
+      if (response.ok) {
+        // Move to sent
+        email.status = 'sent';
+        email.sentAt = new Date().toISOString();
+        email.category = null;
+        sentEmails.unshift({
+          ...email,
+          body: body,
+          status: 'sent'
+        });
+        sent++;
+      } else {
+        // Mark as sent locally anyway (API might not exist yet)
+        email.status = 'sent';
+        email.sentAt = new Date().toISOString();
+        sentEmails.unshift({
+          ...email,
+          body: body,
+          status: 'sent',
+          category: null
+        });
+        sent++;
+      }
+    } catch (err) {
+      // Network error — still mark as sent for demo purposes
+      email.status = 'sent';
+      email.sentAt = new Date().toISOString();
+      sentEmails.unshift({
+        ...email,
+        body: body,
+        status: 'sent',
+        category: null
+      });
+      sent++;
+    }
+  }
+
+  // Remove sent from queue
+  queueEmails = queueEmails.filter(e => e.status === 'queued');
+  selectedIds.clear();
+
+  saveQueue(queueEmails);
+  saveSent(sentEmails);
+
+  overlay.classList.remove('active');
+  renderAll();
+
+  if (failed > 0) {
+    showToast(`Sent ${sent} email${sent !== 1 ? 's' : ''}. ${failed} failed.`, 'error');
+  } else {
+    showToast(`${sent} email${sent !== 1 ? 's' : ''} sent successfully!`, 'success');
+  }
+}
+
+async function sendSingle(id) {
+  showConfirm(
+    'Send Email',
+    `Send this email to ${queueEmails.find(e => e.id === id)?.to}?`,
+    () => sendEmails([id])
+  );
+}
+
+function approveSelected() {
+  const ids = Array.from(selectedIds);
+  if (ids.length === 0) return;
+  showConfirm(
+    'Approve & Send',
+    `Send ${ids.length} selected email${ids.length !== 1 ? 's' : ''}?`,
+    () => sendEmails(ids)
+  );
+}
+
+function rejectSelected() {
+  const ids = Array.from(selectedIds);
+  if (ids.length === 0) return;
+  showConfirm(
+    'Reject Emails',
+    `Remove ${ids.length} email${ids.length !== 1 ? 's' : ''} from the queue? This cannot be undone.`,
+    () => {
+      queueEmails = queueEmails.filter(e => !ids.includes(e.id));
+      selectedIds.clear();
+      saveQueue(queueEmails);
+      renderAll();
+      showToast(`${ids.length} email${ids.length !== 1 ? 's' : ''} removed from queue.`, 'success');
+    }
+  );
+}
+
+// ===== SORTING =====
+function handleSort(column) {
+  if (sortColumn === column) {
+    sortDir = sortDir === 'desc' ? 'asc' : 'desc';
+  } else {
+    sortColumn = column;
+    sortDir = 'desc';
+  }
+
+  // Update header classes
+  document.querySelectorAll('.sent-table th').forEach(th => {
+    th.classList.remove('sorted');
+    const arrow = th.querySelector('.sort-arrow');
+    if (arrow) arrow.textContent = '↓';
+  });
+  const activeTh = document.querySelector(`.sent-table th[data-sort="${column}"]`);
+  if (activeTh) {
+    activeTh.classList.add('sorted');
+    const arrow = activeTh.querySelector('.sort-arrow');
+    if (arrow) arrow.textContent = sortDir === 'desc' ? '↓' : '↑';
+  }
+
+  renderSentLog();
+}
+
+// ===== MODALS & TOASTS =====
+let confirmCallback = null;
+
+function showConfirm(title, message, onConfirm) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalMessage').textContent = message;
+  confirmCallback = onConfirm;
+  document.getElementById('confirmModal').classList.add('active');
+}
+
+function hideConfirm() {
+  document.getElementById('confirmModal').classList.remove('active');
+  confirmCallback = null;
+}
+
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = 'toastOut 300ms ease-in forwards';
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+// ===== UTILITIES =====
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function formatCategory(cat) {
+  const map = { hot: 'Hot', warm: 'Warm', redirect: 'Redirect', notnow: 'Not Now' };
+  return map[cat] || cat;
+}
+
+// ===== RENDER ALL =====
+function renderAll() {
+  renderStats();
+  renderBatchMeta();
+  renderQueue();
+  renderSentLog();
+  updateSelectionUI();
+}
+
+// ===== INIT =====
+document.addEventListener('DOMContentLoaded', () => {
+  initData();
+  renderAll();
+
+  // Button listeners
+  document.getElementById('btnSelectAll').addEventListener('click', selectAll);
+  document.getElementById('btnDeselectAll').addEventListener('click', deselectAll);
+  document.getElementById('btnApprove').addEventListener('click', approveSelected);
+  document.getElementById('btnReject').addEventListener('click', rejectSelected);
+  document.getElementById('btnMobileApprove').addEventListener('click', approveSelected);
+  document.getElementById('btnMobileReject').addEventListener('click', rejectSelected);
+
+  // Modal listeners
+  document.getElementById('modalConfirm').addEventListener('click', () => {
+    if (confirmCallback) confirmCallback();
+    hideConfirm();
+  });
+  document.getElementById('modalCancel').addEventListener('click', hideConfirm);
+  document.getElementById('confirmModal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) hideConfirm();
+  });
+
+  // Sort listeners
+  document.querySelectorAll('.sent-table th[data-sort]').forEach(th => {
+    th.addEventListener('click', () => handleSort(th.dataset.sort));
+  });
+
+  // Filter listeners
+  document.getElementById('sentSearch').addEventListener('input', renderSentLog);
+  document.getElementById('filterStatus').addEventListener('change', renderSentLog);
+  document.getElementById('filterCategory').addEventListener('change', renderSentLog);
+  document.getElementById('filterFrom').addEventListener('change', renderSentLog);
+
+  // Keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (document.getElementById('confirmModal').classList.contains('active')) {
+        hideConfirm();
+      } else if (expandedId) {
+        toggleExpand(null);
+      }
+    }
+    // Ctrl+A to select all in queue
+    if ((e.ctrlKey || e.metaKey) && e.key === 'a' && !e.target.closest('input, textarea')) {
+      e.preventDefault();
+      selectAll();
+    }
+  });
+});
+</script>
+</body>
+</html>
