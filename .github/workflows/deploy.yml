@@ -1,10 +1,10 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to Cloudflare
 on:
   push:
     branches: [main]
 
 jobs:
-  deploy:
+  deploy-pages:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -13,3 +13,14 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: a9b6ede7ff4494054e2d2da2d7b2f20a
           command: pages deploy . --project-name=typelabs-amy
+
+  deploy-api-worker:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: a9b6ede7ff4494054e2d2da2d7b2f20a
+          workingDirectory: api
+          command: deploy
