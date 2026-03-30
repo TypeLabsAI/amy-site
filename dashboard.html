@@ -727,6 +727,7 @@ table { border-collapse: collapse; width: 100%; }
 }
 .toast.success { border-color: rgba(34, 197, 94, 0.3); }
 .toast.error { border-color: rgba(239, 68, 68, 0.3); }
+.toast.warning { border-color: rgba(245, 158, 11, 0.3); }
 @keyframes toastIn {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1185,7 +1186,8 @@ table { border-collapse: collapse; width: 100%; }
 
 <script>
 // ===== DATA LAYER =====
-const API_URL = 'https://amy-api.rhooks20.workers.dev';
+// Dynamic API URL: works locally and after deploy_website
+const API_URL = '__PORT_5555__'.startsWith('__') ? 'http://localhost:5555' : '__PORT_5555__';
 
 // Account definitions
 const ACCOUNTS = [
@@ -1609,27 +1611,30 @@ async function sendEmails(emailIds) {
         })
       });
 
-      // Move to sent regardless of response (demo-friendly)
-      email.status = 'sent';
-      email.sentAt = new Date().toISOString();
-      sent.unshift({
-        ...email,
-        body: body,
-        status: 'sent',
-        category: null
-      });
-      sentCount++;
+      const result = await response.json();
+
+      if (response.ok && result.ok) {
+        // Successfully sent
+        email.status = 'sent';
+        email.sentAt = new Date().toISOString();
+        sent.unshift({
+          ...email,
+          body: body,
+          status: 'sent',
+          category: null
+        });
+        sentCount++;
+      } else {
+        // API returned an error
+        console.error(`Send failed for ${email.to}:`, result.error || result.details);
+        email.status = 'queued'; // Keep in queue
+        failed++;
+      }
     } catch (err) {
-      // Network error — still mark as sent for demo purposes
-      email.status = 'sent';
-      email.sentAt = new Date().toISOString();
-      sent.unshift({
-        ...email,
-        body: body,
-        status: 'sent',
-        category: null
-      });
-      sentCount++;
+      // Network error
+      console.error(`Network error sending to ${email.to}:`, err);
+      email.status = 'queued'; // Keep in queue
+      failed++;
     }
   }
 
@@ -1643,9 +1648,11 @@ async function sendEmails(emailIds) {
   overlay.classList.remove('active');
   renderAll();
 
-  if (failed > 0) {
-    showToast(`Sent ${sentCount} email${sentCount !== 1 ? 's' : ''}. ${failed} failed.`, 'error');
-  } else {
+  if (failed > 0 && sentCount === 0) {
+    showToast(`Failed to send ${failed} email${failed !== 1 ? 's' : ''}. Check console for details.`, 'error');
+  } else if (failed > 0) {
+    showToast(`Sent ${sentCount}, failed ${failed}. Failed emails remain in queue.`, 'warning');
+  } else if (sentCount > 0) {
     showToast(`${sentCount} email${sentCount !== 1 ? 's' : ''} sent successfully!`, 'success');
   }
 }
