@@ -34,8 +34,8 @@ app.use(express.json());
 // When a new Gmail account is connected, add its connection_id here
 const ACCOUNT_MAP = {
   'ryan@typelabs.ai': { connectionId: 2638499, name: 'Ryan Hooks (TypeLabs)' },
-  // TODO: Add these after connecting the accounts
-  // 'debahooks@gmail.com': { connectionId: null, name: 'Deb Hooks' },
+  'debahooks@gmail.com': { connectionId: 2925388, name: 'Deb Hooks' },
+  // TODO: Add after connecting the account
   // 'ryan@globalproto.com': { connectionId: null, name: 'Ryan Hooks (GlobalProto)' },
 };
 
