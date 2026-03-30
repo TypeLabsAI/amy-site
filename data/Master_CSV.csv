@@ -1,0 +1,919 @@
+email,name,domain,sent_to,received_from,two_way,batch_msgs,batch_score,midwest,total
+shubhang.shankar@syngenta.com,Shankar Shubhang CHBS,syngenta.com,23,17,17,0,0,0,40
+deborah@the-artery.com,Deborah Sullivan,the-artery.com,18,13,13,0,0,0,31
+thor.thors@compass.com,Thor Thors,compass.com,15,11,11,10,30,0,36
+d.ruis@genesissystems.global,Danielle Ruis,genesissystems.global,11,10,10,0,0,0,21
+jeroen@holthausadvies.nl,Jeroen Holthaus | Holthaus Advies B.V.,holthausadvies.nl,9,11,9,0,0,0,20
+dallen@businessinsider.com,Daniel Allen,businessinsider.com,11,8,8,0,0,0,19
+arinder@anterainc.com,Arinder Mahal,anterainc.com,10,8,8,0,0,0,18
+nancy@cannected.com,Nancy Riveong,cannected.com,8,9,8,0,0,0,17
+max@newbridgefounders.com,Max Schulze,newbridgefounders.com,12,7,7,0,0,0,19
+ryao@nvidia.com,Renee Yao,nvidia.com,12,7,7,0,0,0,19
+tristan@goheadwaters.com,Tristan Strauss,goheadwaters.com,11,7,7,0,0,0,18
+rfowler@naturalgrocers.com,Rachel Fowler,naturalgrocers.com,9,7,7,0,0,0,16
+noah@gothamgreenpartners.com,Noah Dubin,gothamgreenpartners.com,9,7,7,0,0,0,16
+ksegal@jmseas.com,Kenneth Segal,jmseas.com,7,9,7,0,0,0,16
+pbeaudoin@nvidia.com,Pierre-Antoine Beaudoin,nvidia.com,21,6,6,2,6,0,29
+david@connectscaleconsulting.com,David Cohen,connectscaleconsulting.com,12,6,6,0,0,0,18
+jackson@phippsandco.com,Jackson Peddy,phippsandco.com,6,9,6,2,6,0,17
+wiz@warmbelly.farm,Francis Wisniewski,warmbelly.farm,11,6,6,0,0,0,17
+alex@newlab.com,Alex King,newlab.com,10,6,6,0,0,0,16
+michael.gawley@eisneramper.com,"Gawley, Michael",eisneramper.com,8,6,6,0,0,0,14
+jtierney@forcebrands.com,Jen Tierney,forcebrands.com,8,6,6,0,0,0,14
+gzuckert@harvestinc.com,Gregory Zuckert,harvestinc.com,7,6,6,0,0,0,13
+michele@solosciences.com,Michele Tousignant,solosciences.com,7,6,6,0,0,0,13
+rob.moerkens@biobestgroup.com,Rob Moerkens,biobestgroup.com,7,6,6,0,0,0,13
+caoun@nvidia.com,Charbel Aoun,nvidia.com,6,6,6,0,0,0,12
+katie@h2talent.com,Katie Graika,h2talent.com,6,6,6,0,0,0,12
+storey@plenty.ag,Nate Storey,plenty.ag,24,5,5,0,0,0,29
+shaun.stewart@newlab.com,Shaun Stewart,newlab.com,7,5,5,6,18,0,18
+gshemanek@provenprocessgroup.com,Greg Shemanek,provenprocessgroup.com,10,5,5,2,6,0,17
+phe@letsgrow.com,Peter Hendriks,letsgrow.com,11,5,5,0,0,0,16
+mehran.yousefi@coop.ch,Mehran Yousefi,coop.ch,9,5,5,2,6,0,16
+tbacklin@thirdeyegen.com,Trevor Backlin,thirdeyegen.com,9,5,5,0,0,0,14
+cmintken@bka.org,Caley Mintken,bka.org,8,5,5,0,0,0,13
+elly@newfarepartners.com,Elly Truesdell,newfarepartners.com,8,5,5,0,0,0,13
+jkristof@phylos.bio,Jes Kristof,phylos.bio,5,8,5,0,0,0,13
+collin@happyvalley.org,Collin Palmer,happyvalley.org,8,5,5,0,0,0,13
+rdo@ascentageadvisors.com,R. Drew Ogden,ascentageadvisors.com,7,5,5,0,0,0,12
+c.magdalena@kew.org,Carlos Magdalena,kew.org,7,5,5,0,0,0,12
+sam@geometricenergy.ca,Samuel Reid,geometricenergy.ca,7,5,5,0,0,0,12
+caroline@mssngpeces.com,Caroline Abreu,mssngpeces.com,6,5,5,0,0,0,11
+jdhillon@naturalgrocers.com,Jonathan Dhillon,naturalgrocers.com,6,5,5,0,0,0,11
+nancy.kwik@zuerich.ch,Kwik Nancy (StRA),zuerich.ch,5,6,5,0,0,0,11
+sven@solyd.one,Sven D,solyd.one,6,5,5,0,0,0,11
+bart@edengrowsystems.com,Bart Womack,edengrowsystems.com,6,5,5,0,0,0,11
+vico@the-artery.com,Vico Sharabani,the-artery.com,5,5,5,0,0,0,10
+robbv@madisonproperty.com,Robb Vogel,madisonproperty.com,5,5,5,0,0,0,10
+nmodi@modiarch.com,Namita Modi,modiarch.com,5,5,5,0,0,0,10
+valerie@astanor.com,Valerie Christy,astanor.com,5,5,5,0,0,0,10
+frontdesk@menla.org,Menla Front Desk,menla.org,6,4,4,11,33,0,21
+ben@spacefruit.de,Ben Spacefruit,spacefruit.de,9,4,4,0,0,0,13
+cal.loo@flir.com,"Loo, Cal",flir.com,8,4,4,0,0,0,12
+dana@farbo.com,Dana Farbo,farbo.com,6,4,4,2,6,0,12
+david@skipintroadvisors.com,David Feldman,skipintroadvisors.com,4,6,4,1,3,0,11
+lee@plantx.co,Lee Sweatt,plantx.co,4,7,4,0,0,0,11
+r.mcgrath@buck.tv,Ryan McGrath,buck.tv,7,4,4,0,0,0,11
+los@greenhorizoncalifornia.com,Los Arias,greenhorizoncalifornia.com,4,6,4,0,0,0,10
+chris@firstacrecapital.com,Chris Brady,firstacrecapital.com,4,4,4,2,6,0,10
+dd@appliedinvention.com,Dave Douglas,appliedinvention.com,4,6,4,0,0,0,10
+liz.mazzara@roberthalf.com,"Mazzara, Liz (04620)",roberthalf.com,6,4,4,0,0,0,10
+erosen@forcebrands.com,Eric Rosen,forcebrands.com,6,4,4,0,0,0,10
+kieren@blockapps.net,Kieren,blockapps.net,6,4,4,0,0,0,10
+chiggins@hortamericas.com,Chris Higgins,hortamericas.com,6,4,4,0,0,0,10
+jenny@mothershiplab.com,Jenny Beasley,mothershiplab.com,6,4,4,0,0,0,10
+ravi@smartcow.ai,Ravi Kiran,smartcow.ai,6,4,4,0,0,0,10
+tthors@thorthors.com,Thor Thors,thorthors.com,6,4,4,0,0,0,10
+flir@mailgb.custhelp.com,FLIR Customer Support,mailgb.custhelp.com,4,5,4,0,0,0,9
+adrian.almeida@sensei.ag,Adrian Almeida,sensei.ag,5,4,4,0,0,0,9
+ali.roberts@mcgrathpropertygroup.com,Ali Roberts,mcgrathpropertygroup.com,5,4,4,0,0,0,9
+dave@appharvest.com,Dave Nichols,appharvest.com,5,4,4,0,0,0,9
+wv@hoogendoorn.ca,Willem Verkade,hoogendoorn.ca,4,4,4,0,0,0,8
+james.hauk@sensei.ag,James Hauk,sensei.ag,4,4,4,0,0,0,8
+peter@innogreen.be,Peter Stradiot,innogreen.be,4,4,4,0,0,0,8
+dave@mssngpeces.com,Dave Saltzman,mssngpeces.com,3,4,3,21,63,0,28
+shaun@newlab.com,Shaun Stewart,newlab.com,5,3,3,14,42,0,22
+wiley@honeycomb.vc,Wiley Mathews,honeycomb.vc,4,3,3,10,30,0,17
+adam@iunu.com,Adam Greenberg,iunu.com,9,3,3,0,0,0,12
+d.harden@genesissystems.global,Dave Harden,genesissystems.global,8,3,3,0,0,0,11
+ralph.f.fritsche@nasa.gov,"Fritsche, Ralph F. (KSC-UBA00)",nasa.gov,7,3,3,0,0,0,10
+john.cumbers@synbiobeta.com,John Cumbers,synbiobeta.com,7,3,3,0,0,0,10
+brock@brockmmurphy.com,Brock Murphy,brockmmurphy.com,6,3,3,0,0,0,9
+saeidm@sugarbud.ca,Saeid Mobini,sugarbud.ca,6,3,3,0,0,0,9
+stefani@stefanibardin.com,Stefani Bardin,stefanibardin.com,3,5,3,0,0,0,8
+laurie.smith@nesta.org.uk,Laurie Smith,nesta.org.uk,3,5,3,0,0,0,8
+c.lane@provenprocessgroup.com,Chris  Lane,provenprocessgroup.com,3,4,3,0,0,0,7
+adamglasser@sbcglobal.net,Adam Glasser,sbcglobal.net,4,3,3,0,0,0,7
+omri.admon@newlab.com,Omri Admon,newlab.com,4,3,3,0,0,0,7
+finances@bilberrycorporation.com,Nicolas Raymond,bilberrycorporation.com,3,4,3,0,0,0,7
+aubrey.flagler@touchdownvc.com,Aubrey Flagler,touchdownvc.com,4,3,3,0,0,0,7
+kelly.ratchinsky@innovationnorway.no,Kelly Ratchinsky,innovationnorway.no,4,3,3,0,0,0,7
+molly@ecoagtech.com,Molly Stanek,ecoagtech.com,3,4,3,0,0,0,7
+briana.ryan@newlab.com,Briana Ryan,newlab.com,4,3,3,0,0,0,7
+maran@trailblazerspresents.com,Maran Smith,trailblazerspresents.com,3,4,3,0,0,0,7
+dave.ext@sensei.ag,Dave Douglas,sensei.ag,3,3,3,0,0,0,6
+dana@dmvarstudio.com,Dana Farbo,dmvarstudio.com,3,3,3,0,0,0,6
+knishimura@plenty.ag,Kei Nishimura,plenty.ag,3,3,3,0,0,0,6
+jbarnhart@harvestinc.com,Josh Barnhart,harvestinc.com,3,3,3,0,0,0,6
+rene@belladonna.bz,Rene W. Bastian,belladonna.bz,3,3,3,0,0,0,6
+support@bilberrycorporation.com,Support Bilberry,bilberrycorporation.com,3,3,3,0,0,0,6
+rafael.gutierrez@jujotech.com,Rafael Gutierrez,jujotech.com,3,3,3,0,0,0,6
+jarret@vibrant.vc,Jarret,vibrant.vc,3,3,3,0,0,0,6
+zeshan@brandathon.io,Zeshan,brandathon.io,3,2,2,24,72,0,29
+amp.weber@bluewin.ch,Adrian Weber,bluewin.ch,4,2,2,6,18,0,12
+molly@sensei.com,Molly Stanek,sensei.com,7,2,2,0,0,0,9
+asunkara@wisys.org,"Sunkara, Adhira",wisys.org,6,2,2,0,0,0,8
+wfay@wisys.org,"Fay, Wilson",wisys.org,2,4,2,2,6,0,8
+sam@cubiczan.com,Sam Desigan,cubiczan.com,2,6,2,0,0,0,8
+alex@solosciences.com,Ashesh Shah,solosciences.com,5,2,2,0,0,0,7
+sam.cassatt@consensys.net,Sam Cassatt,consensys.net,4,2,2,1,3,0,7
+joseph.oswald@carta.com,Joseph Oswald,carta.com,2,4,2,0,0,0,6
+akopf@artemisag.com,Allison Kopf,artemisag.com,2,2,2,2,6,0,6
+bkane@magicleap.com,Brian Kane,magicleap.com,2,2,2,2,6,0,6
+ralph.hunnekens@liof.nl,Ralph Hunnekens,liof.nl,4,2,2,0,0,0,6
+trey@r7partners.com,Trey Ward,r7partners.com,2,4,2,0,0,0,6
+geoffgeddes@thewordwarrior.ca,Geoffgeddes,thewordwarrior.ca,2,4,2,0,0,0,6
+id_at_transferwise_com_w7y42fuxkq_9acbe8e5@privaterelay.appleid.com,TransferWise Support,privaterelay.appleid.com,2,3,2,0,0,0,5
+matt@msxconsulting.com,Matt Staniszewski,msxconsulting.com,2,3,2,0,0,0,5
+mark.van_haaren@syngenta.com,Van Haaren Mark CHBS,syngenta.com,3,2,2,0,0,0,5
+angie.qarry@qdeeptech.com,Angie Qarry,qdeeptech.com,3,2,2,0,0,0,5
+bart@holthausadvies.nl,Bart,holthausadvies.nl,3,2,2,0,0,0,5
+jcherry@marionporter.com,Marion Porter,marionporter.com,2,3,2,0,0,0,5
+richard_falcone@vuzix.com,Richard Falcone,vuzix.com,3,2,2,0,0,0,5
+adrian@astanor.com,Adrian Friederich,astanor.com,2,3,2,0,0,0,5
+mark@bloomfield.ai,Mark DeSantis,bloomfield.ai,3,2,2,0,0,0,5
+angelabotman@holthausadvies.nl,Angelabotman,holthausadvies.nl,2,3,2,0,0,0,5
+hello@tq.co,Hello,tq.co,2,3,2,0,0,0,5
+amandagoodwin@hello.cartegraph.com,Amandagoodwin,hello.cartegraph.com,2,2,2,0,0,0,4
+tom@randolphandmortimergroup.com,Tom Styles,randolphandmortimergroup.com,2,2,2,0,0,0,4
+5g548k9nr45bziamfp0svq7raz@convo.zillow.com,Breanna Mihalovic,convo.zillow.com,2,2,2,0,0,0,4
+david@davidjwolff.com,David Wolff,davidjwolff.com,2,2,2,0,0,0,4
+hallie@newfarepartners.com,Hallie Bonnar,newfarepartners.com,2,2,2,0,0,0,4
+jonathan@blockdata.tech,Jonathan Knegtel,blockdata.tech,2,2,2,0,0,0,4
+jake.sigmond@flir.com,"Sigmond, Jake (US)",flir.com,2,2,2,0,0,0,4
+info@zilverenkruis.nl,Zilveren Kruis,zilverenkruis.nl,2,2,2,0,0,0,4
+megdorf@premierbanking.com,Melissa Egdorf,premierbanking.com,2,2,2,0,0,0,4
+consumer.services@scotts.com,SMG - Consumer Services,scotts.com,2,2,2,0,0,0,4
+dave@optimal.ag,David Hunter,optimal.ag,2,2,2,0,0,0,4
+bhull@integratedbio.com,Brad Hull,integratedbio.com,2,2,2,0,0,0,4
+tsaxton@terra.bz,Tony Saxton,terra.bz,2,2,2,0,0,0,4
+david@unioneditorial.com,David Apolo,unioneditorial.com,2,2,2,0,0,0,4
+info@yo-bk.com,Info,yo-bk.com,1,1,1,444,2266,0,446
+lee@leerosenblatt.com,Lee Rosenblatt,leerosenblatt.com,2,1,1,151,635,2,154
+customerhelp@maxon.net,Customerhelp,maxon.net,1,1,1,16,48,0,18
+paul@paul-shapiro.com,Paul Shapiro,paul-shapiro.com,2,1,1,14,122,10,17
+palle@solosciences.com,Palle Pedersen,solosciences.com,8,1,1,2,6,0,11
+businessplans@a16z.com,Businessplans,a16z.com,1,1,1,7,21,0,9
+nbonatsos@generalcatalyst.com,Niko Bonatsos,generalcatalyst.com,1,1,1,5,15,0,7
+atiquet@nvidia.com,Alain Tiquet,nvidia.com,4,1,1,1,3,0,6
+john.biver@eaglepoint.com,John Biver,eaglepoint.com,5,1,1,0,0,0,6
+becky@thefund.vc,Becky Yang,thefund.vc,1,1,1,4,12,0,6
+adam@brockit.com,Adɐm Johnson,brockit.com,4,1,1,0,0,0,5
+michael.highland@buck.co,Michael Highland,buck.co,2,1,1,2,6,0,5
+hanna@tgi-hq.com,Hanna Sahaidachnaya,tgi-hq.com,4,1,1,0,0,0,5
+info@meetup.com,Machine Learning and Data Science Business Network,meetup.com,0,0,0,11944,59858,254,11944
+tminsider@theatermania.com,TheaterMania,theatermania.com,0,0,0,2640,13350,515,2640
+dailybrief@promaxbda.org,Daily Brief by PromaxBDA,promaxbda.org,0,0,0,1549,7874,111,1549
+support@motionographer.com,Motionographer� Jobs,motionographer.com,0,0,0,1216,6138,3,1216
+team@mint.com,Mint.com,mint.com,0,0,0,1071,5395,0,1071
+hello@touchofmodern.com,Touch of Modern,touchofmodern.com,0,0,0,991,5075,33,991
+moveon-help@list.moveon.org,"Helen F. Chavez, widow of Cesar Chavez, via MoveOn.org Civic Action",list.moveon.org,0,0,0,877,4541,186,877
+nyc-rb-list@meetup.com,Andrew Leung (Meetup),meetup.com,0,0,0,804,2474,3,804
+thisweek@refinery29.com,Refinery29 Everywhere,refinery29.com,0,0,0,701,3581,9,701
+act@credoaction.com,"Michael Kieschnick, CEO, and Becky Bond, Political Director",credoaction.com,0,0,0,687,3558,109,687
+swnalert@sendwordnow.com,Notify N.Y.C.,sendwordnow.com,0,0,0,651,3327,8,651
+hello@goodinc.com,Your New Daily GOOD,goodinc.com,0,0,0,642,3286,9,642
+alangrayson@graysonforcongress.com,"Danny Glover, Actor and Activist",graysonforcongress.com,0,0,0,631,3278,50,631
+discussions@founderdating.com,FounderDating Discussions,founderdating.com,0,0,0,604,3140,86,604
+avaaz@avaaz.org,Former UK Prime Minister Gordon Brown - with Avaaz,avaaz.org,0,0,0,507,2621,10,507
+talent@angel.co,Nicos Kekchidis via AngelList,angel.co,0,0,0,473,2485,68,473
+fandango@movies.fandango.com,Fandango,movies.fandango.com,0,0,0,447,2386,44,447
+adage@crainalerts.com,Ad Age News Alerts,crainalerts.com,0,0,0,431,2284,36,431
+ebay@reply1.ebay.com,eBay Motors,reply1.ebay.com,0,0,0,424,2160,0,424
+info@coyuchi.com,C O Y U C H I,coyuchi.com,0,0,0,419,2147,3,419
+reminder@fab.com,Fab,fab.com,0,0,0,414,2114,1,414
+mixmaghq@mixmag.net,Mixmag Editorial,mixmag.net,0,0,0,406,2181,28,406
+costco@digital.costco.com,Costco Connections,digital.costco.com,0,0,0,405,2170,24,405
+alert@indeed.com,Indeed Job Alert,indeed.com,0,0,0,398,2165,1149,398
+info@mjfreeway.com,MJ Freeways West Coast Wednesdays,mjfreeway.com,0,0,0,398,2140,63,398
+do-not-reply@newsletter.designtaxi.com,The Creative Connect,newsletter.designtaxi.com,0,0,0,396,2043,5,396
+alerts@peaceactionwest.org,"Rep. Raul Grijalva, for Peace Action West",peaceactionwest.org,0,0,0,387,2001,5,387
+movies@mkt.fandango.com,Fandango FanMail,mkt.fandango.com,0,0,0,381,1965,5,381
+hello@hellowisp.com,"Monica Cepak, CEO at Wisp",hellowisp.com,0,0,0,377,1937,0,377
+editor@toptal.com,Toptal Engineering Blog,toptal.com,0,0,0,367,1875,0,367
+listings@listingsproject.com,Listings Project - Stephanie Diamond,listingsproject.com,0,0,0,367,1955,185,367
+do-not-reply@designtaxi.com,DesignTAXI,designtaxi.com,0,0,0,367,1891,4,367
+customerexperience@hortamericas.com,Hort Americas,hortamericas.com,0,0,0,366,1926,7,366
+v@victoriastevens.net,v@victoriastevens.net,victoriastevens.net,0,0,0,364,1456,3,364
+charlie@cineticmedia.com,Charlie Olsky,cineticmedia.com,0,0,0,350,1860,25,350
+accounts@bespokepost.com,Bespoke Post,bespokepost.com,0,0,0,343,1771,4,343
+david@igetrvng.com,MAKING TIME,igetrvng.com,0,0,0,341,1788,10,341
+headquarters@b.evo.com,[evo.com],b.evo.com,0,0,0,339,1735,0,339
+support@yidio.com,Yidio Weekly,yidio.com,0,0,0,325,1673,2,325
+hello@hello.generalassemb.ly,Marketing Courses at GA,hello.generalassemb.ly,0,0,0,325,1681,4,325
+mailinglist@popgunbooking.com,PopGun Presents,popgunbooking.com,0,0,0,323,1735,69,323
+bd@bd.blackdiamondequipment.com,Black Diamond Pro,bd.blackdiamondequipment.com,0,0,0,322,1650,0,322
+whatsup@brooklynbowl.com,Brooklyn Bowl,brooklynbowl.com,0,0,0,313,1685,112,313
+email@email-autoclubgroup.aaa.com,AAA,email-autoclubgroup.aaa.com,0,0,0,313,1703,321,313
+news@a24films.com,A24,a24films.com,0,0,0,310,1615,0,310
+hello@gochirp.com,Chirp,gochirp.com,0,0,0,308,1592,0,308
+support@docsend.com,Andrea Vilchez-Osorio (DocSend),docsend.com,0,0,0,304,1571,2,304
+info@digieffects.com,Digieffects,digieffects.com,0,0,0,303,1555,0,303
+informed@brooklyndenimco.com,Brooklyn Denim Co.,brooklyndenimco.com,0,0,0,300,1548,2,300
+wallasoftware@hellowalla.com,Kula Yoga & Wellness,hellowalla.com,0,0,0,289,1605,50,289
+billy@buck.tv,Billy Mack,buck.tv,0,0,0,283,1157,0,283
+stine@ghostrobot.com,Stine Chrone Moisen,ghostrobot.com,0,0,0,279,1149,5,279
+sales@usaberkeyfilters.com,USA Berkey Filters,usaberkeyfilters.com,0,0,0,277,1433,2,277
+getrad@igetrvng.com,Making Time,igetrvng.com,0,0,0,276,1486,15,276
+hello@grazly.co,Mike at Grazly,grazly.co,0,0,0,270,1423,2,270
+info@knittingfactory.com,Knitting Factory Brooklyn,knittingfactory.com,0,0,0,260,1423,82,260
+socialight@socialight.tv,Socialight Entertainment,socialight.tv,0,0,0,257,1356,7,257
+hello@slowfactory.com,Everything is Political,slowfactory.com,0,0,0,256,1389,11,256
+info@atlasobscura.com,Atlas Obscura,atlasobscura.com,0,0,0,254,1408,51,254
+info@c24gallery.com,C24 Gallery,c24gallery.com,0,0,0,251,1406,20,251
+mary@lilacpreservationproject.org,Lilac Preservation Project,lilacpreservationproject.org,0,0,0,248,1312,2,248
+hola@mubi.com,MUBI,mubi.com,0,0,0,247,1283,2,247
+emilie@cineticmedia.com,Cinetic Marketing,cineticmedia.com,0,0,0,245,1345,38,245
+morgan@consulatenyc.com,Morgan Escobar,consulatenyc.com,0,0,0,237,1009,6,237
+rune.park@henrikvibskov.com,HENRIK VIBSKOV BOUTIQUE NEW YORK,henrikvibskov.com,0,0,0,236,1220,0,236
+specialoffers@stratfor.com,Stratfor Worldview Exclusive Offers,stratfor.com,0,0,0,234,1218,2,234
+info@fab.com,Fab.com,fab.com,0,0,0,231,1203,2,231
+timothy@timothysaccenti.com,timothy@timothysaccenti.com,timothysaccenti.com,0,0,0,231,935,0,231
+info@snowpeak.com,Snow Peak Campfield,snowpeak.com,0,0,0,230,1215,0,230
+job@neuvoo.com,Your daily job alert | Neuvoo,neuvoo.com,0,0,0,228,1251,17,228
+brandon@theshoplift.com,Brandon at The Shoplift,theshoplift.com,0,0,0,227,963,0,227
+info@mollusksurfshop.com,Mollusk Surf Shop,mollusksurfshop.com,0,0,0,225,1165,0,225
+shapeways@shapeways.com,Shapeways,shapeways.com,0,0,0,223,1159,1,223
+mail@info.adobesystems.com,Adobe Create Magazine,info.adobesystems.com,0,0,0,222,1150,0,222
+support@nadsunder.com,John from NADS,nadsunder.com,0,0,0,219,1160,0,219
+phx-gwb@sendwordnow.com,Notify NYC,sendwordnow.com,0,0,0,219,1139,1,219
+lisa@weareplus.com,Production@plusetplus.com,weareplus.com,0,0,0,218,994,17,218
+thelabsf@thelab.org,The Lab,thelab.org,0,0,0,218,1216,34,218
+info@bowerypresents.com,The Bowery Presents,bowerypresents.com,0,0,0,216,1203,49,216
+support@aescripts.com,aescripts + aeplugins support,aescripts.com,0,0,0,213,1121,4,213
+courtney@cineticmedia.com,Courtney Ott,cineticmedia.com,0,0,0,213,1185,25,213
+jlusa@jlindeberg.com,J.LINDEBERG GOLF,jlindeberg.com,0,0,0,207,1079,1,207
+events@cameony.com,events@cameony.com,cameony.com,0,0,0,206,1150,219,206
+news@englert.org,The Englert Theatre,englert.org,0,0,0,205,1191,457,205
+mcinfo@ups.com,UPS,ups.com,0,0,0,203,1160,137,203
+rachel@redantler.com,rachel@redantler.com,redantler.com,0,0,0,203,859,5,203
+yo@hb.huckberry.com,Huckberry,hb.huckberry.com,0,0,0,201,1110,10,201
+info@alterbrooklyn.com,ALTER,alterbrooklyn.com,0,0,0,201,1053,2,201
+hello@dola.com,DoLA,dola.com,0,0,0,200,1084,11,200
+networksolutions@mail1.networksolutions.com,Network Solutions,mail1.networksolutions.com,0,0,0,200,1040,0,200
+info@andreaschwan.com,Paço Imperial | IPHAN Instituto do Patrimônio Histórico e Artístico Nacional,andreaschwan.com,0,0,0,198,1110,89,198
+staples@connected.staples.com,Sandy Douglas,connected.staples.com,0,0,0,194,1010,0,194
+ajpersico@msn.com,Tony Persico,msn.com,0,0,0,193,1048,113,193
+mydesignshop@designcommunity-hub.com,Design Community,designcommunity-hub.com,0,0,0,190,1006,4,190
+pilgrim@pilgrimsurfsupply.com,Pilgrim Surf + Supply,pilgrimsurfsupply.com,0,0,0,190,990,0,190
+nicole.euell@deutschinc.com,"Euell , Nicole",deutschinc.com,0,0,0,187,793,0,187
+mailer@svpply.com,Svpply,svpply.com,0,0,0,187,975,0,187
+n-elna=nioy.pbz-019d8@postmaster.twitter.com,Mimoona Crowdfunding (Twitter),postmaster.twitter.com,0,0,0,185,985,5,185
+bd@kl.blackdiamondequipment.com,Black Diamond HEX,kl.blackdiamondequipment.com,0,0,0,183,980,0,183
+jenna@stinkdigital.com,jenna@stinkdigital.com,stinkdigital.com,0,0,0,179,769,0,179
+rsvp@rinsed.it,RINSED,rinsed.it,0,0,0,177,965,10,177
+screening@cineticmedia.com,screening@cineticmedia.com,cineticmedia.com,0,0,0,176,988,24,176
+info@fixednyc.com,FIXED,fixednyc.com,0,0,0,173,909,1,173
+vanessa.flynn@matter-inc.com,"Flynn, Vanessa",matter-inc.com,0,0,0,171,733,0,171
+bci@bonobo.org,The Bonobo Conservation Initiative,bonobo.org,0,0,0,168,904,0,168
+ori@awexr.com,Ori Inbar,awexr.com,0,0,0,167,928,7,167
+socialight@socialightent.com,Socialight Entertainment,socialightent.com,0,0,0,166,874,1,166
+dailydose@mjfreeway.com,MJ Freeways West Coast Wednesdays,mjfreeway.com,0,0,0,166,966,18,166
+hello@noho.co,The noho team,noho.co,0,0,0,166,876,0,166
+news@kayak.com,KAYAK,kayak.com,0,0,0,165,945,42,165
+info@meanredproductions.com,Brooklyn Electronic Music Festival,meanredproductions.com,0,0,0,163,911,14,163
+info@frank151.com,FRANK151,frank151.com,0,0,0,163,909,12,163
+kimble@kimblegroup.com,Kimble Group,kimblegroup.com,0,0,0,162,861,2,162
+hello@foursigmatic.com,Four Sigmatic,foursigmatic.com,0,0,0,162,883,2,162
+em@info.padmapper.com,PadMapper,info.padmapper.com,0,0,0,162,858,2,162
+contactus@freeholdbrooklyn.com,FREEHOLD Hospitality,freeholdbrooklyn.com,0,0,0,161,845,0,161
+tgs@ghostly.com,Ghostly International,ghostly.com,0,0,0,161,908,15,161
+overnightprints@emails.overnightprints.com,OvernightPrints.com,emails.overnightprints.com,0,0,0,160,840,0,160
+nledner@unicef.org,Nicholas Ledner,unicef.org,0,0,0,159,701,1,159
+mail@eg.expedia.com,Expedia.com,eg.expedia.com,0,0,0,159,841,0,159
+beths@themill.com,Beth Skopp,themill.com,0,0,0,158,656,0,158
+sarah@honeproduction.com,Sarah Donnenberg,honeproduction.com,0,0,0,157,621,0,157
+news@techdayhq.com,TechDay News,techdayhq.com,0,0,0,153,837,8,153
+email@consumer.realtor.com,realtor.com,consumer.realtor.com,0,0,0,151,847,13,151
+eflyer@info.shakeitlondon.com,Eflyer,info.shakeitlondon.com,0,0,0,150,494,1,150
+rich@info.shakeitlondon.com,Live Booth Sessions,info.shakeitlondon.com,0,0,0,150,794,1,150
+events@wisconsintechnologycouncil.com,Wisconsin Technology Council,wisconsintechnologycouncil.com,0,0,0,149,920,505,149
+pato@bluna.tv,Patricio Bluna.tv,bluna.tv,0,0,0,148,632,0,148
+activist@democrats.com,"Bob Fertik, Democrats.com",democrats.com,0,0,0,146,825,13,146
+hasegawa@dr.nakamats.com,hasegawa@dr.nakamats.com,dr.nakamats.com,0,0,0,144,671,17,144
+toprak.ozturan@annex88.com,Toprak Oezturan,annex88.com,0,0,0,143,597,2,143
+info@animamundiherbals.com,animamundiherbals.com,animamundiherbals.com,0,0,0,142,783,2,142
+support@enews-moma.org,The Museum of Modern Art,enews-moma.org,0,0,0,141,783,8,141
+hello@brooklinen.com,From: Brooklinen | Special Offer,brooklinen.com,0,0,0,139,735,0,139
+team@angel.co,Gil Penchina @ Flight.vc via AngelList,angel.co,0,0,0,138,730,0,138
+mailer@serato.email,Serato Newsletter,serato.email,0,0,0,137,725,0,137
+concerts@excessdb.com,Excess dB Entertainment,excessdb.com,0,0,0,137,785,15,137
+hello@workingnotworking.com,Emily from Working Not Working,workingnotworking.com,0,0,0,137,789,16,137
+deals@bwoffers.bestwestern.com,Best Western Hotels & Resorts,bwoffers.bestwestern.com,0,0,0,136,796,16,136
+nancy.dao@annex88.com,Nancy Dao,annex88.com,0,0,0,136,566,0,136
+outreach@techdayhq.com,TechDay,techdayhq.com,0,0,0,136,720,0,136
+updates@mp1.tripadvisor.com,Tripadvisor,mp1.tripadvisor.com,0,0,0,135,825,88,135
+info@uprootclean.com,"Casey, Warehouse Manger at Uproot",uprootclean.com,0,0,0,133,730,0,133
+diana@diy.org,Diana Wattanapongsakorn,diy.org,0,0,0,133,711,0,133
+andrea@myactivedriveway.com,Andrea Scaglione,myactivedriveway.com,0,0,0,133,549,0,133
+support@artsy.net,Artsy Top Stories,artsy.net,0,0,0,132,724,6,132
+info@pakaapparel.com,Paka Team,pakaapparel.com,0,0,0,131,720,0,131
+imsmixmagindustryinsider@mixmag.net,IMS Mixmag Industry Insider,mixmag.net,0,0,0,130,770,41,130
+nublu@nublu.net,nublu,nublu.net,0,0,0,125,669,1,125
+jpeak@almarsales.com,jpeak@almarsales.com,almarsales.com,0,0,0,124,562,0,124
+info@goodroombk.com,Good Room,goodroombk.com,0,0,0,124,664,1,124
+hello@shokz.com,Shokz,shokz.com,0,0,0,122,706,7,122
+do_not_reply@itunes.com,iTunes Store,itunes.com,0,0,0,121,645,0,121
+hello@eskiin.com,eskiin Filtered Showerhead,eskiin.com,0,0,0,121,670,0,121
+support@codepen.io,CodePen,codepen.io,0,0,0,119,664,1,119
+david@davidorban.com,David Orban,davidorban.com,0,0,0,119,635,0,119
+info@watchdog.net,"David and Sara, Watchdog.net",watchdog.net,0,0,0,119,670,8,119
+jdurrant@21gramsny.com,Jonno Durrant,21gramsny.com,0,0,0,116,524,0,116
+hello@ibex.com,IBEX,ibex.com,0,0,0,115,633,0,115
+hello@gaianomaya.com,Sonic Jungle,gaianomaya.com,0,0,0,114,616,0,114
+info@elsewherebrooklyn.com,elsewhere,elsewherebrooklyn.com,0,0,0,112,616,4,112
+kpage@unicef.org,Kent Page,unicef.org,0,0,0,112,534,0,112
+words@wordlessmusic.org,words@wordlessmusic.org,wordlessmusic.org,0,0,0,111,679,18,111
+info@wordbrooklyn.com,WORD Bookstores,wordbrooklyn.com,0,0,0,111,675,36,111
+weekly_update@going.com,Going,going.com,0,0,0,110,601,2,110
+n-elna=zrqvnqevsg.pbz-ea22c@postmaster.twitter.com,BranDoughertyJohnson (Twitter),postmaster.twitter.com,0,0,0,109,613,7,109
+howconference@fwpubs.com,HOW Design Conference,fwpubs.com,0,0,0,109,593,2,109
+hello@misen.com,Misen,misen.com,0,0,0,109,610,0,109
+merchandise@musictoday.com,Live Nation Merchandise,musictoday.com,0,0,0,109,609,6,109
+summer@amayasociety.com,AMAYA EXPERIENCE,amayasociety.com,0,0,0,108,605,0,108
+marti@territorystudio.com,Marti Romances,territorystudio.com,0,0,0,108,374,0,108
+support@philipattar.com,Philip Attar,philipattar.com,0,0,0,108,580,0,108
+paul.mcafee@viacommix.com,"McAfee, Paul",viacommix.com,0,0,0,107,489,6,107
+info@thejapanesepantry.com,The Japanese Pantry,thejapanesepantry.com,0,0,0,107,600,0,107
+sugar@spoonbillbooks.com,"Spoonbill & Sugartown, Booksellers, Inc.",spoonbillbooks.com,0,0,0,106,578,2,106
+clarkv@invisionapp.com,This week at InVision,invisionapp.com,0,0,0,106,650,106,106
+replies@adcglobal.org,Jessica Walsh + Timothy Goodman for ADC Festival,adcglobal.org,0,0,0,106,587,2,106
+sara@cineticmedia.com,Sara Sampson,cineticmedia.com,0,0,0,105,609,11,105
+support@gochirp.com,Chirp,gochirp.com,0,0,0,104,560,0,104
+rsvp@zerofilmfest.com,rsvp@zerofilmfest.com,zerofilmfest.com,1,0,0,102,554,1,103
+info@chcmshop.com,CHCM,chcmshop.com,0,0,0,103,555,0,103
+hello@toaberlin.com,Brendan from TOA,toaberlin.com,0,0,0,102,550,0,102
+lyniel@territorystudio.com,Lyniel Dao,territorystudio.com,0,0,0,102,312,0,102
+support@theoptimumdetox.com,Optimum Wellness,theoptimumdetox.com,0,0,0,101,549,1,101
+store@apeiron.store,Dr. Dan | Apeiron Elementals,apeiron.store,0,0,0,101,570,0,101
+hello@soundsnap.com,"Andrew, Soundsnap",soundsnap.com,0,0,0,101,560,3,101
+info@stardustapothecary.com,PLANTYMEDS & Stardust Apothecary,stardustapothecary.com,0,0,0,101,570,0,101
+webinar@mjfreeway.com,MJ Freeway Webinars,mjfreeway.com,0,0,0,100,586,10,100
+output@outputclub.com,OUTSIDE BY OUTPUT,outputclub.com,0,0,0,100,552,3,100
+info@chuckschumer.com,"Chuck Schumer, Patrick Leahy, Mazie Hirono, & Martin Heinrich",chuckschumer.com,0,0,0,99,618,38,99
+sheila@shoppop.com,Sheila Sharma,shoppop.com,0,0,0,99,535,0,99
+info@shawjewelry.com,Shaw Jewelry,shawjewelry.com,0,0,0,99,545,1,99
+info@gardenanswers.com,Garden Answers,gardenanswers.com,0,0,0,99,621,24,99
+louisa@agfunder.com,AgFunder - Louisa Burwood-Taylor,agfunder.com,0,0,0,97,605,40,97
+designcasts@designcommunity-hub.com,HOW + Print DesignCasts,designcommunity-hub.com,0,0,0,96,588,17,96
+mailinglist@popgunpresents.com,PopGun Presents,popgunpresents.com,0,0,0,96,540,5,96
+marketing@tifosioptics.com,Tifosi Optics,tifosioptics.com,0,0,0,95,527,0,95
+support@expertsrs.com,Domain Registration Department,expertsrs.com,0,0,0,95,475,0,95
+reply@emails.lq.com,La Quinta Returns,emails.lq.com,0,0,0,95,515,0,95
+bruce.braley@address-verify.com,Congressman Bruce Braley,address-verify.com,0,0,0,95,625,122,95
+natalie.vartanian@viacommix.com,"Vartanian, Natalie",viacommix.com,0,0,0,95,423,0,95
+info@mailer.netflix.com,Netflix,mailer.netflix.com,0,0,0,95,515,0,95
+hello@vevo.com,Vevo,vevo.com,0,0,0,94,510,0,94
+tyler@quietman.com,Tyler Jarrett,quietman.com,0,0,0,92,384,0,92
+deeplearn-nyc-announce@meetup.com,Eric David Benari (Meetup),meetup.com,0,0,0,92,408,0,92
+info@announcements.soundcloud.com,Brittany at SoundCloud,announcements.soundcloud.com,0,0,0,92,568,10,92
+queenbee@good-peoples.com,Good Peoples,good-peoples.com,0,0,0,92,508,2,92
+richard@neighborhoodwatch.tv,Richard Peete,neighborhoodwatch.tv,0,0,0,91,321,0,91
+hi@newsletters.benzinga.com,Benzinga Cannabis Daily,newsletters.benzinga.com,0,0,0,91,596,72,91
+info@p.backcountry.com,Backcountry,p.backcountry.com,0,0,0,91,495,0,91
+herb@igrow.news,i Grow News,igrow.news,0,0,0,91,507,3,91
+nycmailinglist@jellynyc.com,NYCmailinglist@jellynyc.com,jellynyc.com,0,0,0,91,461,12,91
+jose@mofomatic.com,Jose Fuentes,mofomatic.com,0,0,0,90,388,0,90
+jobrecommendations@sites.careerbuilder.com,Your Job Recommendations,sites.careerbuilder.com,0,0,0,89,485,0,89
+feedback@watchdog.net,Stop Trumps Supreme Court Takeover (via Watchdog.net),watchdog.net,0,0,0,87,498,5,87
+wass@wxyzjewelry.com,Laura Wass,wxyzjewelry.com,0,0,0,87,379,0,87
+info_us@maxon.net,Info Us,maxon.net,0,0,0,86,490,7,86
+herbrose@secretbenefits.com,Secret Benefits,secretbenefits.com,0,0,0,86,474,1,86
+info@gochirp.com,Chirp,gochirp.com,0,0,0,86,495,0,86
+partners@designtaxi.com,Creative Connect Partners,designtaxi.com,0,0,0,86,470,0,86
+balancehealth.me@69065965.mailchimpapp.com,Stephanie from The Health Spa,69065965.mailchimpapp.com,0,0,0,86,578,41,86
+news@thelab.org,The Lab,thelab.org,0,0,0,85,520,6,85
+contact@altexsoft.com,The AltexSoft Team,altexsoft.com,0,0,0,85,465,0,85
+brettbold@summitseries.com,Brett Bold,summitseries.com,0,0,0,85,373,1,85
+opuscreative@substack.com,Marc Posch/Opus Creative Group,substack.com,0,0,0,85,473,2,85
+automation@hellowalla.com,"Kula Yoga & Wellness, llc",hellowalla.com,0,0,0,85,570,61,85
+sv-startup-entrepreneurs-announce@meetup.com,Sv Startup Entrepreneurs Announce,meetup.com,0,0,0,84,376,0,84
+contact@bfi.org,The Buckminster Fuller Institute,bfi.org,0,0,0,84,524,15,84
+bonsplans@newsletter.voyages-sncf.com,Voyages-sncf.com,newsletter.voyages-sncf.com,0,0,0,84,460,0,84
+stefania@buck.tv,Stefania Consarino,buck.tv,0,0,0,84,374,0,84
+info@palosantonyc.com,PALOSANTO,palosantonyc.com,0,0,0,84,460,0,84
+support@tenthousand.cc,TEN THOUSAND,tenthousand.cc,0,0,0,84,466,0,84
+anthony.ramirez@craftww.com,"Ramirez, Anthony (NYC-CWW)",craftww.com,0,0,0,83,369,0,83
+dylan.mizner@deutschinc.com,"Mizner, Dylan",deutschinc.com,0,0,0,83,355,0,83
+letterbox@arovideo.co.nz,AroVideo Home-Delivery,arovideo.co.nz,0,0,0,82,474,6,82
+hello@emails.brooklinen.com,Brooklinen Memorial Day Sale,emails.brooklinen.com,0,0,0,82,462,0,82
+confirmation@myunitypoint.org,Confirmation,myunitypoint.org,0,0,0,81,463,0,81
+support@s.usa.experian.com,Experian Alerts,s.usa.experian.com,0,0,0,80,488,5,80
+maurah@themill.com,Maura Hurley,themill.com,0,0,0,80,370,0,80
+alan@consulatenyc.com,,consulatenyc.com,0,0,0,80,240,0,80
+terry@annex88.com,Terry Phan,annex88.com,0,0,0,80,364,5,80
+service@zocdoc.com,Zocdoc,zocdoc.com,0,0,0,79,435,0,79
+support@builtin.com,Built In,builtin.com,0,0,0,78,535,68,78
+mrproducto@turntablelab.com,Turntable Lab,turntablelab.com,0,0,0,78,510,29,78
+toddp@toddpnyc.com,Todd P,toddpnyc.com,0,0,0,78,490,15,78
+communications@oh-wow.com,OHWOW Gallery,oh-wow.com,0,0,0,78,454,6,78
+do_not_reply@adcglobal.org,Art Directors Club Awards Dept.,adcglobal.org,0,0,0,77,469,8,77
+rcoughlin@theiagroupinc.com,Rcoughlin,theiagroupinc.com,1,0,0,76,348,0,77
+trish@creativefeed.net,Trish Tagle,creativefeed.net,0,0,0,76,352,0,76
+emily@lifelongfriendshipsociety.com,Emily  Gleicher,lifelongfriendshipsociety.com,0,0,0,76,348,0,76
+news@post.theotherartfair.com,The Other Art Fair: Virtual Editions,post.theotherartfair.com,0,0,0,76,420,0,76
+newsfeed@on.com,On Community,on.com,0,0,0,76,420,0,76
+food-integrity-blockchained-announce@meetup.com,Food Integrity Blockchained Announce,meetup.com,0,0,0,76,344,0,76
+info@maddecent.com,Mad Decent,maddecent.com,0,0,0,76,424,1,76
+douglas@rushkoff.com,Douglas@Rushkoff.com,rushkoff.com,0,0,0,75,419,6,75
+kaylee@greenscreensystems.com,Green Screen Systems (TubeTape),greenscreensystems.com,0,0,0,75,415,0,75
+news@lynda.com,lynda.com,lynda.com,0,0,0,75,423,2,75
+service@shapeways.com,Shapeways Team,shapeways.com,0,0,0,75,415,0,75
+tommy@nycult.com,Bastille at Williamsburg Hotel,nycult.com,0,0,0,75,415,0,75
+hello@equipfoods.com,Team Equip,equipfoods.com,0,0,0,73,430,0,73
+doreply@zerply.com,Bill Hughes (via Zerply),zerply.com,0,0,0,73,405,0,73
+info@dimensionsfestival.com,Dimensions Festival,dimensionsfestival.com,0,0,0,72,404,1,72
+nyc-rb-announce@meetup.com,Dmitri Nesterenko (Meetup),meetup.com,0,0,0,71,327,0,71
+nhutchison@stateraintegrated.com,"Statera, LLC",stateraintegrated.com,0,0,0,71,475,81,71
+reply@cofounderlab.com,"CoFoundersLab, a Onevest company",cofounderlab.com,0,0,0,71,435,10,71
+news@bonobo.org,Bonobo Conservation Initiative,bonobo.org,0,0,0,71,401,0,71
+pinchy@pinchyandfriends.com,pinchy@pinchyandfriends.com,pinchyandfriends.com,0,0,0,70,388,0,70
+julian@juliandavislaw.com,Julian Davis,juliandavislaw.com,0,0,0,70,316,0,70
+info@kioskkiosk.com,KIOSK,kioskkiosk.com,0,0,0,70,390,0,70
+email@productionhub.com,ProductionHUB Partner,productionhub.com,0,0,0,70,390,0,70
+info@outlookfestival.com,Outlook Festival,outlookfestival.com,0,0,0,70,394,1,70
+hertog@buckla.com,,buckla.com,0,0,0,69,207,0,69
+team@summit.co,Summit,summit.co,0,0,0,68,384,1,68
+donorservices@kexp.org,"Tom Mara, Executive Director KEXP",kexp.org,0,0,0,68,398,3,68
+arny-augmented-reality-new-york-announce@meetup.com,Arny Augmented Reality New York Announce,meetup.com,0,0,0,68,342,6,68
+citicards@info.citibank.com,Citi® / AAdvantage® Card,info.citibank.com,0,0,0,68,380,0,68
+ben@rykerclothingco.com,Garrett from Ryker,rykerclothingco.com,0,0,0,68,405,0,68
+jess.cohen@ghostrobot.com,Jess Cohen,ghostrobot.com,0,0,0,68,306,0,68
+insight@princetonpartners.com,Princeton Partners Inc.,princetonpartners.com,0,0,0,68,380,0,68
+tamara@consulatenyc.com,Tamara Treu,consulatenyc.com,0,0,0,68,310,0,68
+deals@namecheap.com,Namecheap Insider,namecheap.com,0,0,0,67,375,0,67
+lars@buck.tv,Lars Holmgren,buck.tv,0,0,0,67,357,0,67
+info@netflix.com,Netflix,netflix.com,0,0,0,67,375,0,67
+hollylovell@ruhlhomes.com,HollyLovell@ruhlhomes.com,ruhlhomes.com,0,0,0,66,332,55,66
+melissa@myactivedriveway.com,,myactivedriveway.com,0,0,0,66,198,0,66
+info@founderdating.com,The FounderDating Team,founderdating.com,0,0,0,66,370,0,66
+do-not-reply@klout.com,Klout Perks,klout.com,0,0,0,66,370,0,66
+send@ibex.com,IBEX,ibex.com,0,0,0,65,390,0,65
+hi@toaberlin.com,Niko Woischnik,toaberlin.com,0,0,0,65,365,0,65
+daren@encyclopediapictura.com,Daren Rabinovitch,encyclopediapictura.com,0,0,0,65,353,0,65
+info@brooklynbrewery.com,The Brooklyn Brewery,brooklynbrewery.com,0,0,0,65,432,16,65
+welcome@tenthousand.cc,TEN THOUSAND,tenthousand.cc,0,0,0,65,381,1,65
+katrinal@imaginaryforces.com,Katrina Lofaro,imaginaryforces.com,0,0,0,64,294,0,64
+alerts@notifications.soundcloud.com,SoundCloud,notifications.soundcloud.com,0,0,0,64,385,0,64
+greg@honeproduction.com,Greg Tharp,honeproduction.com,0,0,0,64,274,0,64
+stine@stinkdigital.com,,stinkdigital.com,0,0,0,64,192,0,64
+market.news@envato.com,Envato Market,envato.com,0,0,0,63,355,0,63
+news@topazlabs.com,Topaz Labs,topazlabs.com,0,0,0,63,355,0,63
+email@c.lynda.com,lynda.com,c.lynda.com,0,0,0,63,355,0,63
+me@johnstanch.com,John Stanch,johnstanch.com,0,0,0,62,286,0,62
+hello@spotify.com,Spotify,spotify.com,0,0,0,62,350,0,62
+francis.devlin@carbonvfx.com,Francis Devlin,carbonvfx.com,0,0,0,62,276,0,62
+shows@ohmyrockness.com,Oh My Rockness,ohmyrockness.com,0,0,0,62,430,73,62
+info@join.netflix.com,Netflix,join.netflix.com,0,0,0,62,362,0,62
+ben@redantler.com,Ben Wright (Google Drive),redantler.com,0,0,0,61,271,1,61
+brice@boomboomny.com,Brice at boomBOOM,boomboomny.com,0,0,0,61,357,3,61
+mariah@fourvisions.com,Four Visions,fourvisions.com,0,0,0,61,363,0,61
+jangerami@artemisag.com,Allison Kopf,artemisag.com,0,0,0,60,352,3,60
+valerie@knittingfactory.com,Valerie Gurka - Knitting Factory BK,knittingfactory.com,0,0,0,60,356,4,60
+reservation@botabota.ca,"Bota Bota, spa-sur-leau",botabota.ca,0,0,0,60,340,0,60
+cabaret@thebridgesdumbo.com,Burlesque Below The Bridges,thebridgesdumbo.com,0,0,0,60,340,0,60
+info@beams-america.com,BEAMS America,beams-america.com,0,0,0,60,365,0,60
+support@woolx.com,Customer Service Team at Woolx,woolx.com,0,0,0,59,341,0,59
+do-not-reply@smithmicro.com,Smith Micro,smithmicro.com,0,0,0,59,335,0,59
+info@upstatecurious.com,The Upstate Curious Team,upstatecurious.com,0,0,0,59,368,2,59
+email@connect.moma.org,The Museum of Modern Art,connect.moma.org,0,0,0,58,348,3,58
+do-not-reply@topspinmedia.com,Chilly Gonzales,topspinmedia.com,0,0,0,58,338,2,58
+pinbot@notifications.pinterest.com,Pinterest,notifications.pinterest.com,0,0,0,58,330,0,58
+aromboli@unicef.org,,unicef.org,0,0,0,58,174,0,58
+kacieb@imaginaryforces.com,Kacie Barton,imaginaryforces.com,0,0,0,58,274,0,58
+criterion@cineticmedia.com,Courtney Ott,cineticmedia.com,0,0,0,58,398,17,58
+mluitjohan@hortamericas.com,Hort Americas,hortamericas.com,0,0,0,57,361,9,57
+update@tifosioptics.com,Tifosi Optics,tifosioptics.com,0,0,0,57,350,0,57
+feedback@shakelaw.com,"Abe Geiger, Founder & CEO of Shake",shakelaw.com,0,0,0,57,325,0,57
+laura@cineticmedia.com,Laura Sok,cineticmedia.com,0,0,0,57,325,0,57
+direct@adobesystems.com,Adobe Systems Incorporated,adobesystems.com,0,0,0,57,365,10,57
+paris@contact.about.me,Paris Rouzati (about.me),contact.about.me,0,0,0,57,353,7,57
+leonardbg@cs.com,missionarymgm@gmail.com,cs.com,0,0,0,56,338,0,56
+awards@promaxbda.org,PromaxBDA Europe Awards,promaxbda.org,0,0,0,56,326,0,56
+support@bryanjohnson.com,Julie at Blueprint,bryanjohnson.com,0,0,0,56,345,0,56
+cecilia.melton@6thsensestudio.com,,6thsensestudio.com,0,0,0,56,168,0,56
+will@honorrollmusic.com,,honorrollmusic.com,0,0,0,55,165,0,55
+info@canopy.space,Canopy | A Beautiful Place to work in your neighborhood,canopy.space,0,0,0,55,315,0,55
+info@ifeel.nyc,Yael and Roee,ifeel.nyc,0,0,0,55,315,0,55
+eric@whiskyvangoghgo.com,,whiskyvangoghgo.com,0,0,0,55,165,0,55
+info@solar1.org,Solar One,solar1.org,0,0,0,55,359,8,55
+emily@transistorstudios.com,,transistorstudios.com,0,0,0,55,165,0,55
+info@cymbiotika.com,A Message from Cymbiotika,cymbiotika.com,0,0,0,55,315,0,55
+dado@ghostly.com,Ghostly International,ghostly.com,0,0,0,55,339,6,55
+messages+5w66ykf6y0q4h@squaremktg.com,Herbal Aspect,squaremktg.com,0,0,0,54,342,5,54
+adage@crainliveevents.com,Ad Age Small Agency Conference,crainliveevents.com,0,0,0,54,322,3,54
+gregory@themill.com,,themill.com,0,0,0,53,159,0,53
+fwrd@p.fwrd.com,FWRD,p.fwrd.com,0,0,0,53,305,0,53
+hotthisweek@vevo.com,Vevo,vevo.com,0,0,0,52,308,2,52
+news@bornshorts.com,Bornshorts Film Festival 2012,bornshorts.com,0,0,0,52,300,0,52
+conference@promaxbda.org,PromaxBDA Europe Conference,promaxbda.org,0,0,0,52,306,0,52
+dee@themill.com,,themill.com,0,0,0,52,156,0,52
+ilona@brandnewschool.com,Ilona Klaver,brandnewschool.com,0,0,0,51,267,2,51
+rich@info.superfreq.org,Superfreq,info.superfreq.org,0,0,0,51,373,18,51
+aquent@mktg.aquent.com,Aquent Blog Roundup,mktg.aquent.com,0,0,0,51,317,1,51
+aboutme@about.me,about.me weekly,about.me,0,0,0,51,295,0,51
+memberinfo@whitney.org,"Brianna Lowndes, Whitney Museum of American Art",whitney.org,0,0,0,51,325,3,51
+eflyer@info.superfreq.org,Eflyer,info.superfreq.org,0,0,0,51,271,18,51
+clare@tsu.co,,tsu.co,0,0,0,51,153,0,51
+marketing@24seveninc.com,24 Seven Talent,24seveninc.com,0,0,0,50,290,0,50
+isaiah@encyclopediapictura.com,Isaiah Saxon,encyclopediapictura.com,0,0,0,50,286,3,50
+juliet@thewildernessinc.com,,thewildernessinc.com,0,0,0,50,150,0,50
+email@rentmanager.com,Katrina Knight,rentmanager.com,0,0,0,50,395,38,50
+contact@lowresny.com,Andrew Giugno at Low Res,lowresny.com,0,0,0,49,285,0,49
+celine@slowfactory.com,Céline from Slow Factory,slowfactory.com,0,0,0,49,285,0,49
+info@mattboman.com,,mattboman.com,0,0,0,49,147,0,49
+help@uprootclean.com,Uproot Clean,uprootclean.com,0,0,0,49,295,1,49
+editor@c21media.net,C21Media,c21media.net,0,0,0,48,284,1,48
+datadrivennyc-announce@meetup.com,,meetup.com,0,0,0,48,144,0,48
+networksolutionsrenewals@info1.networksolutions.com,Network Solutions,info1.networksolutions.com,0,0,0,48,280,0,48
+oran@oranetkin.com,,oranetkin.com,0,0,0,48,144,0,48
+ryan@hatponics.com,,hatponics.com,0,0,0,48,144,0,48
+hello@bufferapp.com,Hailley from Buffer,bufferapp.com,0,0,0,48,280,0,48
+marion@creativefeed.net,,creativefeed.net,0,0,0,48,144,0,48
+perrine@creativefeed.net,,creativefeed.net,0,0,0,48,144,0,48
+gallery@ggrippo.com,GGrippo art+design,ggrippo.com,0,0,0,48,280,0,48
+giving@localmotion.org,Christina at Local Motion,localmotion.org,0,0,0,48,304,0,48
+cassie.gibson@expresspros.com,"Gibson, Cassie M.",expresspros.com,0,0,0,48,310,47,48
+xl@xlrecordings.com,XL Recordings,xlrecordings.com,0,0,0,47,279,1,47
+yo@huckberry.com,Huckberry,huckberry.com,0,0,0,47,291,4,47
+choicehotels_us@guests.choicehotels.com,Choice Hotels,guests.choicehotels.com,0,0,0,47,300,0,47
+cohan.andersen@deutschinc.com,,deutschinc.com,0,0,0,47,141,0,47
+frontdesk@mckittrickhotel.com,The Lodge at Gallow Green,mckittrickhotel.com,0,0,0,47,275,0,47
+listings@stephaniediamond.com,Listings Project - Stephanie Diamond,stephaniediamond.com,0,0,0,47,355,61,47
+jonasfasching@substack.com,Creative Monday by Jonas Fasching,substack.com,0,0,0,47,300,0,47
+msg@msgnyc.com,FuseNews@fuse.tv,msgnyc.com,0,0,0,47,311,9,47
+dawn.rasmussen@21gramsny.com,,21gramsny.com,0,0,0,47,141,0,47
+challenge@bfi.org,Buckminster Fuller Challenge,bfi.org,0,0,0,47,281,0,47
+amy@513e12.com,,513e12.com,0,0,0,47,141,0,47
+fdl@frank151.com,The New York Kings,frank151.com,0,0,0,46,350,68,46
+adage@crainsubscription.com,Advertising Age,crainsubscription.com,0,0,0,46,270,0,46
+info@survivalinternational.org,"Stephen Corry, Survival International",survivalinternational.org,0,0,0,46,276,0,46
+drpaulvin@doctorpaulvin.com,,doctorpaulvin.com,0,0,0,46,138,0,46
+joe.calabrese@deutschinc.com,,deutschinc.com,0,0,0,46,138,0,46
+charles@harbisoncollection.com,,harbisoncollection.com,0,0,0,46,138,0,46
+travelercare@orbitz.com,Orbitz Traveler Care,orbitz.com,0,0,0,46,359,27,46
+demand@adobe-info.com,Adobe Systems,adobe-info.com,0,0,0,46,270,0,46
+news@antfood.com,Antfood Worldwide,antfood.com,0,0,0,46,288,0,46
+news-reply@smithmicro.com,Smith Micro,smithmicro.com,0,0,0,46,270,0,46
+joe.glass@annex88.com,,annex88.com,0,0,0,46,138,0,46
+designworkssalonspa@getreach.ai,Designworkssalonspa,getreach.ai,0,0,0,46,282,0,46
+newsfeed@on-running.com,On,on-running.com,0,0,0,45,265,0,45
+cliffordzapke@charter.net,cliffordzapke@charter.net,charter.net,0,0,0,45,267,7,45
+hello@evo.com,evo.com,evo.com,0,0,0,45,283,0,45
+marketing@union-pool.com,Union Pool,union-pool.com,0,0,0,45,293,7,45
+heath@excessdb.com,,excessdb.com,0,0,0,45,135,0,45
+info@yogafoster.org,Nicole at Yoga Foster,yogafoster.org,0,0,0,45,279,2,45
+abbe@withthepowers.com,,withthepowers.com,0,0,0,45,135,0,45
+networksolutions@info1.networksolutions.com,,info1.networksolutions.com,0,0,0,44,132,0,44
+joey@thetastecrew.com,,thetastecrew.com,0,0,0,44,132,0,44
+scurran@unicef.org,,unicef.org,0,0,0,44,132,0,44
+info@botabota.ca,Bota Bota,botabota.ca,0,0,0,44,285,0,44
+info@akumandra.com,,akumandra.com,0,0,0,44,132,0,44
+info@junxion.nyc,,junxion.nyc,0,0,0,44,132,0,44
+oorutaichi@okimirecords.com,,okimirecords.com,0,0,0,44,132,0,44
+awilliams@yurcor.com,,yurcor.com,0,0,0,44,132,0,44
+honors@h1.hilton.com,,h1.hilton.com,0,0,0,44,132,0,44
+pamela.brill@mtvstaff.com,,mtvstaff.com,0,0,0,44,132,0,44
+delivery@yousendit.com,,yousendit.com,0,0,0,44,132,0,44
+anton@hotspaces.org,Anton & Morgane at Selgars,hotspaces.org,0,0,0,44,272,0,44
+cryssy@cryssycheung.com,,cryssycheung.com,0,0,0,44,132,0,44
+hello@releases.mubi.com,MUBI,releases.mubi.com,0,0,0,44,285,0,44
+dean@truepanther.com,,truepanther.com,0,0,0,43,129,0,43
+katie@redantler.com,,redantler.com,0,0,0,43,129,0,43
+reply@glassdoor.com,,glassdoor.com,0,0,0,43,129,0,43
+info@lockhimupnow.org,The Resistance,lockhimupnow.org,0,0,0,43,265,1,43
+joseph@consulatenyc.com,,consulatenyc.com,0,0,0,43,129,0,43
+info@immersed.com,,immersed.com,0,0,0,43,129,0,43
+info@emails.hoka.com,,emails.hoka.com,0,0,0,42,126,0,42
+melissa@picturefarmpro.com,,picturefarmpro.com,0,0,0,42,126,0,42
+rosanne@leroyandclarkson.com,,leroyandclarkson.com,0,0,0,42,126,0,42
+traci@neighborhoodwatch.tv,,neighborhoodwatch.tv,0,0,0,42,126,0,42
+info@audionotch.com,,audionotch.com,0,0,0,42,126,0,42
+hello@onnit.com,,onnit.com,0,0,0,42,126,0,42
+flightstatus@orbitz.com,Orbitz,orbitz.com,0,0,0,42,330,22,42
+hello@wearmaro.com,Ian from MARO,wearmaro.com,0,0,0,42,275,0,42
+info@bodyactualized.org,,bodyactualized.org,0,0,0,42,126,0,42
+shamal@bgstr.com,,bgstr.com,0,0,0,41,123,0,41
+insidethegenome@pandora.com,,pandora.com,0,0,0,41,123,0,41
+info@bespokemusik.com,,bespokemusik.com,0,0,0,41,123,0,41
+itunes@new.itunes.com,,new.itunes.com,0,0,0,41,123,0,41
+brittany@transistorstudios.com,,transistorstudios.com,0,0,0,41,123,0,41
+info@newlab.com,Newlab,newlab.com,0,0,0,41,289,11,41
+steve@myactivedriveway.com,,myactivedriveway.com,0,0,0,41,123,0,41
+support@indiegogo.com,,indiegogo.com,0,0,0,41,123,0,41
+thomas.berger@mtvstaff.com,,mtvstaff.com,0,0,0,41,123,0,41
+joespub@joespub.com,,joespub.com,0,0,0,41,123,0,41
+brandon376@msn.com,,msn.com,0,0,0,41,123,0,41
+tal.shub@rga.com,,rga.com,0,0,0,40,120,0,40
+jpeak@contractor.limitedbrands.com,"Peak, Jordan",contractor.limitedbrands.com,0,0,0,40,290,25,40
+mbishop@summerlandcamps.com,,summerlandcamps.com,0,0,0,40,120,0,40
+mariel@spon.com,,spon.com,0,0,0,40,120,0,40
+service@life-curated.com,,life-curated.com,0,0,0,40,120,0,40
+hezekiah@cagrowers.org,,cagrowers.org,0,0,0,40,120,0,40
+mike@and-or.co,,and-or.co,0,0,0,39,117,0,39
+community@papayaplayaproject.com,,papayaplayaproject.com,0,0,0,39,117,0,39
+marketing@lprnyc.com,,lprnyc.com,0,0,0,39,117,0,39
+karen@leroyandclarkson.com,,leroyandclarkson.com,0,0,0,39,117,0,39
+javier.pedraza.polo@121167426.mailchimpapp.com,,121167426.mailchimpapp.com,0,0,0,39,117,0,39
+mail@community.taskrabbit.com,,community.taskrabbit.com,0,0,0,39,117,0,39
+dylan@annex88.com,,annex88.com,0,0,0,39,117,0,39
+info@juliensauctions.com,,juliensauctions.com,0,0,0,38,114,0,38
+squareroots-announce@meetup.com,,meetup.com,0,0,0,38,114,0,38
+adam@annex88.com,,annex88.com,0,0,0,38,114,0,38
+tiff-press2011@tiff-jp.net,,tiff-jp.net,0,0,0,38,114,0,38
+mickey@mickeyhart.net,Mickey Hart,mickeyhart.net,0,0,0,38,310,35,38
+rushkoff@rushkoff.com,,rushkoff.com,0,0,0,37,111,0,37
+meiling@scatter.nyc,,scatter.nyc,0,0,0,37,111,0,37
+help@diy.org,,diy.org,0,0,0,37,111,0,37
+signal@nfx.com,,nfx.com,0,0,0,37,111,0,37
+info@matter.vc,,matter.vc,0,0,0,37,111,0,37
+felix.cabrera@6thsensestudio.com,,6thsensestudio.com,0,0,0,37,111,0,37
+invoice+statements@midjourney.com,Midjourney Inc,midjourney.com,0,0,0,37,317,37,37
+properties@prop.trulia.com,,prop.trulia.com,0,0,0,37,111,0,37
+kristin.gutekunst@undp.org,,undp.org,0,0,0,37,111,0,37
+paperlesspost@paperlesspost.com,,paperlesspost.com,0,0,0,37,119,1,37
+gene@theornateproject.com,,theornateproject.com,0,0,0,37,111,0,37
+info@hortiheroes.com,,hortiheroes.com,0,0,0,37,111,0,37
+hostelworld@emails.hostelworld.com,,emails.hostelworld.com,0,0,0,37,111,0,37
+info@slowfactory.com,,slowfactory.com,0,0,0,37,111,0,37
+nicole@yogafoster.org,,yogafoster.org,0,0,0,37,119,1,37
+gnc@rewards.gnc.com,,rewards.gnc.com,0,0,0,36,108,0,36
+competitions@designcommunity-hub.com,,designcommunity-hub.com,0,0,0,36,108,0,36
+howconference@designcommunity-hub.com,HOW Design Conference,designcommunity-hub.com,0,0,0,36,268,12,36
+foodbytes@rabobank.com,FoodBytes! by Rabobank,rabobank.com,0,0,0,36,304,18,36
+katrina@cmimanagement.net,,cmimanagement.net,0,0,0,36,108,0,36
+food-integrity-blockchained-list@meetup.com,,meetup.com,0,0,0,36,108,0,36
+greg.tharp@deutschinc.com,,deutschinc.com,0,0,0,36,108,0,36
+andrius@sosnaked.com,,sosnaked.com,0,0,0,36,108,0,36
+ny@psyop.tv,,psyop.tv,0,0,0,36,108,0,36
+info@littleredrobot.com,,littleredrobot.com,0,0,0,35,105,0,35
+jonathan@makesnaps.com,,makesnaps.com,0,0,0,35,105,0,35
+man@ghostrobot.com,,ghostrobot.com,0,0,0,35,105,0,35
+alicia@bohemianoasis.org,,bohemianoasis.org,0,0,0,35,105,0,35
+cciaction@cciaction.org,"Cherie Mortice, CCI Action Board Chair",cciaction.org,0,0,0,35,331,114,35
+contact@frwrd.tv,,frwrd.tv,0,0,0,35,105,0,35
+heidi@weareplus.com,,weareplus.com,0,0,0,35,105,0,35
+amy.saunders@yrbrands.com,,yrbrands.com,0,0,0,35,105,0,35
+guy.helson@rga.com,,rga.com,0,0,0,35,105,0,35
+news@wearpact.com,,wearpact.com,0,0,0,35,105,0,35
+ylhomme@thinkmojo.net,,thinkmojo.net,0,0,0,34,102,0,34
+jake@withthepowers.com,,withthepowers.com,0,0,0,34,102,0,34
+gerta.xhelo@rga.com,,rga.com,0,0,0,34,102,0,34
+team@nerofabric.com,,nerofabric.com,0,0,0,34,102,0,34
+sam@brandnewschool.com,,brandnewschool.com,0,0,0,34,102,0,34
+nytdirect@nytimes.com,,nytimes.com,0,0,0,34,102,0,34
+team@hellobonsai.com,,hellobonsai.com,0,0,0,34,102,0,34
+chillin@easystreetbrooklyn.com,,easystreetbrooklyn.com,0,0,0,34,102,0,34
+deals@livingsocial.com,,livingsocial.com,0,0,0,34,102,0,34
+email@amnh.info,,amnh.info,0,0,0,34,102,0,34
+sresnick@secondchild.nyc,,secondchild.nyc,0,0,0,34,102,0,34
+do-not-reply@ghostly.com,,ghostly.com,0,0,0,34,102,0,34
+mbp@mrbugsly.com,,mrbugsly.com,0,0,0,34,102,0,34
+machine-learning-society-ny-list@meetup.com,,meetup.com,0,0,0,34,102,0,34
+elena@locationdepartment.net,,locationdepartment.net,0,0,0,34,102,0,34
+concierge@lelabofragrances.com,,lelabofragrances.com,0,0,0,34,110,1,34
+carla@transistorstudios.com,,transistorstudios.com,0,0,0,33,99,0,33
+storefront@farmmatch.com,,farmmatch.com,0,0,0,33,99,0,33
+grupofamily@grupoflor.com,,grupoflor.com,0,0,0,33,99,0,33
+tracking@shipstation.com,Dream Catcher Botanicals LLC,shipstation.com,0,0,0,33,310,31,33
+vrbo@travel.vrbo.com,,travel.vrbo.com,0,0,0,33,99,0,33
+hello@forhims.com,,forhims.com,0,0,0,33,99,0,33
+dccc@dccc.org,,dccc.org,0,0,0,33,99,0,33
+judy@weareplus.com,,weareplus.com,0,0,0,32,96,0,32
+info@domatcha.com,,domatcha.com,0,0,0,32,96,0,32
+thegirls@domestic-construction.com,,domestic-construction.com,0,0,0,32,96,0,32
+sarah.pernick@21gramsny.com,,21gramsny.com,0,0,0,32,96,0,32
+hello@nublu.net,,nublu.net,0,0,0,32,96,0,32
+do-not-reply@moogfest.com,,moogfest.com,0,0,0,32,96,0,32
+info@mp1.tripadvisor.com,,mp1.tripadvisor.com,0,0,0,32,96,0,32
+media@artomi.org,,artomi.org,0,0,0,32,96,0,32
+support@norrona.com,Norrøna,norrona.com,0,0,0,32,289,17,32
+joe@perceptionnyc.com,,perceptionnyc.com,0,0,0,32,96,0,32
+info@marcposchdesign.com,,marcposchdesign.com,0,0,0,32,96,0,32
+info@codeforamerica.org,,codeforamerica.org,0,0,0,32,96,0,32
+lalacrew@lala.com,,lala.com,0,0,0,31,93,0,31
+pachamamacircle@qof.happycustomer.io,,qof.happycustomer.io,0,0,0,31,93,0,31
+nmian@24seveninc.com,,24seveninc.com,0,0,0,31,93,0,31
+ursula@hightimes.com,,hightimes.com,0,0,0,31,93,0,31
+anastasia@expertdojo.com,,expertdojo.com,0,0,0,31,93,0,31
+scheduling@acuityscheduling.com,,acuityscheduling.com,0,0,0,31,93,0,31
+bgraf@timothysaccenti.com,,timothysaccenti.com,0,0,0,31,93,0,31
+max.lauter@buck.co,,buck.co,0,0,0,30,90,0,30
+gina@leroyandclarkson.com,,leroyandclarkson.com,0,0,0,30,90,0,30
+frank@carbonvfx.com,,carbonvfx.com,0,0,0,30,90,0,30
+richardvanhooijdonk@vanhooijdonk.com,,vanhooijdonk.com,0,0,0,30,90,0,30
+hello@bryanjohnson.com,,bryanjohnson.com,0,0,0,30,90,0,30
+kamil@volvoxlabs.com,,volvoxlabs.com,0,0,0,30,90,0,30
+maddi.clarke@annex88.com,,annex88.com,0,0,0,30,90,0,30
+emails@secure-booker.com,,secure-booker.com,0,0,0,30,90,0,30
+kelli@and-or.co,,and-or.co,0,0,0,30,90,0,30
+jeff@subrosanyc.com,,subrosanyc.com,0,0,0,30,90,0,30
+genevieve@cineticmedia.com,,cineticmedia.com,0,0,0,30,90,0,30
+awe-nite-nyc-announce@meetup.com,,meetup.com,0,0,0,30,90,0,30
+hello@the-well.com,,the-well.com,0,0,0,30,90,0,30
+matt.sausmer@havasww.com,,havasww.com,0,0,0,30,90,0,30
+molly@tantrumcontent.com,,tantrumcontent.com,0,0,0,30,90,0,30
+sharizma.budden@21gramsny.com,,21gramsny.com,0,0,0,30,90,0,30
+annseymour@buck.tv,,buck.tv,0,0,0,30,90,0,30
+leigh.wolfson@pmkbnc.com,,pmkbnc.com,0,0,0,30,90,0,30
+tricia.higgins@tbwachiat.com,,tbwachiat.com,0,0,0,29,87,0,29
+docusign@docusign.com,,docusign.com,0,0,0,29,87,0,29
+jfolks@24seveninc.com,,24seveninc.com,0,0,0,29,87,0,29
+crew@fieldnotesbrand.com,,fieldnotesbrand.com,0,0,0,29,87,0,29
+info@onandonsf.com,,onandonsf.com,0,0,0,29,87,0,29
+tiff-press@tiff-jp.net,,tiff-jp.net,0,0,0,29,87,0,29
+support@insidetracker.com,,insidetracker.com,0,0,0,29,87,0,29
+epi@crowdsourcingweek.com,,crowdsourcingweek.com,0,0,0,29,87,0,29
+tiffany.bloomfield@sonymusic.com,,sonymusic.com,0,0,0,29,87,0,29
+sawaf@furynyc.com,,furynyc.com,0,0,0,29,87,0,29
+news@siennaentertainment.com,,siennaentertainment.com,0,0,0,29,87,0,29
+info@founderfuel.com,,founderfuel.com,0,0,0,29,87,0,29
+joseph@cmimanagement.net,,cmimanagement.net,0,0,0,29,87,0,29
+share@flipboard.com,,flipboard.com,0,0,0,28,84,0,28
+info@bbcmaestro.com,,bbcmaestro.com,0,0,0,28,84,0,28
+storesupport@deliveryagent.com,,deliveryagent.com,0,0,0,28,84,0,28
+peter@fakestudios.com,,fakestudios.com,0,0,0,28,84,0,28
+more-properties@prop.trulia.com,,prop.trulia.com,0,0,0,28,84,0,28
+onlinestmt@ealerts.bankofamerica.com,,ealerts.bankofamerica.com,0,0,0,28,84,0,28
+info@y-o-u-n-g.com,,y-o-u-n-g.com,0,0,0,28,84,0,28
+team@hipcamp.com,,hipcamp.com,0,0,0,28,84,0,28
+marc@dizon.co,,dizon.co,0,0,0,28,84,0,28
+kate.klobe@fisherfootwear.com,,fisherfootwear.com,0,0,0,28,84,0,28
+david@iowastartupaccelerator.com,,iowastartupaccelerator.com,0,0,0,28,180,12,28
+production@ghostrobot.com,,ghostrobot.com,0,0,0,28,84,0,28
+info@dangerousminds.net,,dangerousminds.net,0,0,0,28,84,0,28
+greta.knutzen@obscuradigital.com,,obscuradigital.com,0,0,0,28,84,0,28
+info@amsterdam-dance-event.nl,,amsterdam-dance-event.nl,0,0,0,28,84,0,28
+machine-learning-society-ny-announce@meetup.com,,meetup.com,0,0,0,28,84,0,28
+gmarogiannis@24seveninc.com,,24seveninc.com,0,0,0,28,84,0,28
+office@mandy.com,,mandy.com,0,0,0,27,81,0,27
+tickets@avant-gardner.com,,avant-gardner.com,0,0,0,27,81,0,27
+bill@americanmovieco.com,,americanmovieco.com,0,0,0,27,81,0,27
+info@stardust-apothecary.com,,stardust-apothecary.com,0,0,0,27,81,0,27
+events@clubstudiob.net,,clubstudiob.net,0,0,0,27,81,0,27
+news@bwoffers.bestwestern.com,,bwoffers.bestwestern.com,0,0,0,27,81,0,27
+mina@adolescent.tv,,adolescent.tv,0,0,0,27,81,0,27
+aaron@trueaccord.com,,trueaccord.com,0,0,0,27,81,0,27
+info@ambient.church,,ambient.church,0,0,0,27,81,0,27
+hi@thenewfork.com,,thenewfork.com,0,0,0,27,81,0,27
+fcarpenter@corrjensen.com,,corrjensen.com,0,0,0,27,81,0,27
+sales4@xfrog.com,,xfrog.com,0,0,0,27,81,0,27
+jholt@fsc-corp.org,,fsc-corp.org,0,0,0,27,81,0,27
+lucy@hi-impactcommunications.com,,hi-impactcommunications.com,0,0,0,27,81,0,27
+luke.choi@viacommix.com,,viacommix.com,0,0,0,27,81,0,27
+statements@premierbanking.com,,premierbanking.com,0,0,0,26,78,0,26
+rsvp@artofthewilling.com,,artofthewilling.com,0,0,0,26,78,0,26
+mike@valins.com,,valins.com,0,0,0,26,78,0,26
+namik@buckla.com,,buckla.com,0,0,0,26,78,0,26
+info@emp.apartmentlist.com,Apartment List,emp.apartmentlist.com,0,0,0,26,280,38,26
+catheriney@logan.tv,,logan.tv,0,0,0,26,78,0,26
+vice@viceland.com,,viceland.com,0,0,0,26,78,0,26
+inhowseinsights@designcommunity-hub.com,,designcommunity-hub.com,0,0,0,26,78,0,26
+jay@crossfitmojo.com,,crossfitmojo.com,0,0,0,26,78,0,26
+info@p.steepandcheap.com,,p.steepandcheap.com,0,0,0,26,78,0,26
+info@creativeamerica.org,,creativeamerica.org,0,0,0,26,78,0,26
+community@localmotion.org,,localmotion.org,0,0,0,26,78,0,26
+jorie@redantler.com,,redantler.com,0,0,0,26,78,0,26
+info@teamkennedy.com,Team Kennedy Info,teamkennedy.com,0,1,0,25,75,0,26
+skiing@substack.com,The Storm Skiing Journal,substack.com,0,0,0,26,278,24,26
+travelocity@mg.travelocity.com,,mg.travelocity.com,0,0,0,26,78,0,26
+william@northofnewyork.com,,northofnewyork.com,0,0,0,26,78,0,26
+info.usa@survivalinternational.org,,survivalinternational.org,0,0,0,26,78,0,26
+hello@socialbakers.com,,socialbakers.com,0,0,0,25,75,0,25
+dena@thelab.org,,thelab.org,0,0,0,25,75,0,25
+katie@superfad.com,,superfad.com,0,0,0,25,75,0,25
+christa@christacarr.com,,christacarr.com,0,0,0,25,75,0,25
+drew@larecord.com,,larecord.com,0,0,0,25,75,0,25
+do-not-reply@recruiting.facebook.com,,recruiting.facebook.com,0,0,0,25,75,0,25
+adam@fortgansevoort.com,,fortgansevoort.com,0,0,0,25,75,0,25
+freelance-116-announce@meetup.com,,meetup.com,0,0,0,25,75,0,25
+news@royksopp.com,,royksopp.com,0,0,0,25,75,0,25
+noa@expertdojo.com,,expertdojo.com,0,0,0,25,75,0,25
+indeedapply@indeed.com,,indeed.com,0,0,0,25,75,0,25
+neely@aarra.com,,aarra.com,0,0,0,25,75,0,25
+meredith@juniperjones.tv,,juniperjones.tv,0,0,0,25,75,0,25
+keeley@goodco.tv,,goodco.tv,0,0,0,25,75,0,25
+eaccountnotify@verizonwireless.com,,verizonwireless.com,0,0,0,25,75,0,25
+list@chkchkchk.net,,chkchkchk.net,0,0,0,25,83,1,25
+do-not-reply@smashwords.com,,smashwords.com,0,0,0,25,75,0,25
+samsclub@express2.medallia.com,,express2.medallia.com,0,0,0,25,75,0,25
+news@letter.movavi.com,,letter.movavi.com,0,0,0,25,75,0,25
+support@trueaccord.com,,trueaccord.com,0,0,0,25,75,0,25
+hello@innovationlab.us,,innovationlab.us,0,0,0,24,112,5,24
+wyndhamrewards@emails.wyndhamhotels.com,,emails.wyndhamhotels.com,0,0,0,24,72,0,24
+mailstrom@410labs.com,,410labs.com,0,0,0,24,72,0,24
+payexpress@twcnyc.com,,twcnyc.com,0,0,0,24,72,0,24
+kkelly@rubenstein.com,,rubenstein.com,0,0,0,24,72,0,24
+rita@thefantasticfilmfactory.tv,,thefantasticfilmfactory.tv,0,0,0,24,72,0,24
+kcolburn@updategraphics.com,,updategraphics.com,0,0,0,24,72,0,24
+support@experthost.com,,experthost.com,0,0,0,24,72,0,24
+norah@transistorstudios.com,,transistorstudios.com,0,0,0,24,72,0,24
+becky@stardust.tv,,stardust.tv,0,0,0,24,72,0,24
+lauren@intuitioncoop.com,,intuitioncoop.com,0,0,0,24,72,0,24
+brent.miller@craftww.com,,craftww.com,0,0,0,24,72,0,24
+hello@thecushionlab.com,,thecushionlab.com,0,0,0,24,72,0,24
+cofounderslab-matchup-brooklyn-announce@meetup.com,,meetup.com,0,0,0,24,72,0,24
+sarah@hi-impactcommunications.com,,hi-impactcommunications.com,0,0,0,24,72,0,24
+alex@bgstr.com,,bgstr.com,0,0,0,24,72,0,24
+filson1897@filson.com,,filson.com,0,0,0,24,72,0,24
+david.mcelwaine@mtvstaff.com,,mtvstaff.com,0,0,0,24,72,0,24
+themachine@pushpress.com,,pushpress.com,0,0,0,24,72,0,24
+approval@elmstreettechnology.com,,elmstreettechnology.com,0,0,0,24,112,5,24
+isirois@wearfoehn.com,,wearfoehn.com,0,0,0,24,72,0,24
+poprally@moma.org,,moma.org,0,0,0,24,72,0,24
+transaction@info.samsclub.com,,info.samsclub.com,0,0,0,24,72,0,24
+content@mp1.tripadvisor.com,,mp1.tripadvisor.com,0,0,0,24,96,3,24
+duke@dukeriley.info,,dukeriley.info,0,0,0,24,72,0,24
+srisenrobertson@unicef.org,,unicef.org,0,0,0,24,72,0,24
+info@nordarun.com,,nordarun.com,0,0,0,23,69,0,23
+felix@thewildernessinc.com,,thewildernessinc.com,0,0,0,23,69,0,23
+atelier@marketing.blvd.me,,marketing.blvd.me,0,0,0,23,69,0,23
+info@comunicaciones.doters.com,,comunicaciones.doters.com,0,0,0,23,69,0,23
+hello@newsletter.mubi.com,,newsletter.mubi.com,0,0,0,23,69,0,23
+how-competitions@designcommunity-hub.com,,designcommunity-hub.com,0,0,0,23,69,0,23
+tiff-pr2015@tiff-jp.net,,tiff-jp.net,0,0,0,23,69,0,23
+mail@knockdowncenter.com,,knockdowncenter.com,0,0,0,23,69,0,23
+info@harbisoncollection.com,,harbisoncollection.com,0,0,0,23,69,0,23
+tom@513e12.com,,513e12.com,0,0,0,23,69,0,23
+donovan.goodly@deutschinc.com,,deutschinc.com,0,0,0,23,69,0,23
+magic@wearesupernatural.co,,wearesupernatural.co,0,0,0,23,69,0,23
+dena.moore@tbwachiat.com,,tbwachiat.com,0,0,0,22,74,1,22
+ryan.tandy@rga.com,,rga.com,0,0,0,22,66,0,22
+jack.wallace@ghostrobot.com,,ghostrobot.com,0,0,0,22,66,0,22
+quickbooks@notification.intuit.com,,notification.intuit.com,0,0,0,22,98,4,22
+lmarquez@charlex.com,,charlex.com,0,0,0,22,66,0,22
+tiffany@secondchild.nyc,,secondchild.nyc,0,0,0,22,66,0,22
+layo@info.layoandbushwacka.com,,info.layoandbushwacka.com,0,0,0,22,66,0,22
+marilyn@the7sisters.com,,the7sisters.com,0,0,0,22,66,0,22
+josh@mssngpeces.com,,mssngpeces.com,0,0,0,22,66,0,22
+aaron@bjorky.com,,bjorky.com,0,0,0,22,66,0,22
+amy.saunders@vmlyr.com,,vmlyr.com,0,0,0,22,66,0,22
+beth.armstrong@deutschinc.com,,deutschinc.com,0,0,0,22,66,0,22
+healthyyou@deltadentalia.com,,deltadentalia.com,0,0,0,22,66,0,22
+matt@seedny.com,,seedny.com,0,0,0,22,66,0,22
+peter@petergraysearch.com,Peter,petergraysearch.com,1,0,0,21,79,2,22
+yessy@secondchild.nyc,,secondchild.nyc,0,0,0,22,66,0,22
+brooklyn@wordbookstores.com,,wordbookstores.com,0,0,0,22,66,0,22
+support@aiaiai.audio,,aiaiai.audio,0,0,0,22,66,0,22
+keith.dorsch@21gramsny.com,,21gramsny.com,0,0,0,22,66,0,22
+portfolios@designtaxi.com,,designtaxi.com,0,0,0,22,66,0,22
+santa@isabel.io,,isabel.io,0,0,0,22,66,0,22
+eflyer@info.layoandbushwacka.com,,info.layoandbushwacka.com,0,0,0,22,66,0,22
+alexa@annex88.com,,annex88.com,0,0,0,22,66,0,22
+jessica@hi-impactcommunications.com,,hi-impactcommunications.com,0,0,0,22,66,0,22
+hello@chairish.com,,chairish.com,0,0,0,22,66,0,22
+sheri@shadevfx.com,,shadevfx.com,0,0,0,22,66,0,22
+rgale@sparknyc.com,,sparknyc.com,0,0,0,21,63,0,21
+kacie@siblingrivalrystudio.com,,siblingrivalrystudio.com,0,0,0,21,63,0,21
+matt.sausmer@yr.com,,yr.com,0,0,0,21,63,0,21
+nyc@mrbugsly.com,,mrbugsly.com,0,0,0,21,63,0,21
+info@wordbookstores.com,,wordbookstores.com,0,0,0,21,63,0,21
+info@woolly.clothing,,woolly.clothing,0,0,0,21,63,0,21
+michaelu@creativefeed.net,,creativefeed.net,0,0,0,21,63,0,21
+jordan@airkrft.com,,airkrft.com,0,0,0,21,63,0,21
+meetra@annex88.com,,annex88.com,0,0,0,21,63,0,21
+richard.abbott@openag.farm,,openag.farm,0,0,0,21,63,0,21
+lauren.ziffer@deutschinc.com,,deutschinc.com,0,0,0,21,63,0,21
+info@turbosquid.com,,turbosquid.com,0,0,0,21,63,0,21
+tiff-pr2016@tiff-jp.net,,tiff-jp.net,0,0,0,21,63,0,21
+donphillipsjr@creativex.us,,creativex.us,0,0,0,21,63,0,21
+info@botanicaffair.com,,botanicaffair.com,0,0,0,21,63,0,21
+mailout@theyoungturks.co.uk,,theyoungturks.co.uk,0,0,0,21,63,0,21
+contact@coffeemeetsbagel.com,,coffeemeetsbagel.com,0,0,0,21,63,0,21
+feedback@slack.com,,slack.com,0,0,0,21,63,0,21
+daniel.blake@openag.farm,,openag.farm,0,0,0,21,63,0,21
+dorian@brandnewschool.com,,brandnewschool.com,0,0,0,21,63,0,21
+ryan@cineticmedia.com,,cineticmedia.com,0,0,0,21,63,0,21
+sally@sallygibson.com,,sallygibson.com,0,0,0,21,63,0,21
+follow-elna=zrqvnqevsg.pbz-ea22c@postmaster.twitter.com,,postmaster.twitter.com,0,0,0,21,63,0,21
+mary@awexr.com,,awexr.com,0,0,0,21,63,0,21
+beata.calinska@methodstudios.com,,methodstudios.com,0,0,0,20,60,0,20
+exactsciences@myworkday.com,,myworkday.com,0,0,0,20,60,0,20
+maximilian@mckittrickhotel.com,,mckittrickhotel.com,0,0,0,20,60,0,20
+friends@quirky.com,,quirky.com,0,0,0,20,60,0,20
+tiff-pr2017@tiff-jp.net,,tiff-jp.net,0,0,0,20,60,0,20
+ana.sanchez@mtvstaff.com,,mtvstaff.com,0,0,0,20,60,0,20
+info@shoppop.com,,shoppop.com,0,0,0,20,60,0,20
+rsvp@sheiknbeik.com,,sheiknbeik.com,0,0,0,20,60,0,20
+theresa.caffrey@sonymusic.com,,sonymusic.com,0,0,0,20,60,0,20
+nataliablagoeva@substack.com,,substack.com,0,0,0,20,60,0,20
+hello@ieandy.com,,ieandy.com,0,0,0,20,60,0,20
+millie@motionographer.com,,motionographer.com,0,0,0,20,60,0,20
+jobs@motionographer.com,,motionographer.com,0,0,0,20,60,0,20
+acastelo@aquent.com,,aquent.com,0,0,0,20,60,0,20
+mikewendt@ruhlhomes.com,,ruhlhomes.com,0,0,0,20,60,0,20
+mark@heybeautifuljerk.com,,heybeautifuljerk.com,0,0,0,20,60,0,20
+jake@weareplus.com,,weareplus.com,0,0,0,20,60,0,20
+messages@wistia.com,,wistia.com,0,0,0,20,60,0,20
+danielle@poetica.tv,,poetica.tv,0,0,0,20,60,0,20
+support@sizzlefish.com,,sizzlefish.com,0,0,0,20,60,0,20
+brian@modgital.com,,modgital.com,0,0,0,20,60,0,20
+lizzy@offspringny.com,,offspringny.com,0,0,0,20,60,0,20
+erivera@opesgroupllc.com,,opesgroupllc.com,0,0,0,20,60,0,20
+contact@tabiousa.com,,tabiousa.com,0,0,0,20,60,0,20
+info@socratessculpturepark.org,,socratessculpturepark.org,0,0,0,20,60,0,20
+worldview@stratfor.com,,stratfor.com,0,0,0,20,60,0,20
+matthew@machina.ventures,,machina.ventures,0,0,0,20,60,0,20
+william@skitch.tv,,skitch.tv,0,0,0,20,60,0,20
+info@shoptruelight.com,,shoptruelight.com,0,0,0,20,60,0,20
+hi@thefork.online,,thefork.online,0,0,0,20,60,0,20
+echosign@echosign.com,Contracts,echosign.com,0,1,0,10,30,0,11
+orion@buck.tv,Orion Tait,buck.tv,5,0,0,5,15,0,10
+amody@plenty.ag,Amol Mody,plenty.ag,1,0,0,9,27,0,10
+"emgleich@gmail.com, jjavornik@filamentgames.com","Emily Gleicher, Jennifer Javornik",filamentgames.com,10,0,0,0,0,0,10
+billing@midjourney.com,Billing,midjourney.com,2,0,0,7,21,0,9
+ceylan@ceylanecer.com,Ceylan,ceylanecer.com,1,0,0,7,21,0,8
+"adrian.almeida@sensei.ag, dd@appliedinvention.com","Adrian Almeida, Dave Douglas",appliedinvention.com,6,0,0,0,0,0,6
+melissa@exitunlimited.com,Melissa Link,exitunlimited.com,0,1,0,4,12,0,5
+"caoun@nvidia.com, mblomkvist@nvidia.com, pbeaudoin@nvidia.com","Charbel Aoun, Magnus Blomkvist, Pierre-Antoine Beaudoin",nvidia.com,5,0,0,0,0,0,5
+adobesign@adobesign.com,Adobe Acrobat Sign on behalf of Filament Games,adobesign.com,0,1,0,4,12,0,5
