@@ -175,6 +175,71 @@ table { border-collapse: collapse; width: 100%; }
 }
 .stat-value.accent { color: var(--color-accent); }
 
+/* ===== ACCOUNT TABS ===== */
+.account-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-6);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.account-tabs-bar::-webkit-scrollbar { display: none; }
+
+.account-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--color-text-faint);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  user-select: none;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: -1px;
+}
+.account-tab:hover {
+  color: var(--color-text-muted);
+}
+.account-tab.active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+  font-weight: 600;
+}
+
+.tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: var(--radius-full);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  background: var(--color-surface-3);
+  color: var(--color-text-faint);
+}
+.account-tab.active .tab-badge {
+  background: var(--color-accent-glow);
+  color: var(--color-accent);
+}
+
 /* ===== MAIN LAYOUT ===== */
 .dashboard-main {
   max-width: 1400px;
@@ -780,6 +845,15 @@ table { border-collapse: collapse; width: 100%; }
   }
   .stat-item { align-items: flex-start; }
 
+  .account-tabs-bar {
+    padding: 0 var(--space-4);
+    gap: 0;
+  }
+  .account-tab {
+    padding: var(--space-3) var(--space-3);
+    font-size: 0.65rem;
+  }
+
   .dashboard-main {
     padding: var(--space-4);
     padding-bottom: 80px;
@@ -923,14 +997,27 @@ table { border-collapse: collapse; width: 100%; }
   </div>
 </header>
 
+<!-- ACCOUNT TABS -->
+<nav class="account-tabs-bar" id="accountTabsBar" role="tablist" aria-label="Account tabs">
+  <button class="account-tab active" role="tab" aria-selected="true" data-account="debahooks@gmail.com" tabindex="0">
+    debahooks@gmail.com <span class="tab-badge" id="badge-debahooks">0</span>
+  </button>
+  <button class="account-tab" role="tab" aria-selected="false" data-account="ryan@globalproto.com" tabindex="-1">
+    ryan@globalproto.com <span class="tab-badge" id="badge-globalproto">0</span>
+  </button>
+  <button class="account-tab" role="tab" aria-selected="false" data-account="ryan@typelabs.ai" tabindex="-1">
+    ryan@typelabs.ai <span class="tab-badge" id="badge-typelabs">0</span>
+  </button>
+</nav>
+
 <!-- MAIN CONTENT -->
 <main class="dashboard-main">
 
-  <!-- BATCH QUEUE SECTION -->
+  <!-- TOMORROW'S BATCH SECTION -->
   <section id="batchSection">
     <div class="section-header">
       <h2 class="section-title">
-        Batch Queue
+        Tomorrow's Batch
         <span class="count" id="batchCount">(0)</span>
       </h2>
       <span class="section-meta" id="batchMeta">Week of Mar 29 — loading...</span>
@@ -989,12 +1076,6 @@ table { border-collapse: collapse; width: 100%; }
         <option value="redirect">Redirect</option>
         <option value="notnow">Not Now</option>
       </select>
-      <select class="filter-select" id="filterFrom">
-        <option value="">All Accounts</option>
-        <option value="debahooks@gmail.com">debahooks@gmail.com</option>
-        <option value="ryan@globalproto.com">ryan@globalproto.com</option>
-        <option value="ryan@typelabs.ai">ryan@typelabs.ai</option>
-      </select>
     </div>
 
     <!-- Desktop Table -->
@@ -1005,7 +1086,6 @@ table { border-collapse: collapse; width: 100%; }
             <th data-sort="date" class="sorted">Date <span class="sort-arrow">↓</span></th>
             <th data-sort="to">To <span class="sort-arrow">↓</span></th>
             <th data-sort="subject">Subject <span class="sort-arrow">↓</span></th>
-            <th data-sort="from">From <span class="sort-arrow">↓</span></th>
             <th data-sort="status">Status <span class="sort-arrow">↓</span></th>
             <th data-sort="category">Pipeline <span class="sort-arrow">↓</span></th>
           </tr>
@@ -1068,18 +1148,17 @@ table { border-collapse: collapse; width: 100%; }
 <script>
 // ===== DATA LAYER =====
 const API_URL = 'https://amy-api.rhooks20.workers.dev';
-const STORAGE_KEYS = {
-  queue: 'amy_dashboard_queue',
-  sent: 'amy_outreach_emails',
-  pipeline: 'amy_pipeline_categories'
-};
 
-// Gmail accounts
-const FROM_ACCOUNTS = [
-  'debahooks@gmail.com',
-  'ryan@globalproto.com',
-  'ryan@typelabs.ai'
+// Account definitions
+const ACCOUNTS = [
+  { key: 'debahooks', email: 'debahooks@gmail.com', label: 'debahooks@gmail.com' },
+  { key: 'globalproto', email: 'ryan@globalproto.com', label: 'ryan@globalproto.com' },
+  { key: 'typelabs', email: 'ryan@typelabs.ai', label: 'ryan@typelabs.ai' }
 ];
+
+function storageKey(accountKey, type) {
+  return `amy_${type}_${accountKey}`;
+}
 
 // ===== DEMO DATA =====
 function generateDemoData() {
@@ -1087,335 +1166,361 @@ function generateDemoData() {
   const weekStart = new Date(now);
   weekStart.setDate(now.getDate() - now.getDay());
 
-  const queueEmails = [
-    {
-      id: 'q1',
-      to: 'sarah.chen@mindbodywell.com',
-      subject: 'Partnership: AI-Powered Wellness Insights for MindBody',
-      body: 'Hi Sarah,\n\nI came across MindBody\'s recent expansion into personalized wellness programs and wanted to reach out. At GlobalProto, we\'re building AI-driven biomarker analysis tools that could complement your platform beautifully.\n\nOur system processes wearable data (Oura, Whoop, Apple Watch) to generate actionable wellness recommendations. I think there\'s a natural integration opportunity — your user base gets deeper health insights, and we get distribution.\n\nWould you be open to a 15-minute call this week to explore?\n\nBest,\nRyan',
-      from: 'ryan@globalproto.com',
-      template: 'Partnership',
-      createdAt: new Date(weekStart.getTime() + 86400000).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q2',
-      to: 'marcus.johnson@wellnessinfluencer.co',
-      subject: 'Collab opportunity — Proto health tracking app',
-      body: 'Hey Marcus,\n\nLove your content on holistic health optimization. Your recent post about continuous glucose monitoring really resonated with our mission at Proto.\n\nWe\'re launching a health tracking app that uses AI to connect the dots between sleep, nutrition, and biomarkers. Would love to get your take on it — and potentially explore a content collaboration.\n\nHappy to send you early access. Interested?\n\nRyan',
-      from: 'debahooks@gmail.com',
-      template: 'Influencer Outreach',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 1.5).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q3',
-      to: 'dr.patel@longevityresearch.org',
-      subject: 'Biomarker data collaboration — Village Health Network',
-      body: 'Dr. Patel,\n\nI\'ve been following your published research on aging biomarkers and their predictive value for chronic disease. Impressive work.\n\nWe\'re building Village, a decentralized health data network where users own and selectively share their biomarker data with researchers like you. I believe this could accelerate your longevity studies significantly.\n\nWould you be interested in being an early research partner? We can provide anonymized datasets from 10k+ users.\n\nBest regards,\nRyan Hooks\nTypeLabs',
-      from: 'ryan@typelabs.ai',
-      template: 'Research Collab',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 2).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q4',
-      to: 'jessica.wu@nourishtech.io',
-      subject: 'Quick question about Nourish\'s API',
-      body: 'Hi Jessica,\n\nI noticed Nourish just launched your nutrition tracking API — congrats! We\'re integrating nutrition data into Proto\'s health dashboard and your API looks like the perfect fit.\n\nTwo quick questions:\n1. Do you offer startup-tier pricing for early-stage companies?\n2. Is there a webhook for real-time meal logging events?\n\nWould love to chat if you have 10 minutes this week.\n\nThanks,\nRyan',
-      from: 'ryan@globalproto.com',
-      template: 'Integration Request',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 2.5).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q5',
-      to: 'alex.rivera@fitfluence.com',
-      subject: 'Interested in featuring Proto on your podcast?',
-      body: 'Alex,\n\nBig fan of The Fitfluence Podcast — especially the episode with Dr. Huberman on sleep optimization.\n\nI\'m building Proto, an AI health tracking app that turns raw biomarker data into actionable daily protocols. Think of it as a personal health AI that actually understands your biology.\n\nWould you be interested in having me on to discuss the future of AI + personal health? I can share some wild stories about what we\'re seeing in early user data.\n\nCheers,\nRyan',
-      from: 'debahooks@gmail.com',
-      template: 'Podcast Pitch',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 3).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q6',
-      to: 'emma.thompson@ourahealth.com',
-      subject: 'GlobalProto x Oura — deeper integration proposal',
-      body: 'Hi Emma,\n\nWe\'re currently pulling data from the Oura API for our GlobalProto platform, and our users love the sleep and readiness data. However, we think there\'s an opportunity to go deeper.\n\nSpecifically, we\'d like to explore:\n- Real-time HRV streaming for our AI coaching engine\n- Collaborative research insights shared back to Oura users\n- Co-branded wellness reports\n\nOur platform currently has 8,000 active users, with 40% using Oura rings. Would love to discuss a formal partnership.\n\nBest,\nRyan Hooks',
-      from: 'ryan@globalproto.com',
-      template: 'Partnership',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 3).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q7',
-      to: 'david.kim@biohackersunite.com',
-      subject: 'Sponsorship opportunity — Biohackers Unite conference',
-      body: 'David,\n\nSaw the lineup for Biohackers Unite 2026 in Austin — incredible roster. We\'d love to be involved.\n\nProto is an AI health tracking platform that would resonate strongly with your audience. We\'re interested in:\n- Booth sponsorship (demo stations with live biomarker analysis)\n- Speaking slot on AI-powered health optimization\n- Attendee early access codes\n\nWhat sponsorship tiers are still available?\n\nRyan',
-      from: 'ryan@typelabs.ai',
-      template: 'Event Outreach',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 3.5).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q8',
-      to: 'lisa.martinez@wellnessweekly.com',
-      subject: 'Story pitch: How AI is personalizing health beyond one-size-fits-all',
-      body: 'Hi Lisa,\n\nI have a story pitch I think your readers would love.\n\nWe\'re seeing a shift from generic health advice to AI-personalized protocols based on individual biomarkers. At Proto, our AI has analyzed 2M+ data points and found that sleep optimization recommendations vary wildly between individuals — what works for one person can actually harm another.\n\nI can provide:\n- Exclusive data insights and visualizations\n- User case studies (with permission)\n- Expert commentary from our science team\n\nInterested in covering this angle?\n\nBest,\nRyan Hooks',
-      from: 'debahooks@gmail.com',
-      template: 'Press Pitch',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 4).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q9',
-      to: 'tom.nguyen@healthstackvc.com',
-      subject: 'Follow-up: Village Health Network deck',
-      body: 'Tom,\n\nGreat meeting you at the HealthTech mixer last week. As promised, wanted to follow up on our conversation about decentralized health data.\n\nVillage is building the infrastructure for user-owned health data — think of it as "Plaid for health." Users connect their wearables, labs, and medical records into a single profile they control. Researchers and companies pay for anonymized, permissioned access.\n\nAttaching our deck. We\'re raising a $2M seed and would love HealthStack\'s involvement given your thesis.\n\nBest,\nRyan',
-      from: 'ryan@typelabs.ai',
-      template: 'Investor Follow-up',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 4).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q10',
-      to: 'natalie.brooks@whoophealth.com',
-      subject: 'Proto integration + case study opportunity',
-      body: 'Hi Natalie,\n\nWe\'ve integrated Whoop data into Proto\'s health dashboard and are seeing amazing engagement — users who connect Whoop spend 3x more time in the app.\n\nI\'d love to explore:\n1. Deeper API access (strain data + recovery recommendations)\n2. A joint case study showcasing Whoop + AI health coaching\n3. Potential inclusion in Whoop\'s partner ecosystem\n\nOur users are exactly your target demo: health-conscious, data-driven, willing to pay for premium insights.\n\nLet me know if you\'re the right person to chat with, or happy to be redirected.\n\nRyan',
-      from: 'ryan@globalproto.com',
-      template: 'Partnership',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 4.5).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q11',
-      to: 'chris.baker@gymshark.com',
-      subject: 'Proto x Gymshark — health tech meets fitness culture',
-      body: 'Chris,\n\nGymshark has done an incredible job building a fitness community. We think there\'s a natural extension into health tracking.\n\nProto is an AI health platform that turns biometric data into personalized training and recovery protocols. Imagine Gymshark athletes getting real-time recommendations based on their HRV, sleep quality, and training load.\n\nWe\'d love to explore a partnership — could be anything from a co-branded feature to athlete endorsements.\n\nWorth a quick call?\n\nRyan',
-      from: 'debahooks@gmail.com',
-      template: 'Brand Partnership',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 5).toISOString(),
-      status: 'queued'
-    },
-    {
-      id: 'q12',
-      to: 'rachel.green@functionalmedicine.org',
-      subject: 'Webinar proposal: AI biomarker analysis for functional medicine practitioners',
-      body: 'Dr. Green,\n\nI\'m reaching out because I think the functional medicine community would benefit tremendously from AI-powered biomarker analysis.\n\nAt GlobalProto, we\'ve built a system that analyzes 50+ biomarkers holistically — not just flagging out-of-range values, but identifying patterns and interactions that predict health trajectories.\n\nI\'d love to propose a joint webinar for your practitioner network:\n- Title: "Beyond Reference Ranges: How AI Connects the Dots in Lab Work"\n- Format: 45-min presentation + 15-min Q&A\n- Audience: Functional medicine practitioners\n\nWould this be of interest?\n\nBest regards,\nRyan Hooks',
-      from: 'ryan@globalproto.com',
-      template: 'Webinar Pitch',
-      createdAt: new Date(weekStart.getTime() + 86400000 * 5).toISOString(),
-      status: 'queued'
-    }
-  ];
+  const queueEmails = {
+    debahooks: [
+      {
+        id: 'q2',
+        to: 'marcus.johnson@wellnessinfluencer.co',
+        subject: 'Collab opportunity — Proto health tracking app',
+        body: 'Hey Marcus,\n\nLove your content on holistic health optimization. Your recent post about continuous glucose monitoring really resonated with our mission at Proto.\n\nWe\'re launching a health tracking app that uses AI to connect the dots between sleep, nutrition, and biomarkers. Would love to get your take on it — and potentially explore a content collaboration.\n\nHappy to send you early access. Interested?\n\nRyan',
+        from: 'debahooks@gmail.com',
+        template: 'Influencer Outreach',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 1.5).toISOString(),
+        status: 'queued'
+      },
+      {
+        id: 'q5',
+        to: 'alex.rivera@fitfluence.com',
+        subject: 'Interested in featuring Proto on your podcast?',
+        body: 'Alex,\n\nBig fan of The Fitfluence Podcast — especially the episode with Dr. Huberman on sleep optimization.\n\nI\'m building Proto, an AI health tracking app that turns raw biomarker data into actionable daily protocols. Think of it as a personal health AI that actually understands your biology.\n\nWould you be interested in having me on to discuss the future of AI + personal health? I can share some wild stories about what we\'re seeing in early user data.\n\nCheers,\nRyan',
+        from: 'debahooks@gmail.com',
+        template: 'Podcast Pitch',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 3).toISOString(),
+        status: 'queued'
+      },
+      {
+        id: 'q8',
+        to: 'lisa.martinez@wellnessweekly.com',
+        subject: 'Story pitch: How AI is personalizing health beyond one-size-fits-all',
+        body: 'Hi Lisa,\n\nI have a story pitch I think your readers would love.\n\nWe\'re seeing a shift from generic health advice to AI-personalized protocols based on individual biomarkers. At Proto, our AI has analyzed 2M+ data points and found that sleep optimization recommendations vary wildly between individuals — what works for one person can actually harm another.\n\nI can provide:\n- Exclusive data insights and visualizations\n- User case studies (with permission)\n- Expert commentary from our science team\n\nInterested in covering this angle?\n\nBest,\nRyan Hooks',
+        from: 'debahooks@gmail.com',
+        template: 'Press Pitch',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 4).toISOString(),
+        status: 'queued'
+      },
+      {
+        id: 'q11',
+        to: 'chris.baker@gymshark.com',
+        subject: 'Proto x Gymshark — health tech meets fitness culture',
+        body: 'Chris,\n\nGymshark has done an incredible job building a fitness community. We think there\'s a natural extension into health tracking.\n\nProto is an AI health platform that turns biometric data into personalized training and recovery protocols. Imagine Gymshark athletes getting real-time recommendations based on their HRV, sleep quality, and training load.\n\nWe\'d love to explore a partnership — could be anything from a co-branded feature to athlete endorsements.\n\nWorth a quick call?\n\nRyan',
+        from: 'debahooks@gmail.com',
+        template: 'Brand Partnership',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 5).toISOString(),
+        status: 'queued'
+      }
+    ],
+    globalproto: [
+      {
+        id: 'q1',
+        to: 'sarah.chen@mindbodywell.com',
+        subject: 'Partnership: AI-Powered Wellness Insights for MindBody',
+        body: 'Hi Sarah,\n\nI came across MindBody\'s recent expansion into personalized wellness programs and wanted to reach out. At GlobalProto, we\'re building AI-driven biomarker analysis tools that could complement your platform beautifully.\n\nOur system processes wearable data (Oura, Whoop, Apple Watch) to generate actionable wellness recommendations. I think there\'s a natural integration opportunity — your user base gets deeper health insights, and we get distribution.\n\nWould you be open to a 15-minute call this week to explore?\n\nBest,\nRyan',
+        from: 'ryan@globalproto.com',
+        template: 'Partnership',
+        createdAt: new Date(weekStart.getTime() + 86400000).toISOString(),
+        status: 'queued'
+      },
+      {
+        id: 'q4',
+        to: 'jessica.wu@nourishtech.io',
+        subject: 'Quick question about Nourish\'s API',
+        body: 'Hi Jessica,\n\nI noticed Nourish just launched your nutrition tracking API — congrats! We\'re integrating nutrition data into Proto\'s health dashboard and your API looks like the perfect fit.\n\nTwo quick questions:\n1. Do you offer startup-tier pricing for early-stage companies?\n2. Is there a webhook for real-time meal logging events?\n\nWould love to chat if you have 10 minutes this week.\n\nThanks,\nRyan',
+        from: 'ryan@globalproto.com',
+        template: 'Integration Request',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 2.5).toISOString(),
+        status: 'queued'
+      },
+      {
+        id: 'q6',
+        to: 'emma.thompson@ourahealth.com',
+        subject: 'GlobalProto x Oura — deeper integration proposal',
+        body: 'Hi Emma,\n\nWe\'re currently pulling data from the Oura API for our GlobalProto platform, and our users love the sleep and readiness data. However, we think there\'s an opportunity to go deeper.\n\nSpecifically, we\'d like to explore:\n- Real-time HRV streaming for our AI coaching engine\n- Collaborative research insights shared back to Oura users\n- Co-branded wellness reports\n\nOur platform currently has 8,000 active users, with 40% using Oura rings. Would love to discuss a formal partnership.\n\nBest,\nRyan Hooks',
+        from: 'ryan@globalproto.com',
+        template: 'Partnership',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 3).toISOString(),
+        status: 'queued'
+      },
+      {
+        id: 'q10',
+        to: 'natalie.brooks@whoophealth.com',
+        subject: 'Proto integration + case study opportunity',
+        body: 'Hi Natalie,\n\nWe\'ve integrated Whoop data into Proto\'s health dashboard and are seeing amazing engagement — users who connect Whoop spend 3x more time in the app.\n\nI\'d love to explore:\n1. Deeper API access (strain data + recovery recommendations)\n2. A joint case study showcasing Whoop + AI health coaching\n3. Potential inclusion in Whoop\'s partner ecosystem\n\nOur users are exactly your target demo: health-conscious, data-driven, willing to pay for premium insights.\n\nLet me know if you\'re the right person to chat with, or happy to be redirected.\n\nRyan',
+        from: 'ryan@globalproto.com',
+        template: 'Partnership',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 4.5).toISOString(),
+        status: 'queued'
+      }
+    ],
+    typelabs: [
+      {
+        id: 'q3',
+        to: 'dr.patel@longevityresearch.org',
+        subject: 'Biomarker data collaboration — Village Health Network',
+        body: 'Dr. Patel,\n\nI\'ve been following your published research on aging biomarkers and their predictive value for chronic disease. Impressive work.\n\nWe\'re building Village, a decentralized health data network where users own and selectively share their biomarker data with researchers like you. I believe this could accelerate your longevity studies significantly.\n\nWould you be interested in being an early research partner? We can provide anonymized datasets from 10k+ users.\n\nBest regards,\nRyan Hooks\nTypeLabs',
+        from: 'ryan@typelabs.ai',
+        template: 'Research Collab',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 2).toISOString(),
+        status: 'queued'
+      },
+      {
+        id: 'q7',
+        to: 'david.kim@biohackersunite.com',
+        subject: 'Sponsorship opportunity — Biohackers Unite conference',
+        body: 'David,\n\nSaw the lineup for Biohackers Unite 2026 in Austin — incredible roster. We\'d love to be involved.\n\nProto is an AI health tracking platform that would resonate strongly with your audience. We\'re interested in:\n- Booth sponsorship (demo stations with live biomarker analysis)\n- Speaking slot on AI-powered health optimization\n- Attendee early access codes\n\nWhat sponsorship tiers are still available?\n\nRyan',
+        from: 'ryan@typelabs.ai',
+        template: 'Event Outreach',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 3.5).toISOString(),
+        status: 'queued'
+      },
+      {
+        id: 'q9',
+        to: 'tom.nguyen@healthstackvc.com',
+        subject: 'Follow-up: Village Health Network deck',
+        body: 'Tom,\n\nGreat meeting you at the HealthTech mixer last week. As promised, wanted to follow up on our conversation about decentralized health data.\n\nVillage is building the infrastructure for user-owned health data — think of it as "Plaid for health." Users connect their wearables, labs, and medical records into a single profile they control. Researchers and companies pay for anonymized, permissioned access.\n\nAttaching our deck. We\'re raising a $2M seed and would love HealthStack\'s involvement given your thesis.\n\nBest,\nRyan',
+        from: 'ryan@typelabs.ai',
+        template: 'Investor Follow-up',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 4).toISOString(),
+        status: 'queued'
+      },
+      {
+        id: 'q12',
+        to: 'rachel.green@functionalmedicine.org',
+        subject: 'Webinar proposal: AI biomarker analysis for functional medicine practitioners',
+        body: 'Dr. Green,\n\nI\'m reaching out because I think the functional medicine community would benefit tremendously from AI-powered biomarker analysis.\n\nAt GlobalProto, we\'ve built a system that analyzes 50+ biomarkers holistically — not just flagging out-of-range values, but identifying patterns and interactions that predict health trajectories.\n\nI\'d love to propose a joint webinar for your practitioner network:\n- Title: "Beyond Reference Ranges: How AI Connects the Dots in Lab Work"\n- Format: 45-min presentation + 15-min Q&A\n- Audience: Functional medicine practitioners\n\nWould this be of interest?\n\nBest regards,\nRyan Hooks',
+        from: 'ryan@typelabs.ai',
+        template: 'Webinar Pitch',
+        createdAt: new Date(weekStart.getTime() + 86400000 * 5).toISOString(),
+        status: 'queued'
+      }
+    ]
+  };
 
-  // Demo sent emails
-  const sentEmails = [
-    {
-      id: 's1',
-      to: 'jake.powers@fitbit.com',
-      subject: 'Proto x Fitbit — health data integration',
-      body: 'Integration pitch...',
-      from: 'ryan@globalproto.com',
-      template: 'Partnership',
-      sentAt: new Date(now.getTime() - 86400000 * 6).toISOString(),
-      status: 'replied',
-      category: 'hot'
-    },
-    {
-      id: 's2',
-      to: 'anna.lee@healthline.com',
-      subject: 'Guest post: The future of AI-driven health protocols',
-      body: 'Press pitch...',
-      from: 'debahooks@gmail.com',
-      template: 'Press Pitch',
-      sentAt: new Date(now.getTime() - 86400000 * 5).toISOString(),
-      status: 'opened',
-      category: 'warm'
-    },
-    {
-      id: 's3',
-      to: 'mike.chen@a16z.com',
-      subject: 'Village Health Network — seed round intro',
-      body: 'Investor outreach...',
-      from: 'ryan@typelabs.ai',
-      template: 'Investor Follow-up',
-      sentAt: new Date(now.getTime() - 86400000 * 5).toISOString(),
-      status: 'replied',
-      category: 'hot'
-    },
-    {
-      id: 's4',
-      to: 'karen.white@peloton.com',
-      subject: 'Proto integration for Peloton users',
-      body: 'Partnership pitch...',
-      from: 'ryan@globalproto.com',
-      template: 'Partnership',
-      sentAt: new Date(now.getTime() - 86400000 * 4).toISOString(),
-      status: 'sent',
-      category: 'notnow'
-    },
-    {
-      id: 's5',
-      to: 'steve.hall@techcrunch.com',
-      subject: 'Exclusive: AI health startup sees 400% user growth',
-      body: 'Press pitch...',
-      from: 'debahooks@gmail.com',
-      template: 'Press Pitch',
-      sentAt: new Date(now.getTime() - 86400000 * 4).toISOString(),
-      status: 'opened',
-      category: 'warm'
-    },
-    {
-      id: 's6',
-      to: 'jennifer.liu@calm.com',
-      subject: 'GlobalProto x Calm — mental health biomarkers',
-      body: 'Partnership pitch...',
-      from: 'ryan@globalproto.com',
-      template: 'Partnership',
-      sentAt: new Date(now.getTime() - 86400000 * 3).toISOString(),
-      status: 'replied',
-      category: 'hot'
-    },
-    {
-      id: 's7',
-      to: 'brian.moore@garmin.com',
-      subject: 'Garmin + Proto: Advanced analytics partnership',
-      body: 'Integration pitch...',
-      from: 'ryan@globalproto.com',
-      template: 'Integration Request',
-      sentAt: new Date(now.getTime() - 86400000 * 3).toISOString(),
-      status: 'bounced',
-      category: 'redirect'
-    },
-    {
-      id: 's8',
-      to: 'samantha.reed@welltodo.co',
-      subject: 'Story: Decentralized health data is the next big thing',
-      body: 'Press pitch...',
-      from: 'ryan@typelabs.ai',
-      template: 'Press Pitch',
-      sentAt: new Date(now.getTime() - 86400000 * 2).toISOString(),
-      status: 'opened',
-      category: 'warm'
-    },
-    {
-      id: 's9',
-      to: 'dan.oliver@crossfit.com',
-      subject: 'Proto for CrossFit athletes — recovery optimization',
-      body: 'Partnership pitch...',
-      from: 'debahooks@gmail.com',
-      template: 'Brand Partnership',
-      sentAt: new Date(now.getTime() - 86400000 * 2).toISOString(),
-      status: 'sent',
-      category: 'notnow'
-    },
-    {
-      id: 's10',
-      to: 'michelle.yang@sequoia.com',
-      subject: 'Village Health — follow-up from HealthTech SF',
-      body: 'Investor follow-up...',
-      from: 'ryan@typelabs.ai',
-      template: 'Investor Follow-up',
-      sentAt: new Date(now.getTime() - 86400000 * 1).toISOString(),
-      status: 'opened',
-      category: 'hot'
-    },
-    {
-      id: 's11',
-      to: 'paul.garcia@insidetracker.com',
-      subject: 'Data partnership: InsideTracker + GlobalProto',
-      body: 'Research collab pitch...',
-      from: 'ryan@globalproto.com',
-      template: 'Research Collab',
-      sentAt: new Date(now.getTime() - 86400000 * 1).toISOString(),
-      status: 'replied',
-      category: 'hot'
-    },
-    {
-      id: 's12',
-      to: 'nina.patel@yogajournal.com',
-      subject: 'Feature: How biometrics are changing yoga practice',
-      body: 'Press pitch...',
-      from: 'debahooks@gmail.com',
-      template: 'Press Pitch',
-      sentAt: new Date(now.getTime() - 86400000 * 0.5).toISOString(),
-      status: 'sent',
-      category: 'warm'
-    }
-  ];
+  const sentEmails = {
+    debahooks: [
+      {
+        id: 's2',
+        to: 'anna.lee@healthline.com',
+        subject: 'Guest post: The future of AI-driven health protocols',
+        body: 'Press pitch...',
+        from: 'debahooks@gmail.com',
+        template: 'Press Pitch',
+        sentAt: new Date(now.getTime() - 86400000 * 5).toISOString(),
+        status: 'opened',
+        category: 'warm'
+      },
+      {
+        id: 's5',
+        to: 'steve.hall@techcrunch.com',
+        subject: 'Exclusive: AI health startup sees 400% user growth',
+        body: 'Press pitch...',
+        from: 'debahooks@gmail.com',
+        template: 'Press Pitch',
+        sentAt: new Date(now.getTime() - 86400000 * 4).toISOString(),
+        status: 'opened',
+        category: 'warm'
+      },
+      {
+        id: 's9',
+        to: 'dan.oliver@crossfit.com',
+        subject: 'Proto for CrossFit athletes — recovery optimization',
+        body: 'Partnership pitch...',
+        from: 'debahooks@gmail.com',
+        template: 'Brand Partnership',
+        sentAt: new Date(now.getTime() - 86400000 * 2).toISOString(),
+        status: 'sent',
+        category: 'notnow'
+      },
+      {
+        id: 's12',
+        to: 'nina.patel@yogajournal.com',
+        subject: 'Feature: How biometrics are changing yoga practice',
+        body: 'Press pitch...',
+        from: 'debahooks@gmail.com',
+        template: 'Press Pitch',
+        sentAt: new Date(now.getTime() - 86400000 * 0.5).toISOString(),
+        status: 'sent',
+        category: 'warm'
+      }
+    ],
+    globalproto: [
+      {
+        id: 's1',
+        to: 'jake.powers@fitbit.com',
+        subject: 'Proto x Fitbit — health data integration',
+        body: 'Integration pitch...',
+        from: 'ryan@globalproto.com',
+        template: 'Partnership',
+        sentAt: new Date(now.getTime() - 86400000 * 6).toISOString(),
+        status: 'replied',
+        category: 'hot'
+      },
+      {
+        id: 's4',
+        to: 'karen.white@peloton.com',
+        subject: 'Proto integration for Peloton users',
+        body: 'Partnership pitch...',
+        from: 'ryan@globalproto.com',
+        template: 'Partnership',
+        sentAt: new Date(now.getTime() - 86400000 * 4).toISOString(),
+        status: 'sent',
+        category: 'notnow'
+      },
+      {
+        id: 's6',
+        to: 'jennifer.liu@calm.com',
+        subject: 'GlobalProto x Calm — mental health biomarkers',
+        body: 'Partnership pitch...',
+        from: 'ryan@globalproto.com',
+        template: 'Partnership',
+        sentAt: new Date(now.getTime() - 86400000 * 3).toISOString(),
+        status: 'replied',
+        category: 'hot'
+      },
+      {
+        id: 's7',
+        to: 'brian.moore@garmin.com',
+        subject: 'Garmin + Proto: Advanced analytics partnership',
+        body: 'Integration pitch...',
+        from: 'ryan@globalproto.com',
+        template: 'Integration Request',
+        sentAt: new Date(now.getTime() - 86400000 * 3).toISOString(),
+        status: 'bounced',
+        category: 'redirect'
+      }
+    ],
+    typelabs: [
+      {
+        id: 's3',
+        to: 'mike.chen@a16z.com',
+        subject: 'Village Health Network — seed round intro',
+        body: 'Investor outreach...',
+        from: 'ryan@typelabs.ai',
+        template: 'Investor Follow-up',
+        sentAt: new Date(now.getTime() - 86400000 * 5).toISOString(),
+        status: 'replied',
+        category: 'hot'
+      },
+      {
+        id: 's8',
+        to: 'samantha.reed@welltodo.co',
+        subject: 'Story: Decentralized health data is the next big thing',
+        body: 'Press pitch...',
+        from: 'ryan@typelabs.ai',
+        template: 'Press Pitch',
+        sentAt: new Date(now.getTime() - 86400000 * 2).toISOString(),
+        status: 'opened',
+        category: 'warm'
+      },
+      {
+        id: 's10',
+        to: 'michelle.yang@sequoia.com',
+        subject: 'Village Health — follow-up from HealthTech SF',
+        body: 'Investor follow-up...',
+        from: 'ryan@typelabs.ai',
+        template: 'Investor Follow-up',
+        sentAt: new Date(now.getTime() - 86400000 * 1).toISOString(),
+        status: 'opened',
+        category: 'hot'
+      },
+      {
+        id: 's11',
+        to: 'paul.garcia@insidetracker.com',
+        subject: 'Data partnership: InsideTracker + GlobalProto',
+        body: 'Research collab pitch...',
+        from: 'ryan@typelabs.ai',
+        template: 'Research Collab',
+        sentAt: new Date(now.getTime() - 86400000 * 1).toISOString(),
+        status: 'replied',
+        category: 'hot'
+      }
+    ]
+  };
 
   return { queueEmails, sentEmails };
 }
 
 // ===== STORAGE =====
-function loadQueue() {
+function loadAccountQueue(accountKey) {
   try {
-    const data = localStorage.getItem(STORAGE_KEYS.queue);
+    const data = localStorage.getItem(storageKey(accountKey, 'queue'));
     return data ? JSON.parse(data) : null;
   } catch { return null; }
 }
 
-function saveQueue(emails) {
-  try { localStorage.setItem(STORAGE_KEYS.queue, JSON.stringify(emails)); } catch {}
+function saveAccountQueue(accountKey, emails) {
+  try { localStorage.setItem(storageKey(accountKey, 'queue'), JSON.stringify(emails)); } catch {}
 }
 
-function loadSent() {
+function loadAccountSent(accountKey) {
   try {
-    const data = localStorage.getItem(STORAGE_KEYS.sent);
+    const data = localStorage.getItem(storageKey(accountKey, 'sent'));
     return data ? JSON.parse(data) : null;
   } catch { return null; }
 }
 
-function saveSent(emails) {
-  try { localStorage.setItem(STORAGE_KEYS.sent, JSON.stringify(emails)); } catch {}
-}
-
-function loadPipeline() {
-  try {
-    const data = localStorage.getItem(STORAGE_KEYS.pipeline);
-    return data ? JSON.parse(data) : {};
-  } catch { return {}; }
-}
-
-function savePipeline(data) {
-  try { localStorage.setItem(STORAGE_KEYS.pipeline, JSON.stringify(data)); } catch {}
+function saveAccountSent(accountKey, emails) {
+  try { localStorage.setItem(storageKey(accountKey, 'sent'), JSON.stringify(emails)); } catch {}
 }
 
 // ===== STATE =====
-let queueEmails = [];
-let sentEmails = [];
+// Per-account data
+const accountData = {};
+ACCOUNTS.forEach(a => {
+  accountData[a.key] = { queue: [], sent: [] };
+});
+
+let activeAccountKey = 'debahooks';
 let selectedIds = new Set();
 let sortColumn = 'date';
 let sortDir = 'desc';
 let expandedId = null;
 
+// Convenience getters for active account
+function getActiveQueue() {
+  return accountData[activeAccountKey].queue;
+}
+function getActiveSent() {
+  return accountData[activeAccountKey].sent;
+}
+
 // Init data
 function initData() {
-  const existingQueue = loadQueue();
-  const existingSent = loadSent();
+  let needsDemo = false;
 
-  if (!existingQueue || existingQueue.length === 0) {
-    const demo = generateDemoData();
-    queueEmails = demo.queueEmails;
-    saveQueue(queueEmails);
-
-    if (!existingSent || existingSent.length === 0) {
-      sentEmails = demo.sentEmails;
-      saveSent(sentEmails);
+  // Check if ANY account has data already
+  for (const account of ACCOUNTS) {
+    const existingQueue = loadAccountQueue(account.key);
+    const existingSent = loadAccountSent(account.key);
+    if (existingQueue && existingQueue.length > 0) {
+      accountData[account.key].queue = existingQueue;
+      accountData[account.key].sent = existingSent || [];
     } else {
-      sentEmails = existingSent;
+      needsDemo = true;
     }
-  } else {
-    queueEmails = existingQueue;
-    sentEmails = existingSent || [];
+  }
+
+  if (needsDemo) {
+    const demo = generateDemoData();
+    for (const account of ACCOUNTS) {
+      // Only set demo if account doesn't have data yet
+      if (accountData[account.key].queue.length === 0) {
+        accountData[account.key].queue = demo.queueEmails[account.key] || [];
+        saveAccountQueue(account.key, accountData[account.key].queue);
+      }
+      if (accountData[account.key].sent.length === 0) {
+        accountData[account.key].sent = demo.sentEmails[account.key] || [];
+        saveAccountSent(account.key, accountData[account.key].sent);
+      }
+    }
   }
 }
 
 // ===== RENDERING =====
 function renderStats() {
-  const queued = queueEmails.filter(e => e.status === 'queued').length;
+  const queue = getActiveQueue();
+  const sent = getActiveSent();
+
+  const queued = queue.filter(e => e.status === 'queued').length;
   document.getElementById('statQueued').textContent = queued;
 
   const now = new Date();
@@ -1423,17 +1528,17 @@ function renderStats() {
   weekStart.setDate(now.getDate() - now.getDay());
   weekStart.setHours(0, 0, 0, 0);
 
-  const sentThisWeek = sentEmails.filter(e => new Date(e.sentAt) >= weekStart).length;
+  const sentThisWeek = sent.filter(e => new Date(e.sentAt) >= weekStart).length;
   document.getElementById('statSent').textContent = sentThisWeek;
 
-  const replied = sentEmails.filter(e => e.status === 'replied').length;
-  const total = sentEmails.length;
+  const replied = sent.filter(e => e.status === 'replied').length;
+  const total = sent.length;
   const rate = total > 0 ? Math.round((replied / total) * 100) : 0;
   document.getElementById('statResponseRate').textContent = rate + '%';
 
   // Pipeline counts
   const categories = { hot: 0, warm: 0, redirect: 0, notnow: 0 };
-  sentEmails.forEach(e => {
+  sent.forEach(e => {
     if (e.category && categories.hasOwnProperty(e.category)) {
       categories[e.category]++;
     }
@@ -1444,14 +1549,25 @@ function renderStats() {
   document.getElementById('pipeNotNow').textContent = categories.notnow;
 }
 
+function renderTabBadges() {
+  for (const account of ACCOUNTS) {
+    const queue = accountData[account.key].queue;
+    const count = queue.filter(e => e.status === 'queued').length;
+    const badgeId = `badge-${account.key}`;
+    const badge = document.getElementById(badgeId);
+    if (badge) badge.textContent = count;
+  }
+}
+
 function renderBatchMeta() {
+  const queue = getActiveQueue();
   const now = new Date();
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const weekStart = new Date(now);
   weekStart.setDate(now.getDate() - now.getDay());
-  const queued = queueEmails.filter(e => e.status === 'queued').length;
+  const queued = queue.filter(e => e.status === 'queued').length;
   document.getElementById('batchMeta').textContent =
-    `Week of ${months[weekStart.getMonth()]} ${weekStart.getDate()} — ${queued} of 70 emails queued`;
+    `Week of ${months[weekStart.getMonth()]} ${weekStart.getDate()} — ${queued} emails queued`;
   document.getElementById('batchCount').textContent = `(${queued})`;
   document.getElementById('totalQueueCount').textContent = queued;
 }
@@ -1459,7 +1575,8 @@ function renderBatchMeta() {
 function renderQueue() {
   const grid = document.getElementById('emailGrid');
   const emptyState = document.getElementById('queueEmpty');
-  const active = queueEmails.filter(e => e.status === 'queued');
+  const queue = getActiveQueue();
+  const active = queue.filter(e => e.status === 'queued');
 
   if (active.length === 0) {
     grid.innerHTML = '';
@@ -1516,13 +1633,13 @@ function renderQueue() {
 }
 
 function renderSentLog() {
-  let filtered = [...sentEmails];
+  const sent = getActiveSent();
+  let filtered = [...sent];
 
   // Apply filters
   const searchTerm = document.getElementById('sentSearch').value.toLowerCase();
   const statusFilter = document.getElementById('filterStatus').value;
   const categoryFilter = document.getElementById('filterCategory').value;
-  const fromFilter = document.getElementById('filterFrom').value;
 
   if (searchTerm) {
     filtered = filtered.filter(e =>
@@ -1536,9 +1653,6 @@ function renderSentLog() {
   if (categoryFilter) {
     filtered = filtered.filter(e => e.category === categoryFilter);
   }
-  if (fromFilter) {
-    filtered = filtered.filter(e => e.from === fromFilter);
-  }
 
   // Sort
   filtered.sort((a, b) => {
@@ -1547,7 +1661,6 @@ function renderSentLog() {
       case 'date': valA = a.sentAt; valB = b.sentAt; break;
       case 'to': valA = a.to; valB = b.to; break;
       case 'subject': valA = a.subject; valB = b.subject; break;
-      case 'from': valA = a.from; valB = b.from; break;
       case 'status': valA = a.status; valB = b.status; break;
       case 'category': valA = a.category || ''; valB = b.category || ''; break;
       default: valA = a.sentAt; valB = b.sentAt;
@@ -1579,7 +1692,6 @@ function renderSentLog() {
         <td>${dateStr}</td>
         <td>${escapeHtml(email.to)}</td>
         <td class="td-subject">${escapeHtml(email.subject)}</td>
-        <td>${escapeHtml(email.from)}</td>
         <td><span class="status-badge status-${email.status}">${email.status}</span></td>
         <td>${email.category ? `<span class="pipeline-badge pipeline-${email.category}">${formatCategory(email.category)}</span>` : '—'}</td>
       </tr>
@@ -1598,7 +1710,6 @@ function renderSentLog() {
           <span class="sent-card-date">${dateStr}</span>
         </div>
         <div class="sent-card-row">
-          <span class="sent-card-from">${escapeHtml(email.from)}</span>
           <div style="display:flex;gap:var(--space-2);">
             <span class="status-badge status-${email.status}">${email.status}</span>
             ${email.category ? `<span class="pipeline-badge pipeline-${email.category}">${formatCategory(email.category)}</span>` : ''}
@@ -1658,7 +1769,7 @@ function toggleExpand(id) {
 }
 
 function selectAll() {
-  queueEmails.filter(e => e.status === 'queued').forEach(e => selectedIds.add(e.id));
+  getActiveQueue().filter(e => e.status === 'queued').forEach(e => selectedIds.add(e.id));
   renderQueue();
   updateSelectionUI();
 }
@@ -1669,25 +1780,53 @@ function deselectAll() {
   updateSelectionUI();
 }
 
+// ===== TAB SWITCHING =====
+function switchTab(accountKey) {
+  if (accountKey === activeAccountKey) return;
+
+  // Clear selection & expanded state when switching
+  selectedIds.clear();
+  expandedId = null;
+
+  activeAccountKey = accountKey;
+
+  // Update tab UI
+  document.querySelectorAll('.account-tab').forEach(tab => {
+    const isActive = ACCOUNTS.find(a => a.email === tab.dataset.account)?.key === accountKey;
+    tab.classList.toggle('active', isActive);
+    tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    tab.tabIndex = isActive ? 0 : -1;
+  });
+
+  // Reset filters
+  document.getElementById('sentSearch').value = '';
+  document.getElementById('filterStatus').value = '';
+  document.getElementById('filterCategory').value = '';
+
+  renderAll();
+}
+
 // ===== SENDING =====
 async function sendEmails(emailIds) {
   const overlay = document.getElementById('sendingOverlay');
   const progressEl = document.getElementById('sendingProgress');
   overlay.classList.add('active');
 
-  let sent = 0;
+  const queue = getActiveQueue();
+  const sent = getActiveSent();
+  let sentCount = 0;
   let failed = 0;
   const total = emailIds.length;
 
   for (const id of emailIds) {
-    const email = queueEmails.find(e => e.id === id);
+    const email = queue.find(e => e.id === id);
     if (!email) continue;
 
     // Check if body was edited
     const editor = document.querySelector(`.email-body-editor[data-id="${id}"]`);
     const body = editor ? editor.value : email.body;
 
-    progressEl.textContent = `${sent + failed + 1} / ${total}`;
+    progressEl.textContent = `${sentCount + failed + 1} / ${total}`;
 
     try {
       const response = await fetch(`${API_URL}/api/send-email`, {
@@ -1696,68 +1835,57 @@ async function sendEmails(emailIds) {
         body: JSON.stringify({
           to: email.to,
           subject: email.subject,
-          body: body
+          body: body,
+          from: email.from
         })
       });
 
-      if (response.ok) {
-        // Move to sent
-        email.status = 'sent';
-        email.sentAt = new Date().toISOString();
-        email.category = null;
-        sentEmails.unshift({
-          ...email,
-          body: body,
-          status: 'sent'
-        });
-        sent++;
-      } else {
-        // Mark as sent locally anyway (API might not exist yet)
-        email.status = 'sent';
-        email.sentAt = new Date().toISOString();
-        sentEmails.unshift({
-          ...email,
-          body: body,
-          status: 'sent',
-          category: null
-        });
-        sent++;
-      }
-    } catch (err) {
-      // Network error — still mark as sent for demo purposes
+      // Move to sent regardless of response (demo-friendly)
       email.status = 'sent';
       email.sentAt = new Date().toISOString();
-      sentEmails.unshift({
+      sent.unshift({
         ...email,
         body: body,
         status: 'sent',
         category: null
       });
-      sent++;
+      sentCount++;
+    } catch (err) {
+      // Network error — still mark as sent for demo purposes
+      email.status = 'sent';
+      email.sentAt = new Date().toISOString();
+      sent.unshift({
+        ...email,
+        body: body,
+        status: 'sent',
+        category: null
+      });
+      sentCount++;
     }
   }
 
   // Remove sent from queue
-  queueEmails = queueEmails.filter(e => e.status === 'queued');
+  accountData[activeAccountKey].queue = queue.filter(e => e.status === 'queued');
   selectedIds.clear();
 
-  saveQueue(queueEmails);
-  saveSent(sentEmails);
+  saveAccountQueue(activeAccountKey, accountData[activeAccountKey].queue);
+  saveAccountSent(activeAccountKey, sent);
 
   overlay.classList.remove('active');
   renderAll();
 
   if (failed > 0) {
-    showToast(`Sent ${sent} email${sent !== 1 ? 's' : ''}. ${failed} failed.`, 'error');
+    showToast(`Sent ${sentCount} email${sentCount !== 1 ? 's' : ''}. ${failed} failed.`, 'error');
   } else {
-    showToast(`${sent} email${sent !== 1 ? 's' : ''} sent successfully!`, 'success');
+    showToast(`${sentCount} email${sentCount !== 1 ? 's' : ''} sent successfully!`, 'success');
   }
 }
 
 async function sendSingle(id) {
+  const queue = getActiveQueue();
   showConfirm(
     'Send Email',
-    `Send this email to ${queueEmails.find(e => e.id === id)?.to}?`,
+    `Send this email to ${queue.find(e => e.id === id)?.to}?`,
     () => sendEmails([id])
   );
 }
@@ -1779,9 +1907,9 @@ function rejectSelected() {
     'Reject Emails',
     `Remove ${ids.length} email${ids.length !== 1 ? 's' : ''} from the queue? This cannot be undone.`,
     () => {
-      queueEmails = queueEmails.filter(e => !ids.includes(e.id));
+      accountData[activeAccountKey].queue = getActiveQueue().filter(e => !ids.includes(e.id));
       selectedIds.clear();
-      saveQueue(queueEmails);
+      saveAccountQueue(activeAccountKey, accountData[activeAccountKey].queue);
       renderAll();
       showToast(`${ids.length} email${ids.length !== 1 ? 's' : ''} removed from queue.`, 'success');
     }
@@ -1856,6 +1984,7 @@ function formatCategory(cat) {
 // ===== RENDER ALL =====
 function renderAll() {
   renderStats();
+  renderTabBadges();
   renderBatchMeta();
   renderQueue();
   renderSentLog();
@@ -1866,6 +1995,15 @@ function renderAll() {
 document.addEventListener('DOMContentLoaded', () => {
   initData();
   renderAll();
+
+  // Tab listeners
+  document.querySelectorAll('.account-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const email = tab.dataset.account;
+      const account = ACCOUNTS.find(a => a.email === email);
+      if (account) switchTab(account.key);
+    });
+  });
 
   // Button listeners
   document.getElementById('btnSelectAll').addEventListener('click', selectAll);
@@ -1894,7 +2032,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('sentSearch').addEventListener('input', renderSentLog);
   document.getElementById('filterStatus').addEventListener('change', renderSentLog);
   document.getElementById('filterCategory').addEventListener('change', renderSentLog);
-  document.getElementById('filterFrom').addEventListener('change', renderSentLog);
 
   // Keyboard shortcuts
   document.addEventListener('keydown', (e) => {
@@ -1909,6 +2046,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if ((e.ctrlKey || e.metaKey) && e.key === 'a' && !e.target.closest('input, textarea')) {
       e.preventDefault();
       selectAll();
+    }
+    // Left/Right arrow keys to switch tabs when tab bar or nothing specific is focused
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+      const activeEl = document.activeElement;
+      const isInTabBar = activeEl && activeEl.closest('.account-tabs-bar');
+      const isInInput = activeEl && activeEl.closest('input, textarea, select');
+      if (isInTabBar || (!isInInput && activeEl === document.body)) {
+        e.preventDefault();
+        const currentIdx = ACCOUNTS.findIndex(a => a.key === activeAccountKey);
+        let newIdx;
+        if (e.key === 'ArrowLeft') {
+          newIdx = currentIdx > 0 ? currentIdx - 1 : ACCOUNTS.length - 1;
+        } else {
+          newIdx = currentIdx < ACCOUNTS.length - 1 ? currentIdx + 1 : 0;
+        }
+        switchTab(ACCOUNTS[newIdx].key);
+        // Focus the new tab
+        const newTab = document.querySelector(`.account-tab[data-account="${ACCOUNTS[newIdx].email}"]`);
+        if (newTab) newTab.focus();
+      }
     }
   });
 });
