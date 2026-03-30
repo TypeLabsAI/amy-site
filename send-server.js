@@ -61,6 +61,21 @@ function logSend(entry) {
   saveSendLog(log);
 }
 
+// --- Dedup guard ---
+// Prevents sending the same email (same from+to+subject) twice within a time window
+function isDuplicate(from, to, subject) {
+  const log = loadSendLog();
+  const DEDUP_WINDOW_MS = 24 * 60 * 60 * 1000; // 24 hours
+  const now = Date.now();
+  return log.some(entry => 
+    entry.status === 'sent' &&
+    entry.from === from &&
+    entry.to === to &&
+    entry.subject === subject &&
+    (now - new Date(entry.timestamp).getTime()) < DEDUP_WINDOW_MS
+  );
+}
+
 // --- External tool helper ---
 function callExternalTool(sourceId, toolName, args) {
   const params = JSON.stringify({
@@ -132,6 +147,15 @@ app.post('/api/send-email', (req, res) => {
     });
   }
   
+  // Dedup check — block if same from+to+subject sent in last 24h
+  if (isDuplicate(fromEmail, to, subject)) {
+    console.log(`⚠ BLOCKED duplicate: ${fromEmail} → ${to}: "${subject}"`);
+    return res.status(409).json({
+      error: 'Duplicate email blocked',
+      details: `This exact email (${fromEmail} → ${to}, subject: "${subject}") was already sent in the last 24 hours.`,
+    });
+  }
+
   console.log(`Sending email from ${fromEmail} to ${to}: "${subject}"`);
   
   try {

@@ -1624,6 +1624,13 @@ async function sendEmails(emailIds) {
           category: null
         });
         sentCount++;
+      } else if (response.status === 409) {
+        // Duplicate blocked — treat as already sent
+        console.warn(`Duplicate blocked for ${email.to}: ${result.details}`);
+        email.status = 'sent';
+        email.sentAt = new Date().toISOString();
+        sent.unshift({ ...email, body: body, status: 'sent', category: null, note: 'dedup' });
+        sentCount++;
       } else {
         // API returned an error
         console.error(`Send failed for ${email.to}:`, result.error || result.details);
