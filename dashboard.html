@@ -1196,7 +1196,7 @@ const ACCOUNTS = [
   { key: 'typelabs', email: 'ryan@typelabs.ai', label: 'ryan@typelabs.ai' }
 ];
 
-const DATA_VERSION = '2026-03-31-v5';
+const DATA_VERSION = '2026-03-31-v6';
 
 function storageKey(accountKey, type) {
   return `amy_${type}_${accountKey}`;
@@ -1330,13 +1330,28 @@ function renderBatchMeta() {
   const queue = getActiveQueue();
   const now = new Date();
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const weekStart = new Date(now);
-  weekStart.setDate(now.getDate() - now.getDay());
-  const queued = queue.filter(e => e.status === 'queued').length;
+  const active = queue.filter(e => e.status === 'queued');
+  const totalQueued = active.length;
+
+  // Find tomorrow's batch (first scheduled day >= today)
+  const today = new Date().toISOString().slice(0, 10);
+  const nextBatch = active.filter(e => {
+    if (!e.scheduledDate) return false;
+    return e.scheduledDate >= today;
+  });
+  // Group by first scheduledDate
+  let nextDayDate = '';
+  let nextDayCount = 0;
+  if (nextBatch.length > 0) {
+    nextDayDate = nextBatch[0].scheduledDate;
+    nextDayCount = nextBatch.filter(e => e.scheduledDate === nextDayDate).length;
+  }
+
+  const tomorrowLabel = nextDayDate ? new Date(nextDayDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
   document.getElementById('batchMeta').textContent =
-    `Week of ${months[weekStart.getMonth()]} ${weekStart.getDate()} \u2014 ${queued} emails queued`;
-  document.getElementById('batchCount').textContent = `(${queued})`;
-  document.getElementById('totalQueueCount').textContent = queued;
+    nextDayDate ? `${tomorrowLabel} \u2014 ${nextDayCount} of ${totalQueued} total` : `${totalQueued} emails queued`;
+  document.getElementById('batchCount').textContent = `(${nextDayCount}/${totalQueued})`;  // e.g. (10/33)
+  document.getElementById('totalQueueCount').textContent = totalQueued;
 }
 
 function renderQueue() {
