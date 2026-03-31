@@ -87,7 +87,7 @@ async function handleAuthCallback(url, env) {
   }
 
   // Store tokens in KV
-  await env.AMY_TOKENS.put(`token:${account}`, JSON.stringify({
+  await env.AMY_KV.put(`token:${account}`, JSON.stringify({
     access_token: tokens.access_token,
     refresh_token: tokens.refresh_token,
     expires_at: Date.now() + (tokens.expires_in * 1000),
@@ -95,11 +95,11 @@ async function handleAuthCallback(url, env) {
   }));
 
   // Update account list
-  const listRaw = await env.AMY_TOKENS.get('accounts') || '[]';
+  const listRaw = await env.AMY_KV.get('accounts') || '[]';
   const list = JSON.parse(listRaw);
   if (!list.includes(account)) {
     list.push(account);
-    await env.AMY_TOKENS.put('accounts', JSON.stringify(list));
+    await env.AMY_KV.put('accounts', JSON.stringify(list));
   }
 
   return new Response(`<html><body style="background:#0a0a0a;color:#fff;font-family:system-ui;padding:40px;text-align:center"><h1 style="color:#00e5cc">Connected!</h1><p>${account} is now linked.</p><a href="/auth/accounts" style="color:#00e5cc">View all accounts</a></body></html>`, {
@@ -108,13 +108,13 @@ async function handleAuthCallback(url, env) {
 }
 
 async function handleListAccounts(env) {
-  const listRaw = await env.AMY_TOKENS.get('accounts') || '[]';
+  const listRaw = await env.AMY_KV.get('accounts') || '[]';
   const accounts = JSON.parse(listRaw);
 
   let html = `<!DOCTYPE html><html><head><style>body{background:#0a0a0a;color:#fff;font-family:system-ui;padding:40px;max-width:600px;margin:0 auto}h1{color:#00e5cc;font-size:24px;margin-bottom:24px}.account{padding:16px;border:1px solid #222;border-radius:8px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}.email{font-size:16px}.status{font-size:12px;padding:4px 8px;border-radius:4px}.connected{background:#0a2a1a;color:#22c55e}.disconnected{background:#2a0a0a;color:#ef4444}.add-btn{display:block;margin-top:24px;padding:12px 24px;background:#00e5cc;color:#000;text-align:center;text-decoration:none;border-radius:8px;font-weight:700;font-size:14px}.add-btn:hover{background:#00b8a3}</style></head><body><h1>Gmail Accounts</h1>`;
 
   for (const account of accounts) {
-    const tokenRaw = await env.AMY_TOKENS.get(`token:${account}`);
+    const tokenRaw = await env.AMY_KV.get(`token:${account}`);
     const connected = !!tokenRaw;
     html += `<div class="account"><span class="email">${account}</span><span class="status ${connected ? 'connected' : 'disconnected'}">${connected ? 'Connected' : 'Disconnected'}</span></div>`;
   }
@@ -178,7 +178,7 @@ async function handleSendEmail(request, env) {
 // ── Token Management ───────────────────────────────────────────
 
 async function getValidToken(account, env) {
-  const tokenRaw = await env.AMY_TOKENS.get(`token:${account}`);
+  const tokenRaw = await env.AMY_KV.get(`token:${account}`);
   if (!tokenRaw) return null;
 
   const tokenData = JSON.parse(tokenRaw);
@@ -205,7 +205,7 @@ async function getValidToken(account, env) {
     tokenData.expires_at = Date.now() + (refreshData.expires_in * 1000);
     
     // Preserve refresh token (not always returned on refresh)
-    await env.AMY_TOKENS.put(`token:${account}`, JSON.stringify(tokenData));
+    await env.AMY_KV.put(`token:${account}`, JSON.stringify(tokenData));
   }
 
   return tokenData.access_token;

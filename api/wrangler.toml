@@ -4,5 +4,5 @@ compatibility_date = "2024-09-25"
 account_id = "a9b6ede7ff4494054e2d2da2d7b2f20a"
 
 [[kv_namespaces]]
-binding = "AMY_TOKENS"
+binding = "AMY_KV"
 id = "6bdc4dc132ad4c9381af47199a90fae0"
