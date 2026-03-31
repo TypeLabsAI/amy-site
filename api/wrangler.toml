@@ -3,13 +3,6 @@ main = "worker.js"
 compatibility_date = "2024-09-25"
 account_id = "a9b6ede7ff4494054e2d2da2d7b2f20a"
 
-# KV namespace for OAuth tokens
-# This should match the existing KV namespace used by the deployed worker
 [[kv_namespaces]]
 binding = "AMY_TOKENS"
-id = "PLACEHOLDER_KV_ID"
-
-[vars]
-# Set these as secrets via wrangler secret put
-# GOOGLE_CLIENT_ID = "..."
-# GOOGLE_CLIENT_SECRET = "..."
+id = "6bdc4dc132ad4c9381af47199a90fae0"
