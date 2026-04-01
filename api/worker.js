@@ -42,6 +42,17 @@ export default {
         return handleSendEmail(request, env);
       }
 
+      // Batch dedup check — POST { pairs: [{from, to}, ...] }
+      // Returns which pairs have already been sent
+      if (url.pathname === '/api/check-dupes' && request.method === 'POST') {
+        return handleCheckDupes(request, env);
+      }
+
+      // Get sent log for an account — GET /api/sent-log?account=EMAIL
+      if (url.pathname === '/api/sent-log' && request.method === 'GET') {
+        return handleSentLog(url, env);
+      }
+
       return corsResponse(JSON.stringify({ error: 'Not found' }), 404);
     } catch (err) {
       return corsResponse(JSON.stringify({ error: err.message }), 500);
@@ -197,6 +208,58 @@ async function handleSendEmail(request, env) {
   }));
 
   return corsResponse(JSON.stringify({ ok: true, messageId: result.id, threadId: result.threadId }));
+}
+
+// ── Batch Dedup Check ──────────────────────────────────────────
+
+async function handleCheckDupes(request, env) {
+  const { pairs } = await request.json();
+  // pairs = [{from: "deb@gmail.com", to: "jane@example.com"}, ...]
+  if (!Array.isArray(pairs)) {
+    return corsResponse(JSON.stringify({ error: 'pairs must be an array of {from, to}' }), 400);
+  }
+
+  const results = [];
+  for (const pair of pairs) {
+    const from = (pair.from || '').toLowerCase();
+    const to = (pair.to || '').toLowerCase();
+    const dedupKey = `sent:${from}:${to}`;
+    const existing = await env.AMY_KV.get(dedupKey);
+    if (existing) {
+      const prev = JSON.parse(existing);
+      results.push({ from, to, duplicate: true, sentAt: prev.sentAt, subject: prev.subject });
+    } else {
+      results.push({ from, to, duplicate: false });
+    }
+  }
+
+  return corsResponse(JSON.stringify({ results }));
+}
+
+// ── Sent Log ───────────────────────────────────────────────────
+
+async function handleSentLog(url, env) {
+  const account = (url.searchParams.get('account') || '').toLowerCase();
+  if (!account) {
+    return corsResponse(JSON.stringify({ error: 'account param required' }), 400);
+  }
+
+  // List all KV keys starting with sent:{account}:
+  const prefix = `sent:${account}:`;
+  const keys = await env.AMY_KV.list({ prefix, limit: 1000 });
+  const entries = [];
+
+  for (const key of keys.keys) {
+    const val = await env.AMY_KV.get(key.name);
+    if (val) {
+      entries.push(JSON.parse(val));
+    }
+  }
+
+  // Sort newest first
+  entries.sort((a, b) => new Date(b.sentAt) - new Date(a.sentAt));
+
+  return corsResponse(JSON.stringify({ account, sent: entries }));
 }
 
 // ── Token Management ───────────────────────────────────────────

@@ -1186,8 +1186,8 @@ table { border-collapse: collapse; width: 100%; }
 
 <script>
 // ===== DATA LAYER =====
-// Dynamic API URL: works locally and after deploy_website
-const API_URL = '__PORT_5555__'.startsWith('__') ? 'http://localhost:5555' : '__PORT_5555__';
+// API URL: always use the Cloudflare Worker (KV-backed dedup, permanent send tracking)
+const API_URL = 'https://amy-api.rhooks20.workers.dev';
 
 // Account definitions
 const ACCOUNTS = [
@@ -1417,10 +1417,11 @@ function renderQueue() {
       const isExpanded = expandedId === email.id;
       const displayName = email.toName || email.to;
       const alreadySentDup = sentRecipients.has(email.to.toLowerCase());
+      const serverDup = (serverDedupCache[activeAccountKey] || new Set()).has(email.to.toLowerCase());
       const queuedMultiple = (queueRecipientCount[email.to.toLowerCase()] || 0) > 1;
-      const isDuplicate = alreadySentDup || queuedMultiple;
-      const dupMsg = alreadySentDup
-        ? 'DUPLICATE \u2014 already sent to this recipient'
+      const isDuplicate = alreadySentDup || serverDup || queuedMultiple;
+      const dupMsg = (alreadySentDup || serverDup)
+        ? 'DUPLICATE \u2014 already sent to this recipient (server confirmed)'
         : 'DUPLICATE \u2014 this recipient appears multiple times in queue';
       const dupWarning = isDuplicate
         ? `<div style="font-size:0.65rem;color:var(--color-error);margin-top:var(--space-2);display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> ${dupMsg}</div>`
@@ -1649,6 +1650,40 @@ function deselectAll() {
   updateSelectionUI();
 }
 
+// ===== SERVER-SIDE DEDUP CHECK =====
+// Checks the Cloudflare Worker KV for already-sent recipients
+// Marks queue items as server-confirmed duplicates
+let serverDedupCache = {}; // { accountKey: Set<toLower> }
+
+async function checkServerDupes(accountKey) {
+  const account = ACCOUNTS.find(a => a.key === accountKey);
+  if (!account) return;
+  const queue = accountData[accountKey]?.queue || [];
+  const active = queue.filter(e => e.status === 'queued');
+  if (active.length === 0) return;
+
+  const pairs = active.map(e => ({ from: account.email, to: e.to }));
+
+  try {
+    const res = await fetch(`${API_URL}/api/check-dupes`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pairs })
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    const dupeSet = new Set();
+    (data.results || []).forEach(r => {
+      if (r.duplicate) dupeSet.add(r.to);
+    });
+    serverDedupCache[accountKey] = dupeSet;
+    // Re-render to show server-side dupe warnings
+    renderQueue();
+  } catch (err) {
+    console.warn('Server dedup check failed:', err);
+  }
+}
+
 // ===== TAB SWITCHING =====
 function switchTab(accountKey) {
   if (accountKey === activeAccountKey) return;
@@ -1673,6 +1708,8 @@ function switchTab(accountKey) {
   document.getElementById('filterCategory').value = '';
 
   renderAll();
+  // Fire server-side dedup check in the background
+  checkServerDupes(accountKey);
 }
 
 // ===== SENDING =====
@@ -1876,6 +1913,8 @@ function renderAll() {
 document.addEventListener('DOMContentLoaded', () => {
   initData();
   renderAll();
+  // Check server-side dupes for the initially active tab
+  checkServerDupes(activeAccountKey);
 
   // Tab listeners
   document.querySelectorAll('.account-tab').forEach(tab => {
