@@ -133,6 +133,21 @@ async function handleSendEmail(request, env) {
     return corsResponse(JSON.stringify({ error: 'Missing required fields: from, to, subject, body' }), 400);
   }
 
+  // ── Dedup Check ──────────────────────────────────────────────
+  // Key: sent:{from}:{to} — one send per sender→recipient pair
+  const toAddr = Array.isArray(to) ? to[0] : to;
+  const dedupKey = `sent:${from.toLowerCase()}:${toAddr.toLowerCase()}`;
+  const alreadySent = await env.AMY_KV.get(dedupKey);
+
+  if (alreadySent) {
+    const prev = JSON.parse(alreadySent);
+    return corsResponse(JSON.stringify({
+      error: 'Duplicate blocked',
+      details: `Already sent from ${from} to ${toAddr} on ${prev.sentAt}. Subject: "${prev.subject}"`,
+      previousSend: prev
+    }), 409);
+  }
+
   // Get access token for the from account
   const accessToken = await getValidToken(from, env);
   if (!accessToken) {
@@ -140,7 +155,6 @@ async function handleSendEmail(request, env) {
   }
 
   // Build RFC 2822 email
-  const toAddr = Array.isArray(to) ? to[0] : to;
   const rawEmail = [
     `From: ${from}`,
     `To: ${toAddr}`,
@@ -171,6 +185,16 @@ async function handleSendEmail(request, env) {
   if (!sendRes.ok) {
     return corsResponse(JSON.stringify({ error: result.error?.message || 'Gmail send failed', details: result }), sendRes.status);
   }
+
+  // ── Record send in KV for dedup ──────────────────────────────
+  await env.AMY_KV.put(dedupKey, JSON.stringify({
+    from,
+    to: toAddr,
+    subject,
+    sentAt: new Date().toISOString(),
+    messageId: result.id,
+    threadId: result.threadId
+  }));
 
   return corsResponse(JSON.stringify({ ok: true, messageId: result.id, threadId: result.threadId }));
 }

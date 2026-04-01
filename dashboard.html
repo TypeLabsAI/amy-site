@@ -1367,6 +1367,18 @@ function renderQueue() {
   }
   emptyState.style.display = 'none';
 
+  // Build set of already-sent recipient emails for dedup warnings
+  // Checks this account's sent log so we never double-send to anyone
+  const sentRecipients = new Set(
+    getActiveSent().map(e => e.to.toLowerCase())
+  );
+  // Also check for duplicates within the queue itself (same recipient queued twice)
+  const queueRecipientCount = {};
+  active.forEach(e => {
+    const key = e.to.toLowerCase();
+    queueRecipientCount[key] = (queueRecipientCount[key] || 0) + 1;
+  });
+
   // Group emails by batchLabel (scheduled day)
   const groups = [];
   let currentLabel = null;
@@ -1404,11 +1416,21 @@ function renderQueue() {
       const isSelected = selectedIds.has(email.id);
       const isExpanded = expandedId === email.id;
       const displayName = email.toName || email.to;
+      const alreadySentDup = sentRecipients.has(email.to.toLowerCase());
+      const queuedMultiple = (queueRecipientCount[email.to.toLowerCase()] || 0) > 1;
+      const isDuplicate = alreadySentDup || queuedMultiple;
+      const dupMsg = alreadySentDup
+        ? 'DUPLICATE \u2014 already sent to this recipient'
+        : 'DUPLICATE \u2014 this recipient appears multiple times in queue';
+      const dupWarning = isDuplicate
+        ? `<div style="font-size:0.65rem;color:var(--color-error);margin-top:var(--space-2);display:flex;align-items:center;gap:4px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> ${dupMsg}</div>`
+        : '';
       const hasNote = email.note ? `<div style="font-size:0.65rem;color:var(--color-warning);margin-top:var(--space-2);">\u26a0 ${escapeHtml(email.note)}</div>` : '';
       const nextGlow = isNext ? 'border-left:2px solid var(--color-accent);' : '';
+      const dupBorder = isDuplicate ? 'border-color:var(--color-error);background:var(--color-error-bg);' : '';
       html += `
         <div class="email-card ${isSelected ? 'selected' : ''} ${isExpanded ? 'expanded' : ''}"
-             data-id="${email.id}" style="${nextGlow}">
+             data-id="${email.id}" style="${nextGlow}${dupBorder}">
           <div class="email-card-header">
             <input type="checkbox" class="email-checkbox" data-id="${email.id}"
                    ${isSelected ? 'checked' : ''} onclick="event.stopPropagation()">
@@ -1421,6 +1443,7 @@ function renderQueue() {
           <div class="email-card-footer">
             <span class="email-tag tag-template">${escapeHtml(email.template)}</span>
             <span class="email-tag tag-from">${escapeHtml(email.from)}</span>
+            ${dupWarning}
             ${hasNote}
           </div>
           <div class="email-expanded">
@@ -1592,7 +1615,30 @@ function toggleExpand(id) {
 }
 
 function selectAll() {
-  getActiveQueue().filter(e => e.status === 'queued').forEach(e => selectedIds.add(e.id));
+  // Skip duplicates when selecting all — build dedup set first
+  const sentSet = new Set(getActiveSent().map(e => e.to.toLowerCase()));
+  const active = getActiveQueue().filter(e => e.status === 'queued');
+  const queueCount = {};
+  active.forEach(e => {
+    const key = e.to.toLowerCase();
+    queueCount[key] = (queueCount[key] || 0) + 1;
+  });
+  const seen = new Set();
+  let skipped = 0;
+  active.forEach(e => {
+    const key = e.to.toLowerCase();
+    const isSentDup = sentSet.has(key);
+    const isQueueDup = seen.has(key); // second+ occurrence in queue
+    if (isSentDup || isQueueDup) {
+      skipped++;
+    } else {
+      selectedIds.add(e.id);
+    }
+    seen.add(key);
+  });
+  if (skipped > 0) {
+    showToast(`Skipped ${skipped} duplicate${skipped !== 1 ? 's' : ''} — review flagged cards before sending.`, 'warning');
+  }
   renderQueue();
   updateSelectionUI();
 }
